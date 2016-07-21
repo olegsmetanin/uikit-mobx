@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+npm-debug.log
+typings/
+/build/*
+.idea
+**/*.orig
+/tmp/*
+!.gitkeep
+application.config.js.dist

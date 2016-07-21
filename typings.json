@@ -1,0 +1,26 @@
+{
+  "ambientDependencies": {
+    "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#1914a00b3c740348dae407ee0d2be89b0b58ad7f",
+    "es6-promise": "github:DefinitelyTyped/DefinitelyTyped/es6-promise/es6-promise.d.ts#7577a2f4c134790891c52affdacdae99d802571b",
+    "eventemitter3": "github:DefinitelyTyped/DefinitelyTyped/eventemitter3/eventemitter3.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#dd638012d63e069f2c99d06ef4dcc9616a943ee4",
+    "form-data": "github:DefinitelyTyped/DefinitelyTyped/form-data/form-data.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b",
+    "history": "github:DefinitelyTyped/DefinitelyTyped/react-router/history.d.ts#99f6493ffb1ef5479c6154ec9f82a47178bbf8b6",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#cb5206a8ac1c9a3ddfd126f5ecea6729b2361452",
+    "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#d6dd320291705694ba8e1a79497a908e9f5e6617",
+    "moment": "github:DefinitelyTyped/DefinitelyTyped/moment/moment.d.ts#b090bcf9ba9f756ec8ff53e7707269729172a325",
+    "moment-node": "github:DefinitelyTyped/DefinitelyTyped/moment/moment-node.d.ts#dc9dabe74a5be62613b17a3605309783a12ff28a",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b",
+    "q": "github:DefinitelyTyped/DefinitelyTyped/q/Q.d.ts#4de74cb527395c13ba20b438c3a7a419ad931f1c",
+    "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#83b88a031cc8f2006fd361bf0a0b548c3bcc8259",
+    "react-addons-linked-state-mixin": "github:DefinitelyTyped/DefinitelyTyped/react/react-addons-linked-state-mixin.d.ts#ca5bfe76d2d9bf6852cbc712d9f3e0047c93486e",
+    "react-addons-test-utils": "github:DefinitelyTyped/DefinitelyTyped/react/react-addons-test-utils.d.ts#edb41e785093cc434ffd16e9a1f8610eae536af2",
+    "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b",
+    "react-mixin": "github:DefinitelyTyped/DefinitelyTyped/react-mixin/react-mixin.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b",
+    "react-router": "github:DefinitelyTyped/DefinitelyTyped/react-router/react-router.d.ts#07feae11780495b90145451d48d4a50923762ef1",
+    "request": "github:DefinitelyTyped/DefinitelyTyped/request/request.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#0fa4e9e61385646ea6a4cba2aef357353d2ce77f",
+    "webdriverio": "github:DefinitelyTyped/DefinitelyTyped/webdriverio/webdriverio.d.ts#93297476d1c3581d58f6cae25c54c14b1133b9fe",
+    "whatwg-fetch": "github:DefinitelyTyped/DefinitelyTyped/whatwg-fetch/whatwg-fetch.d.ts#8ea42cd8bb11863ed6f242d67c502288ebc45a7b"
+  }
+}
