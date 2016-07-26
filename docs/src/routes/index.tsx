@@ -5,14 +5,20 @@ import * as React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
 import Layout from '../Layout/Layout';
-import HomePage from '../Home/HomePage';
 import NotFoundPage from '../NotFound/NotFoundPage';
 
+function lazyLoadComponent(lazyModule, component) {
+  return (location, cb) => {
+    lazyModule(module => {
+      cb(null, module.default[component])
+    })
+  }
+}
 
 const routes = (
   <Route>
     <Route path="/" component={Layout}>
-      <IndexRoute component={HomePage}/>
+      <IndexRoute getComponent={lazyLoadComponent(require('bundle?lazy&name=list!../Home/index.ts'), 'ConnectedHomePage')}/>
     </Route>
 
     <Route path="*" component={NotFoundPage}/>

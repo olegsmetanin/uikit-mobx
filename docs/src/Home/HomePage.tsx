@@ -5,19 +5,23 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 // import {Link} from 'react-router';
 import IAppStore from '../IAppStore';
-import {observer, inject} from 'mobx-react';
+import {IStore} from './Store';
 
 /**
  * Home page for app
  */
 
-const HomePage = inject('appStore')(observer(
-  ({appStore}: {appStore: IAppStore}) => (
-    <div>
-      <h1>HomePage</h1>
-      <div>Page width: {appStore.layoutWidth}</div>
-    </div>
-  )
-))
+const HomePage = (
+  {appStore, homeStore}:
+  {appStore: IAppStore, homeStore: IStore}
+) => (
+  <div>
+    <h1>HomePage</h1>
+    <div>Page width: {appStore.layoutWidth}</div>
+    <div>{homeStore.counter}</div>
+    <button onClick={homeStore.increment}>increment</button>
+    <button onClick={homeStore.decrement}>decrement</button>
+  </div>
+)
 
 export default HomePage;
