@@ -1,4 +1,5 @@
 import {observable, action, runInAction} from 'mobx';
+import {IService} from './Service';
 
 export interface IStore {
   counter: number;
@@ -7,8 +8,15 @@ export interface IStore {
 }
 
 export default class Store implements IStore {
+
+  service: IService;
+
+  constructor({service}: {service: IService}) {
+    this.service = service;
+  }
+
   @observable
-  counter: number = 0
+  counter: number = 0;
 
   @observable
   counterChanging: boolean = false;
@@ -19,8 +27,8 @@ export default class Store implements IStore {
     });
     const delta = await Promise.resolve(1);
     runInAction('counter updated', () => {
-      this.counterChanging = false;
       this.counter += delta;
+      this.counterChanging = false;
     });
   }
 
@@ -30,8 +38,9 @@ export default class Store implements IStore {
     });
     const delta = await Promise.resolve(-1);
     runInAction('counter updated', () => {
-      this.counterChanging = false;
       this.counter += delta;
+      this.counterChanging = false;
     });
   }
+
 }

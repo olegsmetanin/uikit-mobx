@@ -19,6 +19,7 @@ const routes = (
   <Route>
     <Route path="/" component={Layout}>
       <IndexRoute getComponent={lazyLoadComponent(require('bundle?lazy&name=list!../Home/index.ts'), 'ConnectedHomePage')}/>
+      <Route path="form" getComponent={lazyLoadComponent(require('bundle?lazy&name=list!../Home/index.ts'), 'ConnectedFormPage')}/>
     </Route>
 
     <Route path="*" component={NotFoundPage}/>

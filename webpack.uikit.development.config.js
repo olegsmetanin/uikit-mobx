@@ -16,19 +16,19 @@ const GLOBALS = {
 
 module.exports = {
   entry: {
-    app: [
+    docs: [
       'webpack-hot-middleware/client?http://localhost:' + PORT,
-      path.resolve(__dirname, './src/webclient/index.tsx')
+      path.resolve(__dirname, './docs/src/index.tsx')
     ],
-    lib: ['moment', 'react', 'react-router', 'redux', 'react-redux', 'redux-actions',
-      'redux-thunk',
-      'redux-promise-middleware', 'jsonschema']
+    uikit: [
+      path.resolve(__dirname, './src/index.tsx')
+    ]
   },
   output: {
     path: path.join(__dirname, './build/webpublic'),
     filename: 'js/[name].js',
-    chunkFilename: 'js/[name].js',
-    publicPath: '/'
+    library: 'uikit',
+    libraryTarget: 'umd',
   },
 
   //devtool  : '#eval-cheap-module-source-map', // быстрые и бесполезные сурс-мапы
