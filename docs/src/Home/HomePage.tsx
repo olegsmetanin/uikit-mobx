@@ -4,28 +4,25 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 import {Link} from 'react-router';
-import IAppStore from '../IAppStore';
+import {IAppStore} from '../AppStore';
 import {IStore} from './Store';
+import {IActions} from './Actions';
 
 /**
  * Home page for app
  */
 
 const HomePage = (
-  {appStore, homeStore}:
-  {appStore: IAppStore, homeStore: IStore}
+  {appStore, homeStore, homeActions}:
+  {appStore: IAppStore, homeStore: IStore, homeActions: IActions}
 ) => (
   <div>
     <h1>HomePage</h1>
     <div>Page width: {appStore.layoutWidth}</div>
 
-    <div>
-      <Link to="form">Form</Link>
-    </div>
-
     <div>{homeStore.counter}</div>
-    <button onClick={homeStore.increment}>increment</button>
-    <button onClick={homeStore.decrement}>decrement</button>
+    <button onClick={homeActions.incrementCounter}>increment</button>
+    <button onClick={homeActions.decrementCounter}>decrement</button>
   </div>
 )
 

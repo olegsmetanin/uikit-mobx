@@ -14,7 +14,7 @@ export enum ContainerWidth {
   lg
 }
 
-interface IContainerProps extends React.Props<Container> {
+export interface IContainerProps {
   width:   ContainerWidth;
   onChangeWidth: (width: ContainerWidth) => any;
   className?: string;

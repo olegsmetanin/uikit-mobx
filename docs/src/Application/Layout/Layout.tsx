@@ -2,20 +2,19 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
-import {observer, inject} from 'mobx-react';
-import {Container, ContainerWidth} from '../../../src';
-import IAppStore from '../IAppStore';
+import {Container} from '../../../../src';
+import {IAppStore} from '../../AppStore';
+import ConnectedNav from '../Nav';
 
-const Layout = inject('appStore')(observer(
-  ({appStore, children}: {appStore: IAppStore, children: React.ReactNode}) => (
+const Layout = ({appStore, children, route}: {appStore: IAppStore, children: React.ReactNode, route: any}) => (
     <Container
       width={appStore.layoutWidth}
       onChangeWidth={(newLayoutWidth) => {appStore.layoutWidth = newLayoutWidth}}
       className={'layout'}
     >
+      <ConnectedNav route={route}/>
       {children}
     </Container>
-  )
-))
+);
 
 export default Layout;

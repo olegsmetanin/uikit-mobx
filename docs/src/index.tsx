@@ -9,9 +9,8 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'mobx-react';
 
 import HTTPClient from './utils/http/HTTPClient';
-import routes from './routes/index';
-import IAppStore from './IAppStore';
-import AppStore from './AppStore';
+import routes from './routes';
+import {AppStore} from './AppStore';
 require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
@@ -20,11 +19,11 @@ window['docs'] = (options: any) => {
 
   const httpClient = new HTTPClient();
 
-  const appStore: IAppStore = new AppStore({rootPath, httpClient});
+  const appStore = new AppStore({rootPath, httpClient});
 
   render(
     <Provider appStore={appStore}>
-        <Router children={routes} history={browserHistory}/>
+        <Router children={routes(appStore)} history={browserHistory}/>
     </Provider>,
     el
   );

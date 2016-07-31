@@ -3,16 +3,16 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {observable, action, runInAction} from 'mobx';
-import {observer, inject} from 'mobx-react';
-import {Container, ContainerWidth} from '../../../src';
 import {Link} from 'react-router';
-import IAppStore from '../IAppStore';
+import {IAppStore} from '../AppStore';
 import {IStore} from './Store';
-import Form, {IForm} from './Form';
+import {Form, IForm} from '../../../src';
+import {IActions} from './Actions';
 
-interface IFormPageProps extends React.Props<FormPage> {
+export interface IFormPageProps {
   appStore: IAppStore;
   homeStore: IStore;
+  homeActions: IActions;
 }
 
 class FormPage extends React.Component<IFormPageProps, void> {
@@ -26,16 +26,12 @@ class FormPage extends React.Component<IFormPageProps, void> {
   @action
   onSave = (form) => {
     this.form = form;
-  }
+  };
 
   render() {
     return (
       <div>
         <h1>FormPage</h1>
-
-        <div>
-          <Link to="/">Home</Link>
-        </div>
 
         <Form form={this.form} isSaving={this.isSaving} onSave={this.onSave}/>
       </div>

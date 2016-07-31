@@ -2,16 +2,16 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
-import {observer, inject} from "mobx-react";
-import {Container, ContainerWidth} from '../../../src';
-import IAppStore from '../IAppStore';
+import {Container} from '../../../../src';
+import {IAppStore} from '../../AppStore';
+import ConnectedNav from '../Nav';
 
-interface ILayoutProps extends React.Props<Layout> {
+export interface ILayoutProps {
   appStore: IAppStore;
+  route: any;
+  router: any;
 }
 
-@inject('appStore')
-@observer
 class Layout extends React.Component<ILayoutProps, void> {
 
   render() {
@@ -21,6 +21,7 @@ class Layout extends React.Component<ILayoutProps, void> {
         onChangeWidth={(newLayoutWidth) => {this.props.appStore.layoutWidth = newLayoutWidth}}
         className={'layout'}
       >
+        <ConnectedNav route={this.props.route}/>
         {this.props.children}
       </Container>
     )

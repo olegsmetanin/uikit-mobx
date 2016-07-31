@@ -1,8 +1,18 @@
+import {observable} from 'mobx';
 import IHTTPClient from './utils/http/IHTTPClient';
 import {ContainerWidth} from '../../src';
-import {observable} from 'mobx';
 
-export default class AppStore {
+
+export let appStore: IAppStore = null;
+
+export interface IAppStore {
+  httpClient: IHTTPClient;
+  rootPath:   string;
+  layoutWidth: ContainerWidth;
+  lang: string;
+}
+
+export class AppStore {
 
   constructor({
     rootPath,
@@ -19,6 +29,8 @@ export default class AppStore {
 
   httpClient: IHTTPClient;
 
+  lang: string = 'en';
+
   @observable
   layoutWidth: ContainerWidth = ContainerWidth.lg;
 
@@ -27,3 +39,5 @@ export default class AppStore {
   deserialize = () => {};
 
 }
+
+export default AppStore;

@@ -1,11 +1,11 @@
-import IForm from './Form';
+import {IForm} from '../../../src';
 
 export interface IService {
   getForm(criteria: any): Promise<IForm>;
   // saveForm(): Promise<IForm>;
 }
 
-export default class Service implements IService {
+export class Service implements IService {
 
   getForm = (criteria) => new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -14,3 +14,5 @@ export default class Service implements IService {
   })
 
 }
+
+export default Service;

@@ -6,11 +6,11 @@ import {observable, action, runInAction} from 'mobx';
 import {observer} from 'mobx-react';
 import * as _ from 'lodash';
 
-interface IErrorDescriptor {
+export interface IErrorDescriptor {
   text: string;
 }
 
-interface IFieldErrors {
+export interface IFieldErrors {
   [name: string]: {text: string};
 }
 
@@ -20,13 +20,13 @@ export interface IForm {
   errors?: IFieldErrors;
 }
 
-interface IFormProps extends React.Props<Form> {
+export interface IFormProps {
   form: IForm;
   onSave: (form: IForm) => void;
 }
 
 @observer
-class Form extends React.Component<IFormProps, void> {
+export class Form extends React.Component<IFormProps, void> {
 
   @observable
   form: IForm;
