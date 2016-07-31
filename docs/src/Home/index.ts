@@ -30,9 +30,15 @@ const init = async (appStore: IAppStore) => {
   let homeStore = new Store();
   const homeActions = new Actions({store: homeStore, service: service});
 
-  (HomePage as any).defaultProps = {homeStore, homeActions, i18n};
-  const ConnectedHomePage = inject('appStore')(observer(HomePage));
+  // Typed injecting
+  const ConnectedHomePage = inject((allStores) => ({
+    appStore: allStores.appStore as IAppStore,
+    homeStore,
+    homeActions,
+    i18n
+  }))(observer(HomePage));
 
+  // Untyped injecting
   (FormPage as any).defaultProps = {homeStore, homeActions, i18n};
   const ConnectedFormPage = inject('appStore')(observer(FormPage));
 

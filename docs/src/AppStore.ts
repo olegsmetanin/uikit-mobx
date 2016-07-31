@@ -16,13 +16,18 @@ export class AppStore {
 
   constructor({
     rootPath,
-    httpClient
+    httpClient,
+    state
   }: {
     rootPath: string,
-    httpClient: IHTTPClient
+    httpClient: IHTTPClient,
+    state?: any
   }) {
     this.rootPath = rootPath;
     this.httpClient = httpClient;
+    if (state) {
+      this.layoutWidth = state.layoutWidth;
+    }
   }
 
   rootPath: string;

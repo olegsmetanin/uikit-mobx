@@ -11,11 +11,17 @@ import {IAppStore} from '../AppStore'
 
 function lazyLoadComponent(moduleBundle, props, getComponentFromModule) {
   return (location, cb) => {
-    moduleBundle(modulePromise => {
-      modulePromise.default(props).then((module) => {
+    if (typeof window !== 'undefined') {
+      moduleBundle(modulePromise => {
+        modulePromise.default(props).then((module) => {
+          cb(null, getComponentFromModule(module));
+        });
+      })
+    } else {
+      moduleBundle.default(props).then((module) => {
         cb(null, getComponentFromModule(module));
       });
-    })
+    }
   }
 }
 

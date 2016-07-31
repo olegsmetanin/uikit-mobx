@@ -45,7 +45,7 @@ export class Container extends React.Component<IContainerProps, void> {
 
   handleResize = () => {
     // If SSR, document may be not available (used in calculateWidth)
-    if (typeof document !== 'undefined') {
+    if (typeof window !== 'undefined') {
       const currentWidth = this.props.width;
       const width = this.calculateWidth();
       if (width !== currentWidth) {
