@@ -1,16 +1,11 @@
 import {IService} from './Service';
-import {IStore} from './Store';
+import {Store} from './Store';
 
-export interface IActions {
-  incrementCounter: () => void;
-  decrementCounter: () => void;
-}
-
-export class Actions implements IActions {
-  store: IStore;
+export class Actions {
+  store: Store;
   service: IService;
 
-  constructor({store, service}: {store: IStore, service: IService}) {
+  constructor({store, service}: {store: Store, service: IService}) {
     this.store = store;
     this.service = service;
   }
@@ -29,6 +24,23 @@ export class Actions implements IActions {
     const delta = await Promise.resolve(-1);
     store.counter += delta;
     store.counterChanging = false;
+  };
+
+  loadList = async () => {
+    let store = this.store;
+    let service = this.service;
+    store.listIsLoading = true;
+    let list = await service.getList();
+    store.list = list;
+    store.listIsLoading = false;
+  };
+
+  saveItem = async (item) => {
+    let store = this.store;
+    let service = this.service;
+    let newItem = await service.saveItem(item);
+    const index = store.list.findIndex(item => item.id === newItem.id);
+    store.list[index] = newItem;
   };
 
 }

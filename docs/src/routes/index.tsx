@@ -28,8 +28,8 @@ function lazyLoadComponent(moduleBundle, props, getComponentFromModule) {
 const routes = (appStore: IAppStore) => (
   <Route>
     <Route path="/" component={Layout}>
-      <IndexRoute getComponent={lazyLoadComponent(require('bundle?lazy&name=list!../Home/index.ts'), appStore, (module: IModule) => module.HomePage)}/>
-      <Route path="form" getComponent={lazyLoadComponent(require('bundle?lazy&name=list!../Home/index.ts'), appStore, (module: IModule) => module.FormPage)}/>
+      <IndexRoute getComponent={lazyLoadComponent(require('bundle?lazy&name=home!../Home/index.ts'), appStore, (module: IModule) => module.HomePage)}/>
+      <Route path="list" getComponent={lazyLoadComponent(require('bundle?lazy&name=home!../Home/index.ts'), appStore, (module: IModule) => module.ListPage)}/>
     </Route>
 
     <Route path="*" component={NotFoundPage}/>

@@ -1,6 +1,6 @@
 export interface IModule {
   HomePage: any;
-  FormPage: any;
+  ListPage: any;
 }
 
 export default IModule;

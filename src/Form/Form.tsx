@@ -15,6 +15,7 @@ export interface IFieldErrors {
 }
 
 export interface IForm {
+  id: string;
   name: string;
   email: string;
   errors?: IFieldErrors;

@@ -55,8 +55,8 @@ class Nav extends React.Component<INavProps, void> {
               <li className={router.isActive('/', true) ? 'active' : ''}>
                 <Link to={'/'}>Home</Link>
               </li>
-              <li className={router.isActive('/form', true) ? 'active' : ''}>
-                <Link to={'/form'}>Form</Link>
+              <li className={router.isActive('/list', true) ? 'active' : ''}>
+                <Link to={'/list'}>List</Link>
               </li>
               <li ref={(el) => this.sub1 = el} className={`${this.submenuOpened === 1 ? 'active' : ''}`} onClick={this.openSubMenu.bind(this, 1)}>
                   Submenu
@@ -66,8 +66,8 @@ class Nav extends React.Component<INavProps, void> {
             {this.submenuOpened === 1 && (
               <ClickOutside className="navbar-submenu" except={this.sub1} onClickOutside={this.closeSubMenu}>
                 <div className="navbar-submenu__list">
-                  <Link className="navbar-submenu__item" to={'/form'}>
-                    <span className="text">Form</span>
+                  <Link className="navbar-submenu__item" to={'/list'}>
+                    <span className="text">List</span>
                   </Link>
                   <Link className="navbar-submenu__item" to={'/'}>
                     <span className="text">Submenu1</span>

@@ -1,17 +1,22 @@
 import {observable} from 'mobx';
+import {IForm} from '../../../src/Form/Form'
 
-export interface IStore {
-  counter: number;
-  counterChanging: boolean;
-}
-
-export class Store implements IStore {
+export class Store {
 
   @observable
   counter: number = 0;
 
   @observable
   counterChanging: boolean = false;
+
+  @observable
+  list: IForm[] = null;
+
+  @observable
+  listIsLoading: boolean = false;
+
+  @observable
+  listItems: IForm[] = null;
 
 }
 

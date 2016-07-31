@@ -4,8 +4,8 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 import {IAppStore} from '../AppStore';
-import {IStore} from './Store';
-import {IActions} from './Actions';
+import {Store} from './Store';
+import {Actions} from './Actions';
 
 /**
  * Home page for app
@@ -13,7 +13,7 @@ import {IActions} from './Actions';
 
 const HomePage = (
   {appStore, homeStore, homeActions}:
-  {appStore: IAppStore, homeStore: IStore, homeActions: IActions}
+  {appStore: IAppStore, homeStore: Store, homeActions: Actions}
 ) => (
   <div>
     <h1>HomePage</h1>

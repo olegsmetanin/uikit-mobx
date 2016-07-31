@@ -4,7 +4,7 @@ import {Service} from './Service';
 import {Actions} from './Actions';
 
 import HomePage from './HomePage';
-import FormPage from './FormPage';
+import ListPage from './ListPage';
 import {IModule} from './IModule'
 import {IAppStore} from '../AppStore'
 
@@ -39,10 +39,10 @@ const init = async (appStore: IAppStore) => {
   }))(observer(HomePage));
 
   // Untyped injecting
-  (FormPage as any).defaultProps = {homeStore, homeActions, i18n};
-  const ConnectedFormPage = inject('appStore')(observer(FormPage));
+  (ListPage as any).defaultProps = {homeStore, homeActions, i18n};
+  const ConnectedListPage = inject('appStore')(observer(ListPage));
 
-  module = {HomePage: ConnectedHomePage, FormPage: ConnectedFormPage};
+  module = {HomePage: ConnectedHomePage, ListPage: ConnectedListPage};
   return module;
 
 };
