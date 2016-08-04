@@ -10,7 +10,7 @@ import { Provider } from 'mobx-react';
 
 import HTTPClient from './utils/http/HTTPClient';
 import routes from './routes';
-import {AppStore} from './AppStore';
+import {AppStore} from './Application/AppStore';
 require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
@@ -20,6 +20,14 @@ window['docs'] = (options: any) => {
   const httpClient = new HTTPClient();
 
   const appStore = new AppStore({rootPath, httpClient});
+
+  // window.addEventListener("beforeunload", function (event) {
+  //   var confirmationMessage = "\o/";
+  //
+  //   e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
+  //   return confirmationMessage;              // Gecko, WebKit, Chrome <34
+  // });
+
 
   render(
     <Provider appStore={appStore}>

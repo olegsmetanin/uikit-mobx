@@ -1,4 +1,4 @@
-import {IForm} from '../../../src';
+import {IForm} from '../../../../src';
 
 export interface IService {
   getList(): Promise<IForm[]>;

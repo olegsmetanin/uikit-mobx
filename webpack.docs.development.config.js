@@ -73,7 +73,10 @@ module.exports = {
       {
         test: /\.json$/,
         loaders: ['json'],
-        include: path.join(__dirname, './src')
+        include: [
+          path.join(__dirname, './src'),
+          path.join(__dirname, './docs/src')
+        ]
       }, {
         test: /\.svg$/,
         loaders: [

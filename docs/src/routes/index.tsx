@@ -5,9 +5,9 @@ import * as React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
 import Layout from '../Application/Layout';
-import NotFoundPage from '../NotFound/NotFoundPage';
-import {IModule} from '../Home/IModule'
-import {IAppStore} from '../AppStore'
+import NotFoundPage from '../Application/NotFound/NotFoundPage';
+import {IModule} from '../Modules/Home/IModule'
+import {IAppStore} from '../Application/IAppStore'
 
 function lazyLoadComponent(moduleBundle, props, getComponentFromModule) {
   return (location, cb) => {
@@ -28,8 +28,8 @@ function lazyLoadComponent(moduleBundle, props, getComponentFromModule) {
 const routes = (appStore: IAppStore) => (
   <Route>
     <Route path="/" component={Layout}>
-      <IndexRoute getComponent={lazyLoadComponent(require('bundle?lazy&name=home!../Home/index.ts'), appStore, (module: IModule) => module.HomePage)}/>
-      <Route path="list" getComponent={lazyLoadComponent(require('bundle?lazy&name=home!../Home/index.ts'), appStore, (module: IModule) => module.ListPage)}/>
+      <IndexRoute getComponent={lazyLoadComponent(require('bundle?lazy&name=home!../Modules/Home/index.ts'), appStore, (module: IModule) => module.HomePage)}/>
+      <Route path="list" getComponent={lazyLoadComponent(require('bundle?lazy&name=home!../Modules/Home/index.ts'), appStore, (module: IModule) => module.ListPage)}/>
     </Route>
 
     <Route path="*" component={NotFoundPage}/>

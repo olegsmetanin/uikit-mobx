@@ -1,4 +1,4 @@
-/// <reference path="../docs.d.ts" />
+/// <reference path="../../docs.d.ts" />
 
 import * as React from 'react';
 
@@ -8,7 +8,7 @@ import * as React from 'react';
  */
 class NotFoundPage extends React.Component<void, void> {
 
-  // Used is server side rendering, for 404 status code
+  // Used in server side rendering, for 404 status code
   static isNotFound = true;
 
   render() {

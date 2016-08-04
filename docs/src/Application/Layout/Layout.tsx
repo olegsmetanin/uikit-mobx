@@ -3,7 +3,7 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {Container} from '../../../../src';
-import {IAppStore} from '../../AppStore';
+import {IAppStore} from '../IAppStore';
 import ConnectedNav from '../Nav';
 
 const Layout = ({appStore, children, route}: {appStore: IAppStore, children: React.ReactNode, route: any}) => (

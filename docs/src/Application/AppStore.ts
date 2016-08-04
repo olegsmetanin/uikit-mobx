@@ -1,18 +1,9 @@
 import {observable} from 'mobx';
-import IHTTPClient from './utils/http/IHTTPClient';
-import {ContainerWidth} from '../../src';
+import IHTTPClient from './../utils/http/IHTTPClient';
+import {ContainerWidth} from '../../../src';
+import {IAppStore} from './IAppStore'
 
-
-export let appStore: IAppStore = null;
-
-export interface IAppStore {
-  httpClient: IHTTPClient;
-  rootPath:   string;
-  layoutWidth: ContainerWidth;
-  lang: string;
-}
-
-export class AppStore {
+export class AppStore implements IAppStore {
 
   constructor({
     rootPath,
@@ -34,14 +25,13 @@ export class AppStore {
 
   httpClient: IHTTPClient;
 
-  lang: string = 'en';
+  lang: string = 'de';
 
   @observable
   layoutWidth: ContainerWidth = ContainerWidth.lg;
 
-  serialize = () => {};
-
-  deserialize = () => {};
+  @observable
+  isDirty: boolean = false;
 
 }
 

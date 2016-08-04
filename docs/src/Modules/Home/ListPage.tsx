@@ -3,9 +3,9 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {observable, action, runInAction} from 'mobx';
-import {IAppStore} from '../AppStore';
+import {IAppStore} from '../../Application/IAppStore';
 import {Store} from './Store';
-import {Form, IForm} from '../../../src';
+import {Form, IForm} from '../../../../src';
 import {Actions} from './Actions';
 
 export interface IListPageProps {
@@ -16,6 +16,8 @@ export interface IListPageProps {
 
 class ListPage extends React.Component<IListPageProps, void> {
 
+  dirty: number[] = [];
+
   componentDidMount() {
     this.props.homeActions.loadList();
   }
@@ -24,11 +26,30 @@ class ListPage extends React.Component<IListPageProps, void> {
     this.props.homeActions.saveItem(item);
   };
 
+  @action
+  onDirtyChange = (index, isDirty) => {
+    console.log('onDirtyChange', index, isDirty);
+
+    // if (isDirty) {
+    //   if (this.dirty.indexOf(index) === -1) {
+    //     this.dirty.push(index);
+    //   }
+    // } else {
+    //   this.dirty = this.dirty.filter((v, i) => v !== index);
+    // }
+    // if (this.dirty.length === 0) {
+    //   this.props.appStore.isDirty = false;
+    // } else {
+    //   this.props.appStore.isDirty = true;
+    // }
+
+  };
+// onDirtyChange={this.onDirtyChange.bind(this, index)}
   render() {
-    let {homeStore} = this.props;
+    let {appStore, homeStore} = this.props;
     return (
       <div>
-        <h1>ListPage</h1>
+        <h1>ListPage {appStore.isDirty && 'isDirty'}</h1>
         {homeStore.listIsLoading && (
           <div>Loading</div>
         )}

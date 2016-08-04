@@ -1,5 +1,5 @@
 import {observable} from 'mobx';
-import {IForm} from '../../../src/Form/Form'
+import {IForm} from '../../../../src'
 
 export class Store {
 
