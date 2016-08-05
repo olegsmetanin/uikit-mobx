@@ -27,8 +27,6 @@ const init = async (appStore: IAppStore) => {
     })
   });
 
-  //console.log('i18nJSON', i18nJSON);
-
   let i18n = i18nStore(i18nJSON);
 
   const service = new Service();
