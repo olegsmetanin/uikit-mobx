@@ -3,15 +3,14 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {observable, action, runInAction} from 'mobx';
-import {IAppStore} from '../../Application/IAppStore';
-import {Store} from './Store';
-import {Form, IForm} from '../../../../src';
-import {Actions} from './Actions';
+import {IHomeState, IHomeActions} from './../HomeAL/interfaces';
+import {Form, IForm} from '../../../../../src';
+import {IAppState} from '../../../Application/AppAL/interfaces'
 
 export interface IListPageProps {
-  appStore: IAppStore;
-  homeStore: Store;
-  homeActions: Actions;
+  appState: IAppState;
+  homeState: IHomeState;
+  homeActions: IHomeActions;
 }
 
 class ListPage extends React.Component<IListPageProps, void> {
@@ -46,14 +45,14 @@ class ListPage extends React.Component<IListPageProps, void> {
   };
 // onDirtyChange={this.onDirtyChange.bind(this, index)}
   render() {
-    let {appStore, homeStore} = this.props;
+    let {appState, homeState} = this.props;
     return (
       <div>
-        <h1>ListPage {appStore.isDirty && 'isDirty'}</h1>
-        {homeStore.listIsLoading && (
+        <h1>ListPage {/*appState.state.isDirty && 'isDirty'*/}</h1>
+        {homeState.listIsLoading && (
           <div>Loading</div>
         )}
-        {homeStore.list && homeStore.list.map((item, index) => {
+        {homeState.list && homeState.list.map((item, index) => {
           return (
             <div key={index}>
               <div>{item.id}. {item.name}/{item.email}</div>

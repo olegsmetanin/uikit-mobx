@@ -1,0 +1,17 @@
+export interface IUser {
+  name: string;
+  lang: string;
+}
+
+export interface IUserState {
+  user: IUser;
+}
+
+export interface IUserActions {
+  getMe: () => Promise<void>;
+}
+
+export interface IUserService {
+  getMe: () => Promise<IUser>;
+}
+

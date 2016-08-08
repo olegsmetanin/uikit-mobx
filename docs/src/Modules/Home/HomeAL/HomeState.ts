@@ -1,7 +1,8 @@
 import {observable} from 'mobx';
-import {IForm} from '../../../../src'
+import {IForm} from '../../../../../src'
+import {IHomeState} from './interfaces'
 
-export class Store {
+export class HomeState implements IHomeState {
 
   @observable
   counter: number = 0;
@@ -20,4 +21,4 @@ export class Store {
 
 }
 
-export default Store;
+export default HomeState;

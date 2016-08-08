@@ -1,17 +1,16 @@
-import {IService} from './Service';
-import {Store} from './Store';
+import {IHomeService, IHomeState, IHomeActions} from './interfaces';
 
-export class Actions {
-  store: Store;
-  service: IService;
+export class HomeActions implements IHomeActions {
+  state: IHomeState;
+  service: IHomeService;
 
-  constructor({store, service}: {store: Store, service: IService}) {
-    this.store = store;
+  constructor({state, service}: {state: IHomeState, service: IHomeService}) {
+    this.state = state;
     this.service = service;
   }
 
   incrementCounter = async () => {
-    let store = this.store;
+    let store = this.state;
     store.counterChanging = true;
     const delta = await Promise.resolve(1);
     store.counter += delta;
@@ -19,7 +18,7 @@ export class Actions {
   };
 
   decrementCounter = async () => {
-    let store = this.store;
+    let store = this.state;
     store.counterChanging = true;
     const delta = await Promise.resolve(-1);
     store.counter += delta;
@@ -27,7 +26,7 @@ export class Actions {
   };
 
   loadList = async () => {
-    let store = this.store;
+    let store = this.state;
     let service = this.service;
     store.listIsLoading = true;
     let list = await service.getList();
@@ -36,7 +35,7 @@ export class Actions {
   };
 
   saveItem = async (item) => {
-    let store = this.store;
+    let store = this.state;
     let service = this.service;
     let newItem = await service.saveItem(item);
     const index = store.list.findIndex(item => item.id === newItem.id);
@@ -45,4 +44,4 @@ export class Actions {
 
 }
 
-export default Actions;
+export default HomeActions;

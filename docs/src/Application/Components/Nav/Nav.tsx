@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import {observable} from 'mobx';
 import {Link, IRouter} from 'react-router';
-import {ClickOutside} from '../../../../src';
+import {ClickOutside} from '../../../../../src'
 
 export interface INavProps {
   router: IRouter;
