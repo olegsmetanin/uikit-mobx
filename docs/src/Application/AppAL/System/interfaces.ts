@@ -4,6 +4,7 @@ export interface ISystem {
 
 export interface ISystemState {
   system: ISystem;
+  systemIsLoaded: boolean;
 }
 
 export interface ISystemActions {

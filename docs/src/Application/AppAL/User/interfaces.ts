@@ -5,6 +5,8 @@ export interface IUser {
 
 export interface IUserState {
   user: IUser;
+  userIsLoaded: boolean;
+  userError: any;
 }
 
 export interface IUserActions {

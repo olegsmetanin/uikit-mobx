@@ -14,6 +14,7 @@ export class SystemActions implements ISystemActions {
   getSystem = async () => {
     let system = await this.service.getSystem();
     this.state.system = system;
+    this.state.systemIsLoaded = true;
   }
 
 }

@@ -12,8 +12,14 @@ export class UserActions implements IUserActions {
   service: IUserService;
 
   getMe = async () => {
-    let user = await this.service.getMe();
-    this.state.user = user;
+    try {
+      let user = await this.service.getMe();
+      this.state.user = user;
+      this.state.userIsLoaded = true;
+    } catch (e) {
+      this.state.userError = e;
+      this.state.userIsLoaded = false;
+    }
   }
 
 }

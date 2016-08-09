@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
-import { Provider } from 'mobx-react';
+import {Provider, observer} from 'mobx-react';
 
 import HTTPClient from './utils/http/HTTPClient';
 import routes from './routes';
@@ -15,6 +15,8 @@ import {UserActions} from './Application/AppAL/User/UserActions'
 import {UserService} from './Application/AppAL/User/UserService'
 import {SystemService} from './Application/AppAL/System/SystemService'
 import {SystemActions} from './Application/AppAL/System/SystemActions'
+import Preloader from './Application/Components/Preloader'
+import delay from './utils/Promise/delay'
 require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
@@ -34,13 +36,9 @@ window['docs'] = (options: any) => {
   //   return confirmationMessage;              // Gecko, WebKit, Chrome <34
   // });
 
-  let run = async () => {
+  const run = async () => {
 
-    if (!appState.user) {
-      await userActions.getMe();
-    }
-
-    console.log('appState.user', appState.user);
+    await delay({}, 1000);
 
     let appProps = {
       appState,
@@ -49,9 +47,11 @@ window['docs'] = (options: any) => {
     };
 
     render(
-      <Provider {...appProps}>
-        <Router children={routes(appProps)} history={browserHistory}/>
-      </Provider>,
+      <Preloader {...appProps}>
+        <Provider {...appProps}>
+          <Router children={routes(appProps)} history={browserHistory}/>
+        </Provider>
+      </Preloader>,
       el
     );
 

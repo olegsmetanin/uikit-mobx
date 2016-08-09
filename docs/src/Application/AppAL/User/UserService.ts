@@ -11,11 +11,18 @@ export class UserService implements IUserService {
   httpClient: IHTTPClient;
 
   getMe = async () => {
-    let res = await delay({
+    if (Math.random() > 0.5) {
+      throw new Error('qwe');
+    }
+
+    let res = await delay(
+      {
         name: 'user',
         lang: 'en'
       },
-      1000);
+      1000
+    );
+
     return res;
   };
 

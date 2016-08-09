@@ -7,7 +7,7 @@
     "unit-test": "webpack --config webpack.test.unit.config.js && mocha ./build/test/unit.js --timeout 40000",
     "clean": "npm prune && gulp clean",
     "build": "npm prune && npm install && typings install && gulp build",
-    "prestart": "npm prune && npm install && typings install",
+    "prestart": "npm prune && npm install",
     "start": "gulp docs:run",
     "devclient": "gulp devclient",
     "devserver": "gulp devserver",
