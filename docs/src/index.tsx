@@ -13,7 +13,8 @@ import routes from './routes';
 import {AppState} from './Application/AppAL/AppState'
 import {UserActions} from './Application/AppAL/User/UserActions'
 import {UserService} from './Application/AppAL/User/UserService'
-import {System} from './Application/AppAL/System/System'
+import {SystemService} from './Application/AppAL/System/SystemService'
+import {SystemActions} from './Application/AppAL/System/SystemActions'
 require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
@@ -24,6 +25,7 @@ window['docs'] = (options: any) => {
 
   const appState = new AppState();
   const userActions = new UserActions(appState, new UserService(httpClient));
+  const systemActions = new SystemActions(appState, new SystemService(httpClient));
 
  // window.addEventListener("beforeunload", function (event) {
   //   var confirmationMessage = "\o/";
@@ -42,7 +44,8 @@ window['docs'] = (options: any) => {
 
     let appProps = {
       appState,
-      userActions
+      userActions,
+      systemActions
     };
 
     render(
