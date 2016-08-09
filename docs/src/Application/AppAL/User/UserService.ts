@@ -11,9 +11,9 @@ export class UserService implements IUserService {
   httpClient: IHTTPClient;
 
   getMe = async () => {
-    if (Math.random() > 0.5) {
-      throw new Error('qwe');
-    }
+    // if (Math.random() > 0.5) {
+    //   throw new Error('qwe');
+    // }
 
     let res = await delay(
       {

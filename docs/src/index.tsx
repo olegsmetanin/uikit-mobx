@@ -21,7 +21,7 @@ require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
 
-  const {el, rootPath, state} = options;
+  const {el, initState} = options;
 
   const httpClient = new HTTPClient();
 

@@ -19,7 +19,8 @@ module.exports = {
     docs: [
       'webpack-hot-middleware/client?http://localhost:' + PORT,
       path.resolve(__dirname, './docs/src/index.tsx')
-    ]
+    ],
+    lib: ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'moment', 'jsonschema']
   },
   output: {
     path: path.join(__dirname, './build/docs'),
@@ -63,8 +64,8 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style',
-          'css?sourceMap!postcss!resolve-url!sass?sourceMap!sass-resources'),
+        loaders: ['style',
+          'css?sourceMap!postcss!resolve-url!sass?sourceMap!sass-resources'],
         include: [
           path.join(__dirname, './src'),
           path.join(__dirname, './docs/src')
@@ -120,7 +121,11 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('./css/docs.css', { allChunks: true, publicPath: '/css' }),
-    new webpack.DefinePlugin(GLOBALS)
+    new webpack.optimize.CommonsChunkPlugin({ name: 'lib'}),
+    //new ExtractTextPlugin('./css/docs.css', { allChunks: true, publicPath: '/css' }),
+    new webpack.DefinePlugin(GLOBALS),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   minimize: true
+    // })
   ]
 };
