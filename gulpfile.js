@@ -6,6 +6,8 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   runSequence = require('run-sequence'),
 
+  ghPages = require('gulp-gh-pages'),
+
   jshint = require('gulp-jshint'),
   jscs = require('gulp-jscs'),
   eslint = require('gulp-eslint'),
@@ -51,12 +53,13 @@ gulp.task('lint', function (done) {
 });
 
 
-gulp.task('copy', function () {
+gulp.task('docs:copy', function () {
   return gulp.src(['docs/webpublic/**/*']).pipe(gulp.dest('build/docs'));
 });
 
 gulp.task('docs:compile', function (done) {
-  var webpackConfig = require('./webpack.docs.development.config');
+  process.env.NODE_ENV = 'production';
+  var webpackConfig = require('./webpack.docs.config.js');
   webpack(webpackConfig, function (err, stats) {
     if (err) throw new gutil.PluginError('webpack', err);
     gutil.log('[webpack]', stats.toString({
@@ -71,11 +74,16 @@ gulp.task('rundevdocs', function () {
 });
 
 gulp.task('docs:run', function (done) {
-  runSequence('docs:clean', ['copy', 'rundevdocs'], done);
+  runSequence('docs:clean', ['docs:copy', 'rundevdocs'], done);
 });
 
 gulp.task('build', function (done) {
-  runSequence('clean', ['copy', 'client:compile'], done);
+  runSequence('docs:clean', ['docs:copy', 'docs:compile'], done);
+});
+
+gulp.task('deploy', function() {
+  return gulp.src('./build/docs/**/*')
+    .pipe(ghPages());
 });
 
 gulp.task('default', ['build']);

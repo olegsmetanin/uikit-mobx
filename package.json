@@ -2,6 +2,7 @@
   "name": "uikit",
   "version": "0.0.0",
   "private": true,
+  "repository": "olegsmetanin/uikit",
   "scripts": {
     "e2e-test": "webpack --config webpack.test.e2e.config.js && mocha ./build/test/e2e.js --timeout 40000",
     "unit-test": "webpack --config webpack.test.unit.config.js && mocha ./build/test/unit.js --timeout 40000",
@@ -70,6 +71,7 @@
     "gulp": "3.9.1",
     "gulp-clean": "0.3.1",
     "gulp-eslint": "2.0.0",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-jshint": "2.0.0",
     "gulp-tslint": "4.3.4",
     "gutil": "1.6.4",

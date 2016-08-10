@@ -3,7 +3,7 @@
 var webpack = require('webpack'),
   webpackDevMiddleware = require('webpack-dev-middleware'),
   webpackHotMiddleware = require('webpack-hot-middleware'),
-  config = require('./webpack.docs.development.config'),
+  config = require('./webpack.docs.config.js'),
   express = require('express'),
   proxy = require('express-http-proxy'),
   app = express(),

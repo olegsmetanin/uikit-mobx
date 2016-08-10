@@ -1,4 +1,5 @@
 import {IHomeService, IHomeState, IHomeActions} from './interfaces';
+import {loadI18n} from '../../../utils/i18n/loadI18n'
 
 export class HomeActions implements IHomeActions {
   state: IHomeState;
@@ -8,6 +9,12 @@ export class HomeActions implements IHomeActions {
     this.state = state;
     this.service = service;
   }
+
+  loadLang = async (_lang: string) => {
+    const lang = ['en', 'de'].indexOf(_lang) !== -1 ? _lang : 'en';
+    this.state.i18n = await loadI18n(require(`bundle?lazy!./../i18n/i18n.${lang}.json`));
+  };
+
 
   incrementCounter = async () => {
     let store = this.state;

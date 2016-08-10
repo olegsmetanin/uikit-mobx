@@ -1,3 +1,3 @@
 {
-  "some:title": "some de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"
+  "some:title": "some de mod ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"
 }

@@ -3,6 +3,7 @@ import {ContainerWidth} from '../../../../src'
 import {IUser} from './User/interfaces'
 import {IAppState} from './interfaces'
 import {ISystem} from './System/interfaces'
+import {I18n} from '../../utils/i18n/loadI18n'
 
 export class AppState implements IAppState {
 
@@ -38,6 +39,10 @@ export class AppState implements IAppState {
 
   @observable
   systemIsLoaded: boolean = false;
+
+  @observable
+  i18n: I18n;
+
 
 }
 

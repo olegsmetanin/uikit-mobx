@@ -5,7 +5,7 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, hashHistory } from 'react-router';
 import {Provider, observer} from 'mobx-react';
 
 import HTTPClient from './utils/http/HTTPClient';
@@ -18,6 +18,7 @@ import {SystemActions} from './Application/AppAL/System/SystemActions'
 import Preloader from './Application/Components/Preloader'
 import delay from './utils/Promise/delay'
 import {loadI18n} from './utils/i18n/loadI18n'
+import {reaction, action} from 'mobx'
 require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
@@ -30,6 +31,7 @@ window['docs'] = (options: any) => {
   const userActions = new UserActions(appState, new UserService(httpClient));
   const systemActions = new SystemActions(appState, new SystemService(httpClient));
 
+  //const sysLang = initState['lang'];
  // window.addEventListener("beforeunload", function (event) {
   //   var confirmationMessage = "\o/";
   //
@@ -37,9 +39,17 @@ window['docs'] = (options: any) => {
   //   return confirmationMessage;              // Gecko, WebKit, Chrome <34
   // });
 
+  reaction(() => appState.system && appState.system.lang, lang => systemActions.loadLang(lang))
+
   const run = async () => {
 
-    await delay({}, 1000);
+    // await userActions.getMe();
+    // await systemActions.getSystem();
+
+    // const lang = ['en', 'de'].indexOf(appState.user.lang) !== -1 ? appState.user.lang : 'en';
+    // let i18n = await loadI18n(require(`bundle?lazy!./Applicaton/i18n/i18n.${lang}.json`));
+
+    //await delay({}, 1000);
 
     let appProps = {
       appState,
@@ -50,7 +60,7 @@ window['docs'] = (options: any) => {
     render(
       <Preloader {...appProps}>
         <Provider {...appProps}>
-          <Router children={routes(appProps)} history={browserHistory}/>
+          <Router children={routes(appProps)} history={hashHistory}/>
         </Provider>
       </Preloader>,
       el

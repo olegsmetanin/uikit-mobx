@@ -1,6 +1,9 @@
 'use strict';
 
-console.log('..running development build');
+var isProduction = process.env.NODE_ENV === 'production';
+
+console.log('..running ' + process.env.NODE_ENV + ' build');
+
 
 var path = require('path'),
   webpack = require('webpack'),
@@ -9,24 +12,25 @@ var path = require('path'),
   appconfig = require('./application.config'),
   PORT = appconfig.back.port;
 
-const GLOBALS = {
-  'process.env.NODE_ENV': '\'development\'',
-  __DEV__: true
-};
+// const GLOBALS = {
+//   'process.env.NODE_ENV': '\'development\'',
+//   __DEV__: true
+// };
 
 module.exports = {
   entry: {
-    docs: [
-      'webpack-hot-middleware/client?http://localhost:' + PORT,
-      path.resolve(__dirname, './docs/src/index.tsx')
-    ],
+    docs: (isProduction
+      ? []
+      : ['webpack-hot-middleware/client?http://localhost:' + PORT])
+      .concat([path.resolve(__dirname, './docs/src/index.tsx')])
+    ,
     lib: ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'moment', 'jsonschema']
   },
   output: {
     path: path.join(__dirname, './build/docs'),
     filename: 'js/[name].js',
     chunkFilename: 'js/[name].js',
-    publicPath: '/'
+    publicPath: ''
   },
 
   //devtool  : '#eval-cheap-module-source-map', // быстрые и бесполезные сурс-мапы
@@ -123,9 +127,14 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({ name: 'lib'}),
     //new ExtractTextPlugin('./css/docs.css', { allChunks: true, publicPath: '/css' }),
-    new webpack.DefinePlugin(GLOBALS),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   minimize: true
-    // })
-  ]
+    //new webpack.DefinePlugin(GLOBALS),
+
+  ].concat(isProduction
+    ? [
+      new webpack.optimize.UglifyJsPlugin({
+        minimize: true
+      })
+    ]
+    : []
+  )
 };

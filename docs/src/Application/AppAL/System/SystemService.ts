@@ -12,7 +12,8 @@ export class SystemService implements ISystemService {
 
   getSystem = async () => {
     let res = await delay({
-        rootPath: ''
+        rootPath: '',
+        lang: 'en'
       },
       1000);
     return res;
