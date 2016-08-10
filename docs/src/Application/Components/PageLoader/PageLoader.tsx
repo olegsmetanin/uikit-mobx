@@ -2,9 +2,33 @@
 import * as React from 'react';
 /* tslint:enable:no-unused-variable */
 
-import {IModule} from '../../../Modules/Home/IModule'
-const pageLoader = (bundleLoader: any, args: any, pageResolver: (module: IModule) => any) => {
+export const loadPage = (function () {
+  let firstLoad = true;
+  return function (bundleLoader, args, pageResolver) {
+    return (location, cb) => {
+      if (typeof window !== 'undefined') {
+        if (firstLoad) {
+          firstLoad = false;
+          cb(null, pageLoaderComponent(bundleLoader, args, pageResolver));
+        } else {
+          bundleLoader(bundle => {
+            bundle.default(args).then((module) => {
+              cb(null, pageResolver(module));
+            });
+          })
+        }
+      } else {
+        bundleLoader.default(args).then((module) => {
+          cb(null, pageResolver(module));
+        });
+      }
+    }
+  }
+})();
+
+export const pageLoaderComponent = (bundleLoader: any, args: any, pageResolver: (any) => any) => {
   return class extends React.Component<any, {isLoaded: boolean, error: boolean}> {
+
     Component: any;
 
     constructor(props, context) {
@@ -21,14 +45,14 @@ const pageLoader = (bundleLoader: any, args: any, pageResolver: (module: IModule
 
     loadPage = () => {
       if (typeof window !== 'undefined') {
-        bundleLoader(modulePromise => {
-          modulePromise.default(args)
+        bundleLoader(bundle => {
+          bundle.default(args)
           .then((module) => {
             this.Component = pageResolver(module);
             this.setState({isLoaded: true, error: false});
           })
           .catch((e) => {
-            this.setState({isLoaded: true, error: true});
+            this.setState({isLoaded: false, error: true});
           });
         })
       } else {
@@ -52,4 +76,4 @@ const pageLoader = (bundleLoader: any, args: any, pageResolver: (module: IModule
   }
 };
 
-export default pageLoader;
+export default loadPage;

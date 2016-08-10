@@ -5,14 +5,14 @@ import {HomeActions} from './HomeAL/HomeActions';
 
 import HomePage from './Pages/HomePage';
 import ListPage from './Pages/ListPage';
-import {IModule} from './IModule';
+import {IHomeModule} from './IHomeModule';
 
-import {i18n as i18nStore} from '../../utils/i18n/i18n';
+import {loadI18n} from '../../utils/i18n/loadI18n';
 import {IAppState} from '../../Application/AppAL/interfaces'
 import {IUserActions} from '../../Application/AppAL/User/interfaces'
 
 // singleton )
-let module: IModule = null;
+let module: IHomeModule = null;
 
 const init = async ({appState, userActions}: {appState: IAppState, userActions: IUserActions}) => {
 
@@ -20,16 +20,8 @@ const init = async ({appState, userActions}: {appState: IAppState, userActions: 
     return module;
   }
 
-  let i18nJSON = await new Promise(resolve => {
-    require.ensure([], (require) => {
-      const langs = ['en', 'de'];
-      const lang = langs.indexOf(appState.user.lang) !== -1 ? appState.user.lang : 'en';
-
-      require(`bundle?lazy!./i18n/i18n.${lang}.json`)(i18n => resolve(i18n));
-    })
-  });
-
-  let i18n = i18nStore(i18nJSON);
+  const lang = ['en', 'de'].indexOf(appState.user.lang) !== -1 ? appState.user.lang : 'en';
+  let i18n = await loadI18n(require(`bundle?lazy!./i18n/i18n.${lang}.json`));
 
   const service = new HomeService();
   let homeState = new HomeState();

@@ -17,6 +17,7 @@ import {SystemService} from './Application/AppAL/System/SystemService'
 import {SystemActions} from './Application/AppAL/System/SystemActions'
 import Preloader from './Application/Components/Preloader'
 import delay from './utils/Promise/delay'
+import {loadI18n} from './utils/i18n/loadI18n'
 require('./styles/docs.scss');
 
 window['docs'] = (options: any) => {
@@ -43,7 +44,7 @@ window['docs'] = (options: any) => {
     let appProps = {
       appState,
       userActions,
-      systemActions
+      systemActions,
     };
 
     render(

@@ -6,14 +6,14 @@ import {IndexRoute, Route} from 'react-router';
 
 import Layout from '../Application/Components/Layout';
 import NotFoundPage from '../Application/Pages/NotFound/NotFoundPage';
-import {IModule} from '../Modules/Home/IModule'
-import pageLoader from '../Application/Components/Pageloader/Pageloader'
+import {IHomeModule} from '../Modules/Home/IHomeModule'
+import {loadPage} from '../Application/Components/PageLoader/PageLoader'
 
 const routes = (args) => (
   <Route>
     <Route path="/" component={Layout}>
-      <IndexRoute component={pageLoader(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IModule) => module.HomePage)}/>
-      <Route path="list" component={pageLoader(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IModule) => module.ListPage)}/>
+      <IndexRoute getComponent={loadPage(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IHomeModule) => module.HomePage)}/>
+      <Route path="list" getComponent={loadPage(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IHomeModule) => module.ListPage)}/>
     </Route>
 
     <Route path="*" component={NotFoundPage}/>

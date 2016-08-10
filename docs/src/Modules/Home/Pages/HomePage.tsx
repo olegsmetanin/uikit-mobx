@@ -4,7 +4,7 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 import {IHomeState, IHomeActions} from '../HomeAL/interfaces';
-import {I18n} from '../../../utils/i18n/i18n'
+import {I18n} from '../../../utils/i18n/loadI18n'
 import {IAppState} from '../../../Application/AppAL/interfaces'
 
 /**
@@ -16,7 +16,7 @@ const HomePage = (
   {appState: IAppState, homeState: IHomeState, homeActions: IHomeActions, i18n: I18n}
 ) => (
   <div>
-    <h1>HomePage</h1>
+    <h1>Page</h1>
     <div>Page width: {appState.layoutWidth} i18n: {i18n('some:title', {title: 'Title', count: 2})}</div>
     <div>{homeState.counter}</div>
     <button onClick={homeActions.incrementCounter}>increment</button>
