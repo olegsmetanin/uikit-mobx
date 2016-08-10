@@ -1,3 +1,0 @@
-{
-  "some:title": "some en ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"
-}
