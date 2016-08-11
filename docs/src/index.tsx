@@ -31,7 +31,6 @@ window['docs'] = (options: any) => {
   const userActions = new UserActions(appState, new UserService(httpClient));
   const systemActions = new SystemActions(appState, new SystemService(httpClient));
 
-  //const sysLang = initState['lang'];
  // window.addEventListener("beforeunload", function (event) {
   //   var confirmationMessage = "\o/";
   //
@@ -43,13 +42,7 @@ window['docs'] = (options: any) => {
 
   const run = async () => {
 
-    // await userActions.getMe();
-    // await systemActions.getSystem();
-
-    // const lang = ['en', 'de'].indexOf(appState.user.lang) !== -1 ? appState.user.lang : 'en';
-    // let i18n = await loadI18n(require(`bundle?lazy!./Applicaton/i18n/i18n.${lang}.json`));
-
-    //await delay({}, 1000);
+    // await delay({}, 1000);
 
     let appProps = {
       appState,

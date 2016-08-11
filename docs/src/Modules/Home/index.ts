@@ -1,3 +1,4 @@
+import {reaction} from 'mobx'
 import {observer, inject} from 'mobx-react';
 import {HomeState} from './HomeAL/HomeState';
 import {HomeService} from './HomeAL/HomeService';
@@ -7,11 +8,9 @@ import HomePage from './Pages/HomePage';
 import ListPage from './Pages/ListPage';
 import {IHomeModule} from './IHomeModule';
 
-import {loadI18n} from '../../utils/i18n/loadI18n';
 import {IAppState} from '../../Application/AppAL/interfaces'
 import {IUserActions} from '../../Application/AppAL/User/interfaces'
 import {ISystemActions} from '../../Application/AppAL/System/interfaces'
-import {reaction} from 'mobx'
 
 // singleton )
 let module: IHomeModule = null;

@@ -1,5 +1,4 @@
 import {IUserActions, IUserState, IUserService} from './interfaces'
-import {observable} from 'mobx'
 
 export class UserActions implements IUserActions {
 
