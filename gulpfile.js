@@ -13,6 +13,8 @@ var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   tslint = require('gulp-tslint');
 
+process.env.NODE_ENV = 'development';
+
 gulp.task('docs:clean', function () {
   return gulp.src(['build/docs']).pipe(clean());
 });
@@ -51,7 +53,6 @@ gulp.task('tslint', function () {
 gulp.task('lint', function (done) {
   runSequence('tslint', 'jslint', done);
 });
-
 
 gulp.task('docs:copy', function () {
   return gulp.src(['docs/webpublic/**/*']).pipe(gulp.dest('build/docs'));

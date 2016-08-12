@@ -19,6 +19,11 @@ export class HomeService implements IHomeService {
     return res;
   }
 
+  fetchComplexFormData = async () => {
+    let res = await delay({text: 'qwe'}, 1000);
+    return res;
+  }
+
 }
 
 export default HomeService;

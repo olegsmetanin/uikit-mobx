@@ -43,7 +43,6 @@ export class AppState implements IAppState {
   @observable
   i18n: I18n;
 
-
 }
 
 export default AppState;

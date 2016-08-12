@@ -4,7 +4,9 @@ import * as React from 'react';
 
 import {observable} from 'mobx';
 import {Link, IRouter} from 'react-router';
-import {ClickOutside} from '../../../../../src'
+import {ClickOutside} from '../../../../src'
+import {observer} from 'mobx-react'
+import {withRouter} from 'react-router'
 
 export interface INavProps {
   router: IRouter;
@@ -55,6 +57,9 @@ class Nav extends React.Component<INavProps, void> {
               <li className={router.isActive('/', true) ? 'active' : ''}>
                 <Link to={'/'}>Home</Link>
               </li>
+              <li className={router.isActive('/complex', true) ? 'active' : ''}>
+                <Link to={'/complex'}>ComplexForm</Link>
+              </li>
               <li className={router.isActive('/list', true) ? 'active' : ''}>
                 <Link to={'/list'}>List</Link>
               </li>
@@ -98,4 +103,6 @@ class Nav extends React.Component<INavProps, void> {
   }
 }
 
-export default Nav;
+const ConnectedNav = withRouter(observer(Nav))
+
+export default ConnectedNav;

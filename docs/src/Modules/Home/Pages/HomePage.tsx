@@ -7,6 +7,7 @@ import {IHomeState, IHomeActions} from '../HomeAL/interfaces';
 import {I18n} from '../../../utils/i18n/loadI18n'
 import {IAppState} from '../../../Application/AppAL/interfaces'
 import {ISystemActions} from '../../../Application/AppAL/System/interfaces'
+import {ComplexForm} from '../../../../../src/ComplexForm/ComplexForm'
 
 /**
  * Home page for app
@@ -19,8 +20,8 @@ const HomePage = (
   <div>
     <h1>Page</h1>
     <div>Page width: {appState.layoutWidth}</div>
-    <div> i18n app: {appState.i18n('some:title', {title: 'Title', count: 2})}</div>
-    <div> i18n mod: {homeState.i18n('some:title', {title: 'Title', count: 2})}</div>
+    <div> i18n app: {homeState.i18n('app:title', {title: 'Title', count: 2})}</div>
+    <div> i18n mod: {homeState.i18n('module:title', {title: 'Title', count: 2})}</div>
 
     <button onClick={() => systemActions.setLang('de')}>de</button>
     <button onClick={() => systemActions.setLang('en')}>en</button>

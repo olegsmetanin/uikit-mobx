@@ -17,7 +17,7 @@ var path = require('path'),
 //   __DEV__: true
 // };
 
-module.exports = {
+var docsConfig = {
   entry: {
     docs: (isProduction
       ? []
@@ -32,12 +32,6 @@ module.exports = {
     chunkFilename: 'js/[name].js',
     publicPath: ''
   },
-
-  //devtool  : '#eval-cheap-module-source-map', // быстрые и бесполезные сурс-мапы
-  devtool: '#source-map', // подробные но медленные сурс-мапы
-  bail: false,
-  cache: true,
-  debug: true,
 
   module: {
     preLoaders: [
@@ -138,3 +132,12 @@ module.exports = {
     : []
   )
 };
+
+if (!isProduction) {
+  docsConfig.devtool = '#source-map';
+  docsConfig.bail = false;
+  docsConfig.cache = true;
+  docsConfig.debug = true;
+}
+
+module.exports = docsConfig;

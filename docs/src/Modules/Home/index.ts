@@ -11,6 +11,7 @@ import {IHomeModule} from './IHomeModule';
 import {IAppState} from '../../Application/AppAL/interfaces'
 import {IUserActions} from '../../Application/AppAL/User/interfaces'
 import {ISystemActions} from '../../Application/AppAL/System/interfaces'
+import ComplexFormPage from './Pages/ComplexFormPage'
 
 // singleton )
 let module: IHomeModule = null;
@@ -25,24 +26,23 @@ const init = async ({appState, userActions, systemActions}: {appState: IAppState
   let homeState = new HomeState();
   const homeActions = new HomeActions({state: homeState, service: service});
 
-  await homeActions.loadLang(appState.system.lang);
+  await homeActions.loadLang(appState.system.lang, () => appState.i18n);
 
-  reaction(() => appState.system && appState.system.lang, lang => homeActions.loadLang(lang));
+  reaction(() => appState.system && appState.system.lang, lang => homeActions.loadLang(lang, () => appState.i18n));
 
-  // Typed injecting
-  const ConnectedHomePage = inject((allAL) => ({
-    appState: allAL.appState as IAppState, // inject from context
-    userActions: userActions,              // inject from module arg
+  const ConnectedHomePage = inject(() => ({
+    appState,
+    userActions,
     homeState,
     homeActions,
     systemActions
   }))(observer(HomePage));
 
-  // Untyped injecting
-  (ListPage as any).defaultProps = {homeState, homeActions, systemActions};
-  const ConnectedListPage = inject('appState')(observer(ListPage));
+  const ConnectedListPage = inject(() => ({appState, homeState, homeActions, systemActions}))(observer(ListPage));
 
-  module = {HomePage: ConnectedHomePage, ListPage: ConnectedListPage};
+  const ConnectedComplexFormPage = inject(() => ({appState, homeState, homeActions, systemActions}))(observer(ComplexFormPage));
+
+  module = {HomePage: ConnectedHomePage, ListPage: ConnectedListPage, ComplexFormPage: ConnectedComplexFormPage};
   return module;
 
 };

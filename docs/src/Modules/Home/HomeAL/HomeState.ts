@@ -2,6 +2,7 @@ import {observable} from 'mobx';
 import {IForm} from '../../../../../src'
 import {IHomeState} from './interfaces'
 import {I18n} from '../../../utils/i18n/loadI18n'
+import {IComplexFormData} from '../../../../../src/ComplexForm/ComplexForm'
 
 export class HomeState implements IHomeState {
 
@@ -22,6 +23,12 @@ export class HomeState implements IHomeState {
 
   @observable
   listItems: IForm[] = null;
+
+  @observable
+  complexFormData: IComplexFormData = null;
+
+  @observable
+  complexFormDataIsLoading: boolean = false;
 
 }
 

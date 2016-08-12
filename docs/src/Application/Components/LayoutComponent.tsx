@@ -2,9 +2,11 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
-import {Container} from '../../../../../src';
-import ConnectedNav from '../Nav';
-import {IAppState} from '../../AppAL/interfaces'
+import {Container} from '../../../../src';
+import Nav from './Nav';
+import {IAppState} from '../AppAL/interfaces'
+import {inject, observer} from 'mobx-react'
+import {withRouter} from 'react-router'
 
 export interface ILayoutProps {
   appState: IAppState;
@@ -12,7 +14,7 @@ export interface ILayoutProps {
   router: any;
 }
 
-class Layout extends React.Component<ILayoutProps, void> {
+export class Layout extends React.Component<ILayoutProps, void> {
 
   render() {
     return (
@@ -21,11 +23,13 @@ class Layout extends React.Component<ILayoutProps, void> {
         onChangeWidth={(newLayoutWidth) => {this.props.appState.layoutWidth = newLayoutWidth}}
         className={'layout'}
       >
-        <ConnectedNav route={this.props.route}/>
+        <Nav route={this.props.route}/>
         {this.props.children}
       </Container>
     )
   }
 }
 
-export default Layout;
+const ConnectedLayout = inject('appState')(withRouter(observer(Layout)));
+
+export default ConnectedLayout;
