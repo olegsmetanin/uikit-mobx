@@ -9,12 +9,14 @@ export interface ISystemState {
   system: ISystem;
   systemIsLoaded: boolean;
   i18n: I18n;
+  //currentRoute: string;
 }
 
 export interface ISystemActions {
   getSystem: () => Promise<void>;
   loadLang: (lang) => Promise<void>;
   setLang: (lang) => Promise<void>;
+  goto: (location: any) => Promise<void>;
 }
 
 export interface ISystemService {

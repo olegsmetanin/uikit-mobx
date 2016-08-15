@@ -26,16 +26,22 @@ export class Application extends React.Component<void, void> {
     systemActions: ISystemActions;
   }
 
+  history: any;
+
   counter: number = 0;
 
   constructor(props, context) {
     super(props, context);
 
+    this.history = hashHistory;
+
     const httpClient = new HTTPClient();
 
     const appState = new AppState();
     const userActions = new UserActions(appState, new UserService(httpClient));
-    const systemActions = new SystemActions(appState, new SystemService(httpClient));
+    const systemActions = new SystemActions(appState, new SystemService(httpClient), this.history);
+
+
 
     this.appProps = {
       appState,
@@ -76,7 +82,7 @@ export class Application extends React.Component<void, void> {
       this.counter += 1;
       return (
         <Provider {...this.appProps}>
-          <Router key={this.counter} history={hashHistory}>
+          <Router key={this.counter} history={this.history}>
             {routes(this.appProps)}
           </Router>
         </Provider>

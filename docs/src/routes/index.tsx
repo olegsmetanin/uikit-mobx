@@ -27,7 +27,7 @@ const routes = (args: {appState: IAppState, userActions: IUserActions, systemAct
         )}
       </Route>
 
-      <Route path="*" component={NotFoundPage}/>
+      <Route path="*" component={NotFoundPage} onEnter={() => {args.systemActions.goto('/')}}/>
     </Route>
   )
 };

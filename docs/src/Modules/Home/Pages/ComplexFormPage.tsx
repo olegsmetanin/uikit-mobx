@@ -37,6 +37,7 @@ class ComplexFormPage extends React.Component<IComplexFormPageProps, void> {
         )}
         {homeState.complexFormData && (
           <div>
+            <button onClick={() => appState.user.permissions = {v: 2}}>permissions</button>
             <button onClick={() => systemActions.setLang('de')}>de</button>
             <button onClick={() => systemActions.setLang('en')}>en</button>
             <ComplexForm data={homeState.complexFormData} i18n={homeState.i18n} onSave={this.onSave}/>

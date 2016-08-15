@@ -4,13 +4,15 @@ import {loadI18n} from '../../../utils/i18n/loadI18n'
 export class SystemActions implements ISystemActions {
 
   constructor(state: ISystemState,
-              service: ISystemService) {
+              service: ISystemService, history: any) {
     this.state = state;
     this.service = service;
+    this.history = history;
   }
 
   state: ISystemState;
   service: ISystemService;
+  history: any;
 
   getSystem = async () => {
     let system = await this.service.getSystem();
@@ -25,6 +27,10 @@ export class SystemActions implements ISystemActions {
 
   setLang = async (lang: string) => {
     this.state.system.lang = lang;
+  }
+
+  goto = async (location: any) => {
+    this.history.push(location);
   }
 
 }
