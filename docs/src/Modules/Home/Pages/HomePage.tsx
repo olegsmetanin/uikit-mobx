@@ -23,6 +23,8 @@ const HomePage = (
     <div> i18n app: {homeState.i18n('app:title', {title: 'Title', count: 2})}</div>
     <div> i18n mod: {homeState.i18n('module:title', {title: 'Title', count: 2})}</div>
 
+    <button onClick={() => appState.user.permissions = {v: 2}}>permissions</button>
+
     <button onClick={() => systemActions.setLang('de')}>de</button>
     <button onClick={() => systemActions.setLang('en')}>en</button>
     <div>{homeState.counter}</div>

@@ -26,6 +26,8 @@ export class Application extends React.Component<void, void> {
     systemActions: ISystemActions;
   }
 
+  counter: number = 0;
+
   constructor(props, context) {
     super(props, context);
 
@@ -49,6 +51,8 @@ export class Application extends React.Component<void, void> {
 
     reaction(() => appState.system && appState.system.lang, lang => systemActions.loadLang(lang))
 
+    reaction(() => appState.user && appState.user.permissions, () => this.forceUpdate())
+
     this.load();
 
   }
@@ -69,9 +73,12 @@ export class Application extends React.Component<void, void> {
     const {appState} = this.appProps;
 
     if (appState.userIsLoaded && appState.systemIsLoaded) {
+      this.counter += 1;
       return (
         <Provider {...this.appProps}>
-          <Router children={routes(this.appProps)} history={hashHistory}/>
+          <Router key={this.counter} history={hashHistory}>
+            {routes(this.appProps)}
+          </Router>
         </Provider>
       )
     } else if (appState.userError/* || appState.systemError*/) {

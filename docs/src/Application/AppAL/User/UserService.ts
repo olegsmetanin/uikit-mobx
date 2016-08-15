@@ -18,7 +18,8 @@ export class UserService implements IUserService {
     let res = await delay(
       {
         name: 'user',
-        lang: 'en'
+        lang: 'en',
+        permissions: {v: 1}
       },
       1000
     );

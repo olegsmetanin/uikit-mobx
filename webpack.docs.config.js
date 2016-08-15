@@ -120,6 +120,8 @@ var docsConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({ name: 'lib'}),
+    //https://github.com/moment/moment/issues/1435#issuecomment-232687733
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     //new ExtractTextPlugin('./css/docs.css', { allChunks: true, publicPath: '/css' }),
     //new webpack.DefinePlugin(GLOBALS),
 
