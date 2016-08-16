@@ -11,10 +11,10 @@ export enum SelectOptions { Option1, Option2, Option3 }
 
 export interface IComplexFormData {
   text: string;
-  //checkbox: boolean;
-  //combo: SelectOptions;
-  //radio: SelectOptions;
-  //checkedList: {name: string, checked}[]
+  // checkbox: boolean;
+  // combo: SelectOptions;
+  // radio: SelectOptions;
+  // checkedList: {name: string, checked}[]
 }
 
 export interface IFormProps {

@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import {Container} from '../../../../src';
 import Nav from './Nav';
-import {IAppState} from '../AppAL/interfaces'
+import {IAppState} from '../AppAL'
 import {inject, observer} from 'mobx-react'
 import {withRouter} from 'react-router'
 

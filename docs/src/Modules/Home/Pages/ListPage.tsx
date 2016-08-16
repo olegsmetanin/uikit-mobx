@@ -3,9 +3,9 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {observable, action, runInAction} from 'mobx';
-import {IHomeState, IHomeActions} from './../HomeAL/interfaces';
+import {IHomeState, IHomeActions} from '../HomeAL';
 import {Form, IForm} from '../../../../../src';
-import {IAppState} from '../../../Application/AppAL/interfaces'
+import {IAppState} from '../../../Application/AppAL'
 
 export interface IListPageProps {
   appState: IAppState;

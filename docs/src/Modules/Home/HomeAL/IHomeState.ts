@@ -13,18 +13,4 @@ export interface IHomeState {
   complexFormDataIsLoading: boolean;
 }
 
-export interface IHomeActions {
-  incrementCounter: () => Promise<void>;
-  decrementCounter: () => Promise<void>;
-  loadList: () => Promise<void>;
-  saveItem: (item) => Promise<void>;
-  loadComplexFormData: () => Promise<void>;
-}
-
-export interface IHomeService {
-  getList(): Promise<IForm[]>;
-  saveItem(item): Promise<IForm>;
-  fetchComplexFormData: () => Promise<IComplexFormData>;
-}
-
 export default IHomeState;

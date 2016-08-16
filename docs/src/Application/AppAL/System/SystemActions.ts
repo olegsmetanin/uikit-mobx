@@ -1,5 +1,8 @@
-import {ISystemActions, ISystemState, ISystemService} from './interfaces'
+
 import {loadI18n} from '../../../utils/i18n/loadI18n'
+import {ISystemState} from './ISystemState'
+import {ISystemService} from './ISystemService'
+import {ISystemActions} from './ISystemActions'
 
 export class SystemActions implements ISystemActions {
 

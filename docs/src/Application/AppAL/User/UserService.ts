@@ -1,5 +1,5 @@
 import delay from '../../../utils/Promise/delay'
-import {IUserService} from './interfaces'
+import {IUserService} from './IUserService'
 import IHTTPClient from '../../../utils/http/IHTTPClient'
 
 export class UserService implements IUserService {

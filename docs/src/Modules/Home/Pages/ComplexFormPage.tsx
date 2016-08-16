@@ -3,11 +3,11 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {observable, action, runInAction} from 'mobx';
-import {IHomeState, IHomeActions} from './../HomeAL/interfaces';
+import {IHomeState, IHomeActions} from '../HomeAL/index';
 import {Form, IForm} from '../../../../../src';
-import {IAppState} from '../../../Application/AppAL/interfaces'
+import {IAppState} from '../../../Application/AppAL'
 import {IComplexFormData, ComplexForm} from '../../../../../src/ComplexForm/ComplexForm'
-import {ISystemActions} from '../../../Application/AppAL/System/interfaces'
+import {ISystemActions} from '../../../Application/AppAL/System'
 
 export interface IComplexFormPageProps {
   appState: IAppState;
@@ -23,8 +23,8 @@ class ComplexFormPage extends React.Component<IComplexFormPageProps, void> {
   }
 
   onSave = (data) => {
-    //console.log(JSON.stringify(data));
-    //this.props.homeActions.saveItem(item);
+    // console.log(JSON.stringify(data));
+    // this.props.homeActions.saveItem(item);
   };
 
   render() {

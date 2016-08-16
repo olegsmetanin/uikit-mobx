@@ -1,6 +1,6 @@
 import {observable} from 'mobx';
 import {IForm} from '../../../../../src'
-import {IHomeState} from './interfaces'
+import {IHomeState} from './IHomeState'
 import {I18n} from '../../../utils/i18n/loadI18n'
 import {IComplexFormData} from '../../../../../src/ComplexForm/ComplexForm'
 

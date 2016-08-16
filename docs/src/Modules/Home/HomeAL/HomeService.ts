@@ -1,5 +1,5 @@
 import delay from '../../../utils/Promise/delay'
-import {IHomeService} from './interfaces'
+import {IHomeService} from './IHomeService'
 
 export class HomeService implements IHomeService {
 

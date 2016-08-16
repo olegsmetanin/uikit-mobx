@@ -1,4 +1,8 @@
-import {IUserActions, IUserState, IUserService} from './interfaces'
+
+
+import {IUserActions} from './IUserActions'
+import {IUserState} from './IUserState'
+import {IUserService} from './IUserService'
 
 export class UserActions implements IUserActions {
 

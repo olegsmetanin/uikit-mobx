@@ -43,15 +43,22 @@ gulp.task('jslint', function (done) {
 });
 
 gulp.task('tslint', function () {
-  return gulp.src(['src/**/*.ts', 'src/**/*.tsx', 'docs/src/**/*.ts', 'docs/src/**/*.tsx', 'test/**/*.ts', 'test/**/*.tsx'])
-      .pipe(tslint())
-      .pipe(tslint.report('prose', {
-        summarizeFailureOutput: true
-      }));
+  return gulp.src([
+    'src/**/*.ts',
+    'src/**/*.tsx',
+    'docs/src/**/*.ts',
+    'docs/src/**/*.tsx',
+    'test/**/*.ts',
+    'test/**/*.tsx'
+  ])
+  .pipe(tslint({
+    formatter: 'verbose'
+  }))
+  .pipe(tslint.report());
 });
 
 gulp.task('lint', function (done) {
-  runSequence('tslint', 'jslint', done);
+  runSequence('tslint', /*'jslint',*/ done);
 });
 
 gulp.task('docs:copy', function () {

@@ -1,5 +1,8 @@
-import {IHomeService, IHomeState, IHomeActions} from './interfaces';
+
 import {loadI18n, I18n} from '../../../utils/i18n/loadI18n'
+import {IHomeActions} from './IHomeActions'
+import {IHomeState} from './IHomeState'
+import {IHomeService} from './IHomeService'
 
 export class HomeActions implements IHomeActions {
   state: IHomeState;

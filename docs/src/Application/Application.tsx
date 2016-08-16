@@ -9,14 +9,9 @@ import {Provider, observer} from 'mobx-react'
 import routes from '../routes/index'
 
 import HTTPClient from '../utils/http/HTTPClient'
-import {IAppState} from './AppAL/interfaces'
-import {AppState} from './AppAL/AppState'
-import {UserService} from './AppAL/User/UserService'
-import {IUserActions} from './AppAL/User/interfaces'
-import {UserActions} from './AppAL/User/UserActions'
-import {SystemService} from './AppAL/System/SystemService'
-import {ISystemActions} from './AppAL/System/interfaces'
-import {SystemActions} from './AppAL/System/SystemActions'
+import {IAppState, AppState} from './AppAL'
+import {IUserActions, UserActions, UserService} from './AppAL/User'
+import {ISystemActions, SystemActions, SystemService} from './AppAL/System'
 
 export class Application extends React.Component<void, void> {
 

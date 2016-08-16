@@ -8,9 +8,9 @@ import HomePage from './Pages/HomePage';
 import ListPage from './Pages/ListPage';
 import {IHomeModule} from './IHomeModule';
 
-import {IAppState} from '../../Application/AppAL/interfaces'
-import {IUserActions} from '../../Application/AppAL/User/interfaces'
-import {ISystemActions} from '../../Application/AppAL/System/interfaces'
+import {IAppState} from '../../Application/AppAL'
+import {IUserActions} from '../../Application/AppAL/User'
+import {ISystemActions} from '../../Application/AppAL/System'
 import ComplexFormPage from './Pages/ComplexFormPage'
 
 // singleton )
