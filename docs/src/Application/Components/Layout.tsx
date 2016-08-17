@@ -1,12 +1,10 @@
 /* tslint:disable:no-unused-variable */
-import * as React from 'react';
+import * as React from 'react'
 /* tslint:disable:no-unused-variable */
 
-import {Container} from '../../../../src';
-import Nav from './Nav';
+import {Container} from '../../../../src'
+import {Nav} from './index';
 import {IAppState} from '../AppAL'
-import {inject, observer} from 'lib/Reactive'
-import {withRouter} from 'lib/Router'
 
 export const Layout = ({appState, children, route}: {appState: IAppState, children: React.ReactNode, route: any}) => (
     <Container
@@ -19,6 +17,4 @@ export const Layout = ({appState, children, route}: {appState: IAppState, childr
     </Container>
 );
 
-const ConnectedLayout = inject('appState')(withRouter(observer(Layout)));
-
-export default ConnectedLayout;
+export default Layout;

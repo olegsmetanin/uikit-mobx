@@ -3,10 +3,8 @@ import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
 import {Container} from '../../../../src';
-import Nav from './Nav';
+import {Nav} from './index';
 import {IAppState} from '../AppAL'
-import {inject, observer} from 'lib/Reactive'
-import {withRouter} from 'lib/Router'
 
 export interface ILayoutProps {
   appState: IAppState;
@@ -30,6 +28,4 @@ export class Layout extends React.Component<ILayoutProps, void> {
   }
 }
 
-const ConnectedLayout = inject('appState')(withRouter(observer(Layout)));
-
-export default ConnectedLayout;
+export default Layout;

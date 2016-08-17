@@ -4,7 +4,7 @@ import * as React from 'react';
 /**
  * 404 page for not existing routes
  */
-class NotFoundPage extends React.Component<void, void> {
+export class NotFoundPage extends React.Component<void, void> {
 
   // Used in server side rendering, for 404 status code
   static isNotFound = true;

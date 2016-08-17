@@ -11,7 +11,7 @@ export interface INavProps {
   route: any;
 }
 
-class Nav extends React.Component<INavProps, void> {
+export class Nav extends React.Component<INavProps, void> {
 
   sub1: HTMLElement;
 
@@ -101,6 +101,4 @@ class Nav extends React.Component<INavProps, void> {
   }
 }
 
-const ConnectedNav = withRouter(observer(Nav))
-
-export default ConnectedNav;
+export default Nav;

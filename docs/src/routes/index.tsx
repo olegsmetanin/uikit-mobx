@@ -4,8 +4,8 @@ import * as React from 'react';
 /* tslint:enable:no-unused-variable */
 import {IndexRoute, Route} from 'lib/Router';
 
-import Layout from '../Application/Components/Layout';
-import NotFoundPage from '../Application/Pages/NotFound/NotFoundPage';
+import {Layout} from '../Application/Components';
+import NotFoundPage from '../Application/Pages/NotFound';
 import {IHomeModule} from '../Modules/Home/IHomeModule'
 import {loadPage} from '../Application/Components/PageLoader'
 import {IAppState} from '../Application/AppAL'
