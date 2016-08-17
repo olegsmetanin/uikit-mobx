@@ -1,5 +1,4 @@
-import {reaction} from 'mobx'
-import {observer, inject} from 'mobx-react';
+import {reaction, observer, inject} from 'lib/Reactive'
 import {HomeState} from './HomeAL/HomeState';
 import {HomeService} from './HomeAL/HomeService';
 import {HomeActions} from './HomeAL/HomeActions';

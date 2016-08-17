@@ -1,4 +1,4 @@
-import {observable} from 'mobx';
+import {observable} from 'lib/Reactive';
 import {ContainerWidth} from '../../../../src'
 import {IUser} from './User'
 import {ISystem} from './System'

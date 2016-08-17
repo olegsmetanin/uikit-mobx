@@ -1,4 +1,4 @@
-import {observable} from 'mobx';
+import {observable} from 'lib/Reactive';
 import {IForm} from '../../../../../src'
 import {IHomeState} from './IHomeState'
 import {I18n} from '../../../utils/i18n/loadI18n'

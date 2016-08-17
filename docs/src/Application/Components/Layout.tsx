@@ -5,8 +5,8 @@ import * as React from 'react';
 import {Container} from '../../../../src';
 import Nav from './Nav';
 import {IAppState} from '../AppAL'
-import {inject, observer} from 'mobx-react'
-import {withRouter} from 'react-router'
+import {inject, observer} from 'lib/Reactive'
+import {withRouter} from 'lib/Router'
 
 export const Layout = ({appState, children, route}: {appState: IAppState, children: React.ReactNode, route: any}) => (
     <Container

@@ -1,10 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
-import {hashHistory} from 'react-router'
-import {Router} from 'react-router'
-import {reaction} from 'mobx'
-import {Provider, observer} from 'mobx-react'
+import {hashHistory, Router} from 'lib/Router'
+import {Provider, observer, reaction} from 'lib/Reactive'
 
 import routes from '../routes/index'
 

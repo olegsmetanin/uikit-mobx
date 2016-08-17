@@ -100,8 +100,10 @@ var docsConfig = {
   },
 
   resolve: {
-    root: path.resolve(__dirname, './src'),
-    docs: path.resolve(__dirname, './docs/src'),
+    root: [
+      path.resolve(__dirname, './src'),
+      path.resolve(__dirname, './docs/src')
+    ],
     extensions: ['', '.js', '.ts', '.tsx']
   },
 

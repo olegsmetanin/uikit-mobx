@@ -2,11 +2,9 @@
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
 
-import {observable} from 'mobx';
-import {Link, IRouter} from 'react-router';
+import {observable, observer} from 'lib/Reactive';
+import {Link, IRouter, withRouter} from 'lib/Router';
 import {ClickOutside} from '../../../../src'
-import {observer} from 'mobx-react'
-import {withRouter} from 'react-router'
 
 export interface INavProps {
   router: IRouter;

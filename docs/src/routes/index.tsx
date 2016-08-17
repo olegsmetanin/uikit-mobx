@@ -2,7 +2,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
 /* tslint:enable:no-unused-variable */
-import {IndexRoute, Route} from 'react-router';
+import {IndexRoute, Route} from 'lib/Router';
 
 import Layout from '../Application/Components/Layout';
 import NotFoundPage from '../Application/Pages/NotFound/NotFoundPage';
