@@ -1,5 +1,6 @@
-import {I18n} from '../../../utils/i18n/loadI18n'
+
 import {ISystem} from './ISystem'
+import {I18n} from 'components'
 
 export interface ISystemState {
   system: ISystem;

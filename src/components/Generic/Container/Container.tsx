@@ -24,14 +24,13 @@ export interface IContainerProps {
  */
 export class Container extends React.Component<IContainerProps, void> {
 
-  refs: {
-    [key: string]: React.Component<any, any> | Element,
-    'container': HTMLDivElement,
-  };
+  _container: HTMLDivElement;
 
   componentDidMount = () => {
     this.handleResize();
-    window.addEventListener('resize', this.handleResize);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.handleResize);
+    }
   };
 
   componentWillUnmount = () => {
@@ -53,7 +52,7 @@ export class Container extends React.Component<IContainerProps, void> {
   };
 
   calculateWidth = () => {
-    const w = this.refs.container.clientWidth;
+    const w = this._container.clientWidth;
     return w < 415
       ? ContainerWidth.xx // Apple iPhone 6 plus = 414, Google Nexus 6 = 412
       : w < 768
@@ -68,7 +67,7 @@ export class Container extends React.Component<IContainerProps, void> {
   render() {
     const {width = ContainerWidth.lg} = this.props;
     return (
-      <div ref="container" className={`${ContainerWidth[width]}`}>
+      <div ref={(r) => this._container = r} className={`${ContainerWidth[width]}`}>
           {this.props.children}
       </div>
     );

@@ -1,8 +1,5 @@
 import {template} from 'lodash';
-
-export interface I18n {
-  (key: string, opts?: Object): string;
-}
+import {I18n} from 'components/api/I18n'
 
 export function loadI18n(bundleLoader): Promise<I18n> {
 

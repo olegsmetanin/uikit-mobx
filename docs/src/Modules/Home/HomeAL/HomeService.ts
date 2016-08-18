@@ -1,3 +1,4 @@
+import * as _ from 'lodash'
 import delay from '../../../utils/Promise/delay'
 import {IHomeService} from './IHomeService'
 
@@ -19,8 +20,13 @@ export class HomeService implements IHomeService {
     return res;
   }
 
-  fetchComplexFormData = async () => {
+  fetchComplexFormValue = async () => {
     let res = await delay({text: 'qwe'}, 1000);
+    return res;
+  }
+
+  saveComplexFormValue = async (value) => {
+    let res = await delay(_.cloneDeep(value), 1000);
     return res;
   }
 

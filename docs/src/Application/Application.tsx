@@ -1,66 +1,41 @@
-/* tslint:disable:no-unused-variable */
-import * as React from 'react';
-/* tslint:disable:no-unused-variable */
-import {hashHistory, Router} from 'lib/Router'
-import {Provider, observer, reaction} from 'lib/Reactive'
+import * as React from 'react'
+import {Router} from '../lib/Router'
+import {Provider, observer, reaction} from '../lib/Reactive'
 
 import routes from '../routes/index'
 
-import HTTPClient from '../utils/http/HTTPClient'
-import {IAppState, AppState} from './AppAL'
-import {IUserActions, UserActions, UserService} from './AppAL/User'
-import {ISystemActions, SystemActions, SystemService} from './AppAL/System'
+import {IAppState} from './AppAL/IAppState'
+import {IUserActions} from './AppAL/User/IUserActions'
+import {ISystemActions} from './AppAL/System/ISystemActions'
+import {IUIActions} from './AppAL/UI/IUIActions'
 
-export class Application extends React.Component<void, void> {
+export interface IApplicationProps {
+  appState: IAppState
+  userActions: IUserActions
+  systemActions: ISystemActions
+  uiActions: IUIActions
+  history: any
+}
 
-  appProps: {
-    appState: IAppState;
-    userActions: IUserActions;
-    systemActions: ISystemActions;
-  }
+export class Application extends React.Component<IApplicationProps, void> {
 
-  history: any;
-
-  counter: number = 0;
-
-  constructor(props, context) {
-    super(props, context);
-
-    this.history = hashHistory;
-
-    const httpClient = new HTTPClient();
-
-    const appState = new AppState();
-    const userActions = new UserActions(appState, new UserService(httpClient));
-    const systemActions = new SystemActions(appState, new SystemService(httpClient), this.history);
-
-
-
-    this.appProps = {
-      appState,
-      userActions,
-      systemActions
-    }
-
-  }
+  counter: number = 0
 
   componentDidMount() {
 
-    const {appState, systemActions} = this.appProps;
-
-    reaction(() => appState.system && appState.system.lang, lang => systemActions.loadLang(lang))
+    const {appState} = this.props
 
     reaction(() => appState.user && appState.user.permissions, () => this.forceUpdate())
 
-    this.load();
+    this.load()
 
   }
 
   load = () => {
-    const {appState, userActions, systemActions} = this.appProps;
+    const {appState, userActions, systemActions} = this.props
 
     if (!appState.user) {
-      userActions.getMe();
+      userActions.getMe()
     }
     if (!appState.system) {
       systemActions.getSystem();
@@ -69,14 +44,15 @@ export class Application extends React.Component<void, void> {
 
   render() {
 
-    const {appState} = this.appProps;
+    const {appState} = this.props
 
     if (appState.userIsLoaded && appState.systemIsLoaded) {
-      this.counter += 1;
+      // important for forceUpdate in reaction
+      this.counter += 1
       return (
-        <Provider {...this.appProps}>
-          <Router key={this.counter} history={this.history}>
-            {routes(this.appProps)}
+        <Provider {...this.props}>
+          <Router key={this.counter} history={this.props.history}>
+            {routes(this.props)}
           </Router>
         </Provider>
       )

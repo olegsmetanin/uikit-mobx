@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import {observable} from 'lib/Reactive';
-import {Link, IRouter} from 'lib/Router';
+import {observable} from '../../lib/Reactive';
+import {Link, IRouter} from '../../lib/Router';
 import {ClickOutside} from 'components'
 
 export interface INavProps {

@@ -1,8 +1,8 @@
-import {observable} from 'lib/Reactive';
-import {IForm} from 'components'
+import {observable} from '../../../lib/Reactive'
+
+import {I18n, IForm, IComplexFormValue} from 'components'
 import {IHomeState} from './IHomeState'
-import {I18n} from '../../../utils/i18n/loadI18n'
-import {IComplexFormData} from 'components'
+
 
 export class HomeState implements IHomeState {
 
@@ -25,10 +25,13 @@ export class HomeState implements IHomeState {
   listItems: IForm[] = null;
 
   @observable
-  complexFormData: IComplexFormData = null;
+  complexFormValue: IComplexFormValue = null;
 
   @observable
-  complexFormDataIsLoading: boolean = false;
+  complexFormValueIsLoading: boolean = false;
+
+  @observable
+  complexFormValueIsSaving: boolean = false;
 
 }
 

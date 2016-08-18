@@ -1,9 +1,10 @@
-import {IForm, IComplexFormData} from 'components'
+import {IForm, IComplexFormValue} from 'components'
 
 export interface IHomeService {
   getList(): Promise<IForm[]>;
   saveItem(item): Promise<IForm>;
-  fetchComplexFormData: () => Promise<IComplexFormData>;
+  fetchComplexFormValue: () => Promise<IComplexFormValue>;
+  saveComplexFormValue: (value) => Promise<IComplexFormValue>;
 }
 
 export default IHomeService;

@@ -1,5 +1,4 @@
-import {IForm, IComplexFormData} from 'components'
-import {I18n} from '../../../utils/i18n/loadI18n'
+import {I18n, IForm, IComplexFormValue} from 'components'
 
 export interface IHomeState {
   i18n: I18n;
@@ -8,8 +7,9 @@ export interface IHomeState {
   list: IForm[];
   listIsLoading: boolean;
   listItems: IForm[];
-  complexFormData: IComplexFormData;
-  complexFormDataIsLoading: boolean;
+  complexFormValue: IComplexFormValue;
+  complexFormValueIsLoading: boolean;
+  complexFormValueIsSaving: boolean;
 }
 
 export default IHomeState;

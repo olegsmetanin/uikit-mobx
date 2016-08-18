@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import {Container} from 'components';
-import {Nav} from './index';
-import {IAppState} from '../AppAL'
+import {Nav, ConfirmDialog} from './index';
+import {IAppState} from '../AppAL/IAppState'
 
 export interface ILayoutProps {
   appState: IAppState;
@@ -21,6 +21,9 @@ export class Layout extends React.Component<ILayoutProps, void> {
       >
         <Nav route={this.props.route}/>
         {this.props.children}
+
+        <ConfirmDialog/>
+
       </Container>
     )
   }

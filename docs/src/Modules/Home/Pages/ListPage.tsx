@@ -1,32 +1,32 @@
-/* tslint:disable:no-unused-variable */
-import * as React from 'react';
+import * as React from 'react'
+import {action} from '../../../lib/Reactive'
 
-import {action} from 'lib/Reactive';
-import {IHomeState, IHomeActions} from '../HomeAL';
-import {Form} from 'components';
-import {IAppState} from '../../../Application/AppAL'
+import {IHomeState} from '../HomeAL/IHomeState'
+import {IHomeActions} from '../HomeAL/IHomeActions'
+import {Form} from 'components'
+import {IAppState} from '../../../Application/AppAL/IAppState'
 
 export interface IListPageProps {
-  appState: IAppState;
-  homeState: IHomeState;
-  homeActions: IHomeActions;
+  appState: IAppState
+  homeState: IHomeState
+  homeActions: IHomeActions
 }
 
 class ListPage extends React.Component<IListPageProps, void> {
 
-  dirty: number[] = [];
+  dirty: number[] = []
 
   componentDidMount() {
-    this.props.homeActions.loadList();
+    this.props.homeActions.loadList()
   }
 
   onSave = (item) => {
-    this.props.homeActions.saveItem(item);
-  };
+    this.props.homeActions.saveItem(item)
+  }
 
   @action
   onDirtyChange = (index, isDirty) => {
-    console.log('onDirtyChange', index, isDirty);
+    console.log('onDirtyChange', index, isDirty)
 
     // if (isDirty) {
     //   if (this.dirty.indexOf(index) === -1) {
@@ -44,7 +44,7 @@ class ListPage extends React.Component<IListPageProps, void> {
   };
 // onDirtyChange={this.onDirtyChange.bind(this, index)}
   render() {
-    let {appState, homeState} = this.props;
+    let {/*appState, */homeState} = this.props
     return (
       <div>
         <h1>ListPage {/*appState.state.isDirty && 'isDirty'*/}</h1>
@@ -66,4 +66,4 @@ class ListPage extends React.Component<IListPageProps, void> {
   }
 }
 
-export default ListPage;
+export default ListPage

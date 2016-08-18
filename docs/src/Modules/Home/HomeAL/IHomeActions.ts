@@ -3,7 +3,8 @@ export interface IHomeActions {
   decrementCounter: () => Promise<void>;
   loadList: () => Promise<void>;
   saveItem: (item) => Promise<void>;
-  loadComplexFormData: () => Promise<void>;
+  loadComplexFormValue: () => Promise<void>;
+  saveComplexFormValue: (value) => Promise<void>;
 }
 
 export default IHomeActions;

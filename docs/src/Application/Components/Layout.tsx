@@ -4,9 +4,17 @@ import * as React from 'react'
 
 import {Container} from 'components'
 import {Nav} from './index';
-import {IAppState} from '../AppAL'
+import {IAppState} from '../AppAL/IAppState'
 
-export const Layout = ({appState, children, route}: {appState: IAppState, children: React.ReactNode, route: any}) => (
+export const Layout = ({
+    appState,
+    children,
+    route
+  }: {
+    appState: IAppState,
+    children: React.ReactNode,
+    route: any
+  }) => (
     <Container
       width={appState.layoutWidth}
       onChangeWidth={(newLayoutWidth) => {appState.layoutWidth = newLayoutWidth}}
@@ -15,6 +23,6 @@ export const Layout = ({appState, children, route}: {appState: IAppState, childr
       <Nav route={route}/>
       {children}
     </Container>
-);
+)
 
-export default Layout;
+export default Layout

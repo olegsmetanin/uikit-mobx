@@ -1,48 +1,50 @@
-import {observable} from 'lib/Reactive';
-import {ContainerWidth} from '../../../../src'
-import {IUser} from './User'
-import {ISystem} from './System'
-import {I18n} from '../../utils/i18n/loadI18n'
+import {observable} from '../../lib/Reactive';
+import {I18n, ContainerWidth, IConfirmDialog} from 'components'
 import {IAppState} from './IAppState'
+import {IUser} from './User/IUser'
+import {ISystem} from './System/ISystem'
 
 export class AppState implements IAppState {
 
   constructor(state?: any) {
     if (state && state.layoutWidth) {
-      this.layoutWidth = state.layoutWidth;
+      this.layoutWidth = state.layoutWidth
     }
     if (state && state.user) {
-      this.user = state.user;
-      this.userIsLoaded = true;
+      this.user = state.user
+      this.userIsLoaded = true
     }
     if (state && state.system) {
-      this.system = state.system;
-      this.systemIsLoaded = true;
+      this.system = state.system
+      this.systemIsLoaded = true
     }
 
   }
 
   @observable
-  layoutWidth: ContainerWidth = ContainerWidth.lg;
+  layoutWidth: ContainerWidth = ContainerWidth.lg
 
   @observable
-  user: IUser;
+  user: IUser
 
   @observable
-  userIsLoaded: boolean = false;
+  userIsLoaded: boolean = false
 
   @observable
-  userError: any;
+  userError: any
 
   @observable
-  system: ISystem;
+  system: ISystem
 
   @observable
-  systemIsLoaded: boolean = false;
+  systemIsLoaded: boolean = false
 
   @observable
-  i18n: I18n;
+  i18n: I18n
+
+  @observable
+  confirmDialog: IConfirmDialog = null
 
 }
 
-export default AppState;
+export default AppState

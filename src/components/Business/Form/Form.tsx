@@ -1,82 +1,80 @@
-/* tslint:disable:no-unused-variable */
-import * as React from 'react';
-/* tslint:disable:no-unused-variable */
+import * as React from 'react'
 
-import {observable, action, runInAction} from 'mobx';
-import {observer} from 'mobx-react';
-import * as _ from 'lodash';
+import {observable, action} from 'mobx'
+import {observer} from 'mobx-react'
+import * as _ from 'lodash'
 
 export interface IErrorDescriptor {
-  text: string;
+  text: string
 }
 
 export interface IFieldErrors {
-  [name: string]: {text: string};
+  [name: string]: {text: string}
 }
 
 export interface IForm {
-  id: string;
-  name: string;
-  email: string;
-  errors?: IFieldErrors;
+  id: string
+  name: string
+  email: string
+  errors?: IFieldErrors
 }
 
 export interface IFormProps {
-  form: IForm;
-  onSave: (form: IForm) => void;
-  onDirtyChange?: (isDirty: boolean) => void;
+  form: IForm
+  onSave: (form: IForm) => void
+  onDirtyChange?: (isDirty: boolean) => void
 }
 
 @observer
 export class Form extends React.Component<IFormProps, void> {
 
   @observable
-  form: IForm;
+  form: IForm
 
   @observable
-  isDirty: boolean = false;
+  isDirty: boolean = false
 
   constructor(props, context) {
-    super(props, context);
-    this.form = _.cloneDeep(props.form);
+    super(props, context)
+    this.form = _.cloneDeep(props.form)
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('componentWillReceiveProps', nextProps)
-    this.form = _.cloneDeep(nextProps.form);
-    this.isDirty = false;
-    // this.props.onDirtyChange && this.props.onDirtyChange(false);
+    this.form = _.cloneDeep(nextProps.form)
+    this.isDirty = false
+    // this.props.onDirtyChange && this.props.onDirtyChange(false)
   }
 
   @action
   onChangeName = (e) => {
-    this.form.name = e.target.value;
+    this.form.name = e.target.value
     if (!this.isDirty) {
-      this.isDirty = true;
-      this.props.onDirtyChange && this.props.onDirtyChange(true);
+      this.isDirty = true
+      this.props.onDirtyChange && this.props.onDirtyChange(true)
     }
-  };
+  }
 
   @action
   onChangeEmail = (e) => {
-    this.form.email = e.target.value;
+    this.form.email = e.target.value
     if (!this.isDirty) {
-      this.isDirty = true;
-      this.props.onDirtyChange && this.props.onDirtyChange(true);
+      this.isDirty = true
+      this.props.onDirtyChange && this.props.onDirtyChange(true)
     }
-  };
+  }
 
   @action
   onSave = () => {
-    this.props.onSave(_.cloneDeep(this.form));
-  };
+    this.props.onSave(_.cloneDeep(this.form))
+  }
 
   @action
   onCancel = () => {
-    this.form = _.cloneDeep(this.props.form);
-    this.isDirty = false;
-    this.props.onDirtyChange && this.props.onDirtyChange(false);
-  };
+    this.form = _.cloneDeep(this.props.form)
+    this.isDirty = false
+    this.props.onDirtyChange && this.props.onDirtyChange(false)
+  }
 
   render() {
     return (
@@ -91,18 +89,15 @@ export class Form extends React.Component<IFormProps, void> {
           value={this.form.email}
           onChange={this.onChangeEmail}
         />
-        {this.isDirty
-          ? (
+        {this.isDirty && (
             <div>
               <button onClick={this.onSave}>Save</button>
               <button onClick={this.onCancel}>Cancel</button>
             </div>
-          )
-          : null
-        }
+        )}
       </div>
     )
   }
 }
 
-export default Form;
+export default Form
