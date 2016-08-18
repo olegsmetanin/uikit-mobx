@@ -1,5 +1,4 @@
-import {IForm} from '../../../../../src/Form/Form'
-import {IComplexFormData} from '../../../../../src/ComplexForm/ComplexForm'
+import {IForm, IComplexFormData} from 'components'
 
 export interface IHomeService {
   getList(): Promise<IForm[]>;

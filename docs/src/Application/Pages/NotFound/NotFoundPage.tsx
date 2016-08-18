@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-
 /**
  * 404 page for not existing routes
  */

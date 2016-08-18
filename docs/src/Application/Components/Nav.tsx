@@ -1,10 +1,8 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
-/* tslint:disable:no-unused-variable */
 
-import {observable, observer} from 'lib/Reactive';
-import {Link, IRouter, withRouter} from 'lib/Router';
-import {ClickOutside} from '../../../../src'
+import {observable} from 'lib/Reactive';
+import {Link, IRouter} from 'lib/Router';
+import {ClickOutside} from 'components'
 
 export interface INavProps {
   router: IRouter;

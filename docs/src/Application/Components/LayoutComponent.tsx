@@ -1,8 +1,6 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
-/* tslint:disable:no-unused-variable */
 
-import {Container} from '../../../../src';
+import {Container} from 'components';
 import {Nav} from './index';
 import {IAppState} from '../AppAL'
 

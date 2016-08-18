@@ -1,5 +1,3 @@
-/// <reference path="../../../docs.d.ts" />
-
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
 /* tslint:disable:no-unused-variable */
@@ -7,7 +5,7 @@ import {IHomeState, IHomeActions} from '../HomeAL/index';
 import {I18n} from '../../../utils/i18n/loadI18n'
 import {IAppState} from '../../../Application/AppAL'
 import {ISystemActions} from '../../../Application/AppAL/System'
-import {ComplexForm} from '../../../../../src/ComplexForm/ComplexForm'
+import {ComplexForm} from 'components'
 
 /**
  * Home page for app

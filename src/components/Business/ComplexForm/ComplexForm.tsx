@@ -5,7 +5,7 @@ import * as React from 'react';
 import {observer} from 'mobx-react'
 import {observable} from 'mobx'
 import * as _ from 'lodash';
-import {I18n} from '../../docs/src/utils/i18n/loadI18n'
+import {I18n} from '../../../../docs/src/utils/i18n/loadI18n'
 
 export enum SelectOptions { Option1, Option2, Option3 }
 
@@ -17,7 +17,7 @@ export interface IComplexFormData {
   // checkedList: {name: string, checked}[]
 }
 
-export interface IFormProps {
+export interface IComplexFormProps {
   i18n: I18n;
   data: IComplexFormData;
   onSave: (data: IComplexFormData) => void;
@@ -25,7 +25,7 @@ export interface IFormProps {
 }
 
 @observer
-export class ComplexForm extends React.Component<IFormProps, void> {
+export class ComplexForm extends React.Component<IComplexFormProps, void> {
 
   @observable
   data: IComplexFormData

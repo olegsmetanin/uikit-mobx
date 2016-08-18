@@ -1,6 +1,5 @@
-import {IForm} from '../../../../../src'
+import {IForm, IComplexFormData} from 'components'
 import {I18n} from '../../../utils/i18n/loadI18n'
-import {IComplexFormData} from '../../../../../src/ComplexForm/ComplexForm'
 
 export interface IHomeState {
   i18n: I18n;

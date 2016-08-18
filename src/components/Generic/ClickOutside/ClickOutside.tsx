@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {rest} from '../utils/rest';
+import {rest} from '../../../utils/rest';
 
 export class ClickOutside extends React.Component<{except?: HTMLElement, onClickOutside: (e) => void}, void> {
 

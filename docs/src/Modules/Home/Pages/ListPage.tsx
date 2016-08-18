@@ -1,10 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
-/* tslint:disable:no-unused-variable */
 
-import {observable, action, runInAction} from 'lib/Reactive';
+import {action} from 'lib/Reactive';
 import {IHomeState, IHomeActions} from '../HomeAL';
-import {Form, IForm} from '../../../../../src';
+import {Form} from 'components';
 import {IAppState} from '../../../Application/AppAL'
 
 export interface IListPageProps {

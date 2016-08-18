@@ -1,5 +1,3 @@
-/// <reference path="../uikit.d.ts" />
-
 import * as React from 'react';
 
 /**
