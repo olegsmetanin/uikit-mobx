@@ -11,25 +11,25 @@ export class HomeService implements IHomeService {
         (value, index) => (
           {id: index + '', name: 'qwe', email: 'email@domain.com'}
         )
-      ), 1000);
-    return res;
+      ), 1000)
+    return res
   };
 
   saveItem = async (item) => {
-    let res = await delay(item, 1000);
-    return res;
+    let res = await delay(item, 1000)
+    return res
   }
 
   fetchComplexFormValue = async () => {
-    let res = await delay({text: 'qwe'}, 1000);
-    return res;
+    let res = await delay({text: 'qwe'}, 1000)
+    return res
   }
 
   saveComplexFormValue = async (value) => {
-    let res = await delay(_.cloneDeep(value), 1000);
-    return res;
+    let res = await delay(_.cloneDeep(value), 1000)
+    return res
   }
 
 }
 
-export default HomeService;
+export default HomeService

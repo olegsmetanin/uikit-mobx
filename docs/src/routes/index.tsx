@@ -1,18 +1,24 @@
 /// <reference path="../docs.d.ts" />
+
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:enable:no-unused-variable */
-import {IndexRoute, Route} from '../lib/Router'
+import {IndexRoute, Route} from 'lib/Router'
 
-import {Layout} from '../Application/Components'
-import NotFoundPage from '../Application/Pages/NotFound'
-import {IHomeModule} from '../Modules/Home/IHomeModule'
-import {loadPage} from '../Application/Components/PageLoader'
 import {IAppState} from '../Application/AppAL/IAppState'
 import {IUserActions} from '../Application/AppAL/User/IUserActions'
 import {ISystemActions} from '../Application/AppAL/System/ISystemActions'
+import {IHomeModule} from '../Modules/Home/IHomeModule'
 
-const routes = (args: {appState: IAppState, userActions: IUserActions, systemActions: ISystemActions}) => {
+import {Layout} from '../Application/Components'
+import {loadPage} from '../Application/Components/PageLoader'
+import NotFoundPage from '../Application/Pages/NotFound'
+
+const routes = (args: {
+  appState: IAppState,
+  userActions: IUserActions,
+  systemActions: ISystemActions
+}) => {
   let permissions = args.appState.user.permissions
   return (
     <Route>
@@ -30,6 +36,6 @@ const routes = (args: {appState: IAppState, userActions: IUserActions, systemAct
       <Route path="*" component={NotFoundPage} onEnter={() => {args.systemActions.goto('/')}}/>
     </Route>
   )
-};
+}
 
 export default routes

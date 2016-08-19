@@ -7,32 +7,32 @@ import {IHomeState} from './IHomeState'
 export class HomeState implements IHomeState {
 
   @observable
-  i18n: I18n;
+  i18n: I18n
 
   @observable
-  counter: number = 0;
+  counter: number = 0
 
   @observable
-  counterChanging: boolean = false;
+  counterChanging: boolean = false
 
   @observable
-  list: IForm[] = null;
+  list: IForm[] = null
 
   @observable
-  listIsLoading: boolean = false;
+  listIsLoading: boolean = false
 
   @observable
-  listItems: IForm[] = null;
+  listItems: IForm[] = null
 
   @observable
-  complexFormValue: IComplexFormValue = null;
+  complexFormValue: IComplexFormValue = null
 
   @observable
-  complexFormValueIsLoading: boolean = false;
+  complexFormValueIsLoading: boolean = false
 
   @observable
-  complexFormValueIsSaving: boolean = false;
+  complexFormValueIsSaving: boolean = false
 
 }
 
-export default HomeState;
+export default HomeState

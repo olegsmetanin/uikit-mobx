@@ -16,7 +16,7 @@ import {SystemService} from './Application/AppAL/System/SystemService'
 import {SystemActions} from './Application/AppAL/System/SystemActions'
 import {UIActions} from './Application/AppAL/UI/UIActions'
 
-require('./styles/docs.scss');
+require('./styles/docs.scss')
 
 window['docs'] = (options: any) => {
 

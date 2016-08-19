@@ -1,23 +1,23 @@
 export class HTTPError extends Error {
   constructor(status: number, msg: string) {
-    super(msg);
-    this.message = msg;
-    this.status = status;
+    super(msg)
+    this.message = msg
+    this.status = status
   }
 
-  status: number;
+  status: number
 }
 
 export class ConnectionBrokenError extends HTTPError {
   constructor() {
-    super(0, 'Connection to server broken');
+    super(0, 'Connection to server broken')
   }
 }
 
 export class AuthenticationRequiredError extends HTTPError {
   constructor(data?: {[prop: string]: any}) {
-    super(401, 'Authentication required');
+    super(401, 'Authentication required')
 
-    Object.assign(this, data);
+    Object.assign(this, data)
   }
 }

@@ -1,7 +1,7 @@
 export interface IHomeModule {
-  HomePage: any;
-  ListPage: any;
-  ComplexFormPage: any;
+  HomePage: any
+  ListPage: any
+  ComplexFormPage: any
 }
 
-export default IHomeModule;
+export default IHomeModule
