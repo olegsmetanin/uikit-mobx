@@ -1,5 +1,5 @@
 import {observable} from '../../lib/Reactive';
-import {I18n, ContainerWidth, IConfirmDialog} from 'components'
+import {I18n, ContainerWidth} from 'components'
 import {IAppState} from './IAppState'
 import {IUser} from './User/IUser'
 import {ISystem} from './System/ISystem'
@@ -43,7 +43,14 @@ export class AppState implements IAppState {
   i18n: I18n
 
   @observable
-  confirmDialog: IConfirmDialog = null
+  confirmDialogBody: any = null
+
+  /* !!! https://github.com/mobxjs/mobx/issues/421 */
+  confirmDialogOnConfirm: () => void
+
+  confirmDialogOnCancel: () => void
+
+  isDirty: boolean = false
 
 }
 

@@ -1,5 +1,5 @@
 import delay from '../../../utils/Promise/delay'
-import IHTTPClient from '../../../utils/http/IHTTPClient'
+import IHTTPClient from '../../../../../src/components/api/http/IHTTPClient'
 import {ISystemService} from './ISystemService'
 
 export class SystemService implements ISystemService {

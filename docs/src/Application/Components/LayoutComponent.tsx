@@ -12,6 +12,22 @@ export interface ILayoutProps {
 
 export class Layout extends React.Component<ILayoutProps, void> {
 
+  componentDidMount() {
+    console.log('Layout this.props', this.props)
+
+    this.props.router.setRouteLeaveHook(
+      this.props.route,
+      () => {
+          console.log('Layout setRouteLeaveHook')
+      }
+    )
+  }
+
+
+  routerWillLeave = (route) => {
+    console.log('routerWillLeave')
+  }
+
   render() {
     return (
       <Container

@@ -1,9 +1,11 @@
 import {ContainerWidth} from 'components'
-import {IConfirmDialog} from '../../../../../src/components/api/IConfirmDialog'
 
 export interface IUIState {
   layoutWidth: ContainerWidth
-  confirmDialog: IConfirmDialog
+  confirmDialogBody: any
+  confirmDialogOnConfirm: () => void
+  confirmDialogOnCancel: () => void
+  isDirty: boolean
 }
 
 export default IUIState;

@@ -1,3 +1,4 @@
 {
-  "app:title": "app de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"
+  "app:title": "app de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}",
+  "app:leaveConfirmDialog": "DE: You have unsaved information, are you sure you want to leave this page?"
 }

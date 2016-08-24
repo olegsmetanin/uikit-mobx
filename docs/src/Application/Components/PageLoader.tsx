@@ -31,6 +31,7 @@ export const pageLoaderComponent = (bundleLoader: any, args: any, pageResolver: 
 
     constructor(props, context) {
       super(props, context)
+
       this.state = {
         isLoaded: false,
         error: null

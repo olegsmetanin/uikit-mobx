@@ -4,8 +4,8 @@ import {observer} from 'mobx-react'
 
 import * as _ from 'lodash'
 
-import {IConfirmDialog} from 'components/api/IConfirmDialog'
-import {I18n} from 'components/api/I18n'
+import {IConfirmDialog} from '../../api/ui/IConfirmDialog'
+import {I18n} from '../../api/i18n/I18n'
 
 export enum SelectOptions { Option1, Option2, Option3 }
 
@@ -21,6 +21,7 @@ export interface IComplexFormProps {
   i18n: I18n
   value: IComplexFormValue
   onSave: (value: IComplexFormValue) => void
+  onDelete: (value: IComplexFormValue) => void
   onDirtyChange?: (isDirty: boolean) => void
   showConfirmDialog: (confirmDialog: IConfirmDialog) => Promise<void>
 }
@@ -66,7 +67,7 @@ export class ComplexForm extends React.Component<IComplexFormProps, void> {
         </div>
       ),
       onConfirm: () => {
-        console.log('Delete!')
+        this.props.onDelete(this.value)
       }
     })
   }

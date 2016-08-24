@@ -24,12 +24,14 @@ const routes = (args: {
     <Route>
       <Route path="/" component={Layout}>
         <IndexRoute
-          getComponent={loadPage(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IHomeModule) => module.HomePage)}/>
+          getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.HomePage)}/>
         <Route path="list"
-               getComponent={loadPage(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IHomeModule) => module.ListPage)}/>
+               getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.ListPage)}/>
+        <Route path="somedoc/:id"
+               getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.SomeDocFormPage)}/>
         {permissions.v === 1 && (
           <Route path="complex"
-               getComponent={loadPage(require('bundle?lazy&name=home!../Modules/Home/index.ts'), args, (module: IHomeModule) => module.ComplexFormPage)}/>
+               getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.ComplexFormPage)}/>
         )}
       </Route>
 

@@ -1,6 +1,8 @@
-import {IConfirmDialog} from 'components/api/IConfirmDialog'
+import {IConfirmDialog} from '../../../../../src/components/api/ui/IConfirmDialog'
 export interface IUIActions {
-  showConfirmDialog: (confirmDialog: IConfirmDialog) => Promise<void>
+  showConfirmDialog: (confirmDialog: IConfirmDialog) => void
+  hideConfirmDialog: (confirmed: boolean) => void
+  setDirty: (isDirty: boolean) => void
 }
 
 export default IUIActions

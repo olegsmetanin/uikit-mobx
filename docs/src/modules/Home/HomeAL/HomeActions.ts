@@ -72,6 +72,7 @@ export class HomeActions implements IHomeActions {
     store.complexFormValue = complexValue
     store.complexFormValueIsSaving = false
   }
+
 }
 
 export default HomeActions

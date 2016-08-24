@@ -13,6 +13,12 @@ import {HomeActions} from './HomeAL/HomeActions'
 import HomePage from './Pages/HomePage'
 import ListPage from './Pages/ListPage'
 import ComplexFormPage from './Pages/ComplexFormPage'
+import {SomeDocActions} from './SomeDoc/SomeDocActions'
+import {SomeDocState} from './SomeDoc/SomeDocState'
+// import {IHTTPClient} from 'components'
+import {SomeDocFormPage} from './SomeDoc/SomeDocFormPage'
+import {SomeDocFakeService} from './SomeDoc/SomeDocFakeService'
+import {withRouter} from 'lib/Router'
 
 // singleton )
 let module: IHomeModule = null
@@ -21,12 +27,14 @@ const init = async ({
     appState,
     userActions,
     systemActions,
-    uiActions
+    uiActions,
+    // httpClient
   }: {
     appState: IAppState,
     userActions: IUserActions,
     systemActions: ISystemActions,
-    uiActions: IUIActions
+    uiActions: IUIActions,
+    // httpClient: IHTTPClient
   }) => {
 
   if (module) {
@@ -42,6 +50,9 @@ const init = async ({
     () => appState.i18n
   )
 
+  const someDocState = new SomeDocState()
+  const someDocActions = new SomeDocActions(someDocState, new SomeDocFakeService())
+
   reaction(
     () => appState.system && appState.system.lang,
     lang => homeActions.loadLang(lang, () => appState.i18n)
@@ -53,7 +64,9 @@ const init = async ({
     uiActions,
     userActions,
     homeState,
-    homeActions
+    homeActions,
+    someDocState,
+    someDocActions
   }
   const ConnectedHomePage = inject(() => (
     statesAndActions
@@ -67,10 +80,15 @@ const init = async ({
     statesAndActions
   ))(observer(ComplexFormPage))
 
+  const ConnectedSomeDocFormPage = inject((allStores, nextProps) =>
+    Object.assign({}, statesAndActions, nextProps)
+  )(withRouter(observer(SomeDocFormPage)))
+
   module = {
     HomePage: ConnectedHomePage,
     ListPage: ConnectedListPage,
-    ComplexFormPage: ConnectedComplexFormPage
+    ComplexFormPage: ConnectedComplexFormPage,
+    SomeDocFormPage: ConnectedSomeDocFormPage
   }
 
   return module

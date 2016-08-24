@@ -22,9 +22,14 @@ class ComplexFormPage extends React.Component<IComplexFormPageProps, void> {
   }
 
   onSave = (value) => {
-    // console.log(JSON.stringify(value));
     this.props.homeActions.saveComplexFormValue(value)
-  };
+  }
+
+  onDelete = async (value) => {
+    console.log('Delete', value)
+    // await this.props.homeActions.deleteComplexFormValue(value.id)
+    // goto list?
+  }
 
   render() {
     let {appState, homeState, systemActions, uiActions} = this.props
@@ -45,6 +50,7 @@ class ComplexFormPage extends React.Component<IComplexFormPageProps, void> {
               showConfirmDialog={uiActions.showConfirmDialog}
               i18n={homeState.i18n}
               onSave={this.onSave}
+              onDelete={this.onDelete}
             />
           </div>
         )}

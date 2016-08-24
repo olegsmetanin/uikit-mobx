@@ -1,8 +1,7 @@
-import {observable} from '../../../lib/Reactive'
+import {observable} from 'lib/Reactive'
 
 import {I18n, IForm, IComplexFormValue} from 'components'
 import {IHomeState} from './IHomeState'
-
 
 export class HomeState implements IHomeState {
 

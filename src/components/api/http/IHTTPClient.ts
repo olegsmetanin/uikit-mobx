@@ -11,7 +11,7 @@ export interface IHTTPRequest {
 /**
  * XHR wrapper with error handling
  */
-interface IHTTPClient {
+export interface IHTTPClient {
   send(request: IHTTPRequest): Promise<any>
 }
 

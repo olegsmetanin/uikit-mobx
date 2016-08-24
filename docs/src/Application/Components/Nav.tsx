@@ -56,6 +56,9 @@ export class Nav extends React.Component<INavProps, void> {
               <li className={router.isActive('/complex', true) ? 'active' : ''}>
                 <Link to={'/complex'}>ComplexForm</Link>
               </li>
+              <li className={router.isActive('/somedoc/0', true) ? 'active' : ''}>
+                <Link to={'/somedoc/0'}>SomeDocForm/0</Link>
+              </li>
               <li className={router.isActive('/list', true) ? 'active' : ''}>
                 <Link to={'/list'}>List</Link>
               </li>

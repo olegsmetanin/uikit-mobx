@@ -1,28 +1,28 @@
 import * as React from 'react';
 import {IAppState} from '../AppAL/IAppState'
+import {IUIActions} from '../AppAL/UI/IUIActions'
 
 export interface IConfirmDialogProps {
   appState: IAppState
+  uiActions: IUIActions
 }
 
 export class ConfirmDialog extends React.Component<IConfirmDialogProps, void> {
 
   onConfirm = () => {
-    /* !!! https://github.com/mobxjs/mobx/issues/421 */
-    this.props.appState.confirmDialog.onConfirm
-    this.props.appState.confirmDialog = null
+    this.props.uiActions.hideConfirmDialog(true)
   }
 
   onCancel = () => {
-    this.props.appState.confirmDialog = null
+    this.props.uiActions.hideConfirmDialog(false)
   }
 
   render() {
     const {appState} = this.props
-    return appState.confirmDialog
+    return appState.confirmDialogBody
       ? (
         <div>
-          {appState.confirmDialog.body}
+          {appState.confirmDialogBody}
           <button onClick={this.onConfirm}>OK</button>
           <button onClick={this.onCancel}>Cancel</button>
         </div>
