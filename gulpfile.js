@@ -46,8 +46,6 @@ gulp.task('tslint', function () {
   return gulp.src([
     'src/**/*.ts',
     'src/**/*.tsx',
-    'docs/src/**/*.ts',
-    'docs/src/**/*.tsx',
     'test/**/*.ts',
     'test/**/*.tsx'
   ])
@@ -62,7 +60,7 @@ gulp.task('lint', function (done) {
 });
 
 gulp.task('docs:copy', function () {
-  return gulp.src(['docs/webpublic/**/*']).pipe(gulp.dest('build/docs'));
+  return gulp.src(['webpublic/**/*']).pipe(gulp.dest('build/docs'));
 });
 
 gulp.task('docs:compile', function (done) {

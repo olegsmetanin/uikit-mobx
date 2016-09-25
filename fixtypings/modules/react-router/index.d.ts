@@ -116,7 +116,7 @@ module ReactRouter {
 
 	type Params = { [paramName: string]: any };
 
-	//Components
+	//сomponents
 	export interface IRouterProps {
 		/**
 		 * children (required)
@@ -708,7 +708,7 @@ module ReactRouter {
 
 	export class IndexRedirect extends React.Component<IIndexRedirectProps, {}>{ }
 
-	//Route Components
+	//Route сomponents
 
 	//TODO : This feels a little out of place
 	export interface IRoute {

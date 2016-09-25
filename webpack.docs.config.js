@@ -22,7 +22,7 @@ var docsConfig = {
     docs: (isProduction
       ? []
       : ['webpack-hot-middleware/client?http://localhost:' + PORT])
-      .concat([path.resolve(__dirname, './docs/src/index.tsx')])
+      .concat([path.resolve(__dirname, './src/application/index.tsx')])
     ,
     lib: ['react', 'react-dom', 'react-router', 'mobx', 'mobx-react', 'moment', 'jsonschema']
   },
@@ -40,7 +40,6 @@ var docsConfig = {
         loader: 'tslint',
         include: [
           path.join(__dirname, './src'),
-          path.join(__dirname, './docs/src'),
         ]
       }
     ],
@@ -57,7 +56,6 @@ var docsConfig = {
         ],
         include: [
           path.join(__dirname, './src'),
-          path.join(__dirname, './docs/src')
         ]
       },
       {
@@ -66,7 +64,6 @@ var docsConfig = {
           'css?sourceMap!postcss!resolve-url!sass?sourceMap!sass-resources'],
         include: [
           path.join(__dirname, './src'),
-          path.join(__dirname, './docs/src')
         ]
       },
       {
@@ -74,7 +71,6 @@ var docsConfig = {
         loaders: ['json'],
         include: [
           path.join(__dirname, './src'),
-          path.join(__dirname, './docs/src')
         ]
       }, {
         test: /\.svg$/,
@@ -102,7 +98,6 @@ var docsConfig = {
   resolve: {
     root: [
       path.resolve(__dirname, './src'),
-      path.resolve(__dirname, './docs/src')
     ],
     extensions: ['', '.js', '.ts', '.tsx']
   },
@@ -113,7 +108,7 @@ var docsConfig = {
     ]
   },
 
-  sassResources: ['./src/styles/common.scss'],
+  sassResources: ['./src/generic/styles/common.scss'],
 
   postcss: function () {
     return [autoprefixer({ browsers: ['last 2 versions'] })];

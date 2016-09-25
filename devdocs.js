@@ -10,7 +10,7 @@ var webpack = require('webpack'),
   appconfig = require('./application.config'),
   port = appconfig.back.webpackDevServerPort,
   compiler = webpack(config),
-  wdm = webpackDevMiddleware(compiler, { noInfo: false }),
+  wdm = webpackDevMiddleware(compiler, {noInfo: true, stats: {chunks: false}}),
   whm = webpackHotMiddleware(compiler, {}),
   ws = express.static('./build/docs');
 

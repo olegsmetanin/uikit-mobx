@@ -4,11 +4,11 @@
     "es6-promise": "registry:npm/es6-promise#3.0.0+20160723033700",
     "lodash": "registry:npm/lodash#4.0.0+20160723033700",
     "react": "registry:npm/react#15.0.1+20160601175240",
-    "react-dom": "registry:npm/react-dom#15.0.1+20160705210405"
+    "react-dom": "registry:npm/react-dom#15.0.1+20160826174104",
+    "tape": "registry:npm/tape#4.0.0+20160723033700"
   },
   "devDependencies": {},
   "globalDependencies": {
-    "mocha": "registry:dt/mocha#2.2.5+20160720003353",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#48c1e3c1d6baefa4f1a126f188c27c4fefd36bff"
   }
 }
