@@ -65,8 +65,8 @@ const register = async ({
   const customerService = new CustomerService('/')
 
   const ConnectedOrderViewPage = inject((allStores, nextProps) => (
-    // {orderService, customerService, ConfirmDialog}
-    // bug
+    // bug https://github.com/mobxjs/mobx-react/issues/110
+    // return ({orderService, customerService, ConfirmDialog})
     Object.assign({}, statesAndActions, {orderService, customerService, ConfirmDialog}, nextProps)
   ))(withRouter(observer(OrderViewPage)))
 
