@@ -1,2 +1,1 @@
-webpackJsonp([4],{383:function(o,t){o.exports={"some:title":"some de app ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"}}});
-//# sourceMappingURL=4.js.map
+webpackJsonp([4],{396:function(e,o){e.exports={"app:title":"app de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}","app:leaveConfirmDialog":"DE: You have unsaved information, are you sure you want to leave this page?","System:ConfirmDialog:Ok":"OK (DE)","System:ConfirmDialog:Cancel":"Cancel (DE)"}}});

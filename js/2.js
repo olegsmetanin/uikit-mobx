@@ -1,2 +1,1 @@
-webpackJsonp([2],{371:function(o,t){o.exports={"some:title":"some de mod ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"}}});
-//# sourceMappingURL=2.js.map
+webpackJsonp([2],{377:function(o,t){o.exports={"module:title":"module de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}"}}});
