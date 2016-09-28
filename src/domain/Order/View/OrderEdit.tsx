@@ -3,8 +3,7 @@ import * as React from 'react'
 import {observable} from 'lib/Reactive'
 
 import * as _ from 'lodash'
-import {IOrder} from '../Model/IOrder'
-import {IOrderState} from './IOrderState'
+import {IOrder} from './IOrder'
 import {I18n} from 'generic'
 
 export interface IOrderEditProps {
@@ -18,21 +17,16 @@ export interface IOrderEditProps {
 export class OrderEdit extends React.Component<IOrderEditProps, void> {
 
   @observable
-  orderEditState: IOrderState
+  order: IOrder
 
   constructor(props, context) {
     super(props, context)
-    this.orderEditState = {
-      value: _.cloneDeep(props.value),
-      isDirty: false,
-      isLoading: false
-    }
+    this.order = _.cloneDeep(props.value)
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('OrderEdit componentWillReceiveProps', nextProps)
-    this.orderEditState.value = _.cloneDeep(nextProps.value)
-    this.orderEditState.isDirty = false
+    this.order = _.cloneDeep(nextProps.value)
     this.setDirty(false)
   }
 
@@ -41,32 +35,32 @@ export class OrderEdit extends React.Component<IOrderEditProps, void> {
   }
 
   onSave = () => {
-    this.props.onSave(_.cloneDeep(this.orderEditState.value))
+    this.props.onSave(_.cloneDeep(this.order))
   }
 
   onChangeName = (e) => {
-    this.orderEditState.value.name = e.target.value
+    this.order.name = e.target.value
     this.setDirty(true)
   }
 
   onChangeCustomer = (customer: {id: string, name: string}) => {
-    this.orderEditState.value.customer = customer
+    this.order.customer = customer
     this.setDirty(true)
   }
 
   onChangeCustomer1 = (customer: {id: string, name: string}) => {
-    this.orderEditState.value.customer1 = customer
+    this.order.customer1 = customer
     this.setDirty(true)
   }
 
   render() {
-    let orderEditState = this.orderEditState
+    let order = this.order
     const CustomerLookup = this.props.CustomerLookup
     return (
       <div>
-        <input type="text" value={orderEditState.value.name} onChange={this.onChangeName}/>
-        <CustomerLookup value={orderEditState.value.customer} onChange={this.onChangeCustomer}/>
-        <CustomerLookup value={orderEditState.value.customer1} onChange={this.onChangeCustomer1}/>
+        <input type="text" value={order.name} onChange={this.onChangeName}/>
+        <CustomerLookup value={order.customer} onChange={this.onChangeCustomer}/>
+        <CustomerLookup value={order.customer1} onChange={this.onChangeCustomer1}/>
         <button onClick={this.onSave}>Save</button>
       </div>
     )

@@ -1,12 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
-import {CustomerLookupActions} from './CustomerLookupActions'
+import {reaction, observer, observable, transaction} from 'lib/Reactive'
 import {ICustomerLookupState} from './ICustomerLookupState'
-import {reaction, observer, observable} from 'lib/Reactive'
-import {ICustomerService} from '../Service/ICustomerService'
+import {ICustomerService} from '../ICustomerService'
 import {Lookup} from 'generic/Lookup/Lookup'
-
+import {ICustomerLookup} from './ICustomerLookup';
 
 export const createCustomerLookup = (service: ICustomerService) => {
 
@@ -19,13 +18,26 @@ export const createCustomerLookup = (service: ICustomerService) => {
       page: 0
     })
 
-    actions: CustomerLookupActions
+    lookup = async (filter: any, page = 0, add = false) => {
+      let state = this.theState
+      state.isLoading = true
+      console.log('OrderListActions is loading true')
+      let res = await service.list(filter, page)
+      let {value, count} = res
+      let _page = res.page
 
-    constructor(props, context) {
-      super(props, context)
-      this.actions = new CustomerLookupActions(this.theState, service)
-      console.log('createCustomerLookup actions', this.actions)
+      transaction(() => {
+        if (add) {
+          state.value = state.value.concat(value)
+        } else {
+          state.value = value
+        }
 
+        state.count = count
+        state.page = _page
+        state.isLoading = false
+      })
+      console.log('OrderListActions is loading false')
     }
 
     render() {
@@ -34,7 +46,7 @@ export const createCustomerLookup = (service: ICustomerService) => {
           isLoading={this.theState.isLoading}
           count={this.theState.count}
           data={this.theState.value}
-          onSearch={this.actions.lookup}
+          onSearch={this.lookup}
           {...this.props}
         />
       )

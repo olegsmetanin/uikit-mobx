@@ -1,6 +1,6 @@
 import {ICustomerService} from './ICustomerService'
-import delay from '../../../generic/utils/delay'
-import {ICustomer} from '../Model/ICustomer'
+import delay from '../../generic/utils/delay'
+import {ICustomer} from './View/ICustomer'
 
 let testCustomerList: ICustomer[] = [
   {

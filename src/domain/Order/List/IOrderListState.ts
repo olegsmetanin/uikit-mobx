@@ -1,4 +1,4 @@
-import {IOrder} from '../Model/IOrder'
+import {IOrder} from '../View/IOrder'
 
 export interface IOrderListState {
   value: IOrder[]

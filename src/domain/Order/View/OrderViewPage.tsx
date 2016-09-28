@@ -1,22 +1,22 @@
 import * as React from 'react'
 
 import {observer, observable} from 'lib/Reactive'
-import {IOrderState} from './IOrderState'
+import {IOrderViewState} from './IOrderViewState'
 import {IOrderViewActions} from './IOrderViewActions'
 import {OrderViewActions} from './OrderViewActions'
-import {IOrderService} from '../Service/IOrderService'
-import {IOrder} from '../Model/IOrder'
+import {IOrderService} from '../IOrderService'
+import {IOrder} from './IOrder'
 import {OrderEdit} from './OrderEdit'
 import {createCustomerLookup} from 'domain/Customer/Lookup/createCustomerLookup'
-import {ICustomerService} from 'domain/Customer/Service/ICustomerService'
+import {ICustomerService} from '../../Customer/ICustomerService'
 import {OrderView} from './OrderView'
 import {ISystemActions} from 'application/AppAL/System/ISystemActions'
+import {IOrderCreateRequest} from '../Create/IOrderCreateRequest';
 
 export interface IOrderViewPageProps {
   params: {id: string}
   router: any
   route: any
-  state: IOrderState
   orderService: IOrderService
   customerService: ICustomerService
   systemActions: ISystemActions
@@ -36,10 +36,13 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
   actions: IOrderViewActions
 
   @observable
-  orderState: IOrderState
+  orderState: IOrderViewState
 
   @observable
   mode: mode = mode.View
+
+  @observable
+  orderCreateRequest: IOrderCreateRequest
 
   CustomerLookup: any
   OrderEdit: any
@@ -52,7 +55,9 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
     this.orderState = {
       value: null,
       isLoading: false,
-      isDirty: false
+      isSaving: false,
+      isDeleting: false,
+      isDirty: false,
     }
 
     this.actions = new OrderViewActions(this.orderState, this.props.orderService)
@@ -93,8 +98,7 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
 
     this.props.systemActions.showDialog(
       <ConfirmDialog onConfirm={() => {
-        // this.actions.delete(this.orderState.value.id)
-        console.log('delete order')
+        this.actions.delete(this.orderState.value.id)
       }}>
         Are you sure to delete?
       </ConfirmDialog>
@@ -118,6 +122,7 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
               onEdit={this.onOrderEdit}
               onSign={this.onOrderSign}
               onDelete={this.onOrderDelete}
+              isDeleting={this.orderState.isDeleting}
             />
           )
         }
@@ -125,8 +130,8 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
           (
             <OrderEdit
               value={this.orderState.value}
-              onSave={this.onOrderSave}
               CustomerLookup={this.CustomerLookup}
+              onSave={this.onOrderSave}
               onDirtyChange={this.onDirtyChange}
             />
           )

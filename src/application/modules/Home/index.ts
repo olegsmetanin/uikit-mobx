@@ -11,11 +11,12 @@ import {HomeActions} from './HomeAL/HomeActions'
 
 import HomePage from './pages/HomePage'
 import {withRouter} from 'lib/Router'
-import {OrderViewPage} from 'domain/Order/Item/OrderViewPage'
-import {OrderService} from 'domain/Order/Service/OrderService'
-import {CustomerService} from 'domain/Customer/Service/CustomerService'
+import {OrderViewPage} from '../../../domain/Order/View/OrderViewPage'
+import {OrderService} from '../../../domain/Order/OrderService'
+import {CustomerService} from '../../../domain/Customer/CustomerService'
 
 import {ConfirmDialog} from 'application/сomponents'
+import {OrderListViewPage} from 'domain/Order/List/OrderListViewPage';
 
 // singleton )
 let module: IHomeModule = null
@@ -64,6 +65,13 @@ const register = async ({
   const orderService = new OrderService('/')
   const customerService = new CustomerService('/')
 
+  const ConnectedOrderViewListPage = inject((allStores, nextProps) => (
+    // bug https://github.com/mobxjs/mobx-react/issues/110
+    // return ({orderService, customerService, ConfirmDialog})
+    Object.assign({}, statesAndActions, {orderService, customerService, ConfirmDialog}, nextProps)
+  ))(withRouter(observer(OrderListViewPage)))
+
+
   const ConnectedOrderViewPage = inject((allStores, nextProps) => (
     // bug https://github.com/mobxjs/mobx-react/issues/110
     // return ({orderService, customerService, ConfirmDialog})
@@ -72,7 +80,9 @@ const register = async ({
 
   module = {
     HomePage: ConnectedHomePage,
+    OrderListViewPage: ConnectedOrderViewListPage,
     OrderViewPage: ConnectedOrderViewPage
+
   }
 
   return module

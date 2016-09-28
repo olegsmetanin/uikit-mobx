@@ -1,5 +1,5 @@
-import {ICustomer} from '../Model/ICustomer'
-import {ICustomerLookup} from '../Model/ICustomerLookup'
+import {ICustomer} from './View/ICustomer'
+import {ICustomerLookup} from './Lookup/ICustomerLookup'
 
 export interface ICustomerService {
 

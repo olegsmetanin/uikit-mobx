@@ -1,4 +1,5 @@
-import {ICustomerLookup} from '../../Customer/Model/ICustomerLookup'
+import {ICustomerLookup} from '../../Customer/Lookup/ICustomerLookup'
+
 export interface IOrder {
   id: string
   customer: ICustomerLookup

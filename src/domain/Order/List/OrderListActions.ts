@@ -1,5 +1,4 @@
-
-import {IOrderService} from '../Service/IOrderService'
+import {IOrderService} from '../IOrderService'
 import {IOrderListState} from './IOrderListState'
 import {IOrderListActions} from './IOrderListActions'
 import {transaction} from 'lib/Reactive'

@@ -1,5 +1,5 @@
 
-import {ICustomerLookup} from '../Model/ICustomerLookup'
+import {ICustomerLookup} from './ICustomerLookup'
 
 export interface ICustomerLookupState {
   value: ICustomerLookup[]

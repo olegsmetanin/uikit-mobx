@@ -3,6 +3,7 @@ export interface IHomeModule {
   // ListPage: any
   // ComplexFormPage: any
   // SomeDocFormPage: any
+  OrderListViewPage: any
   OrderViewPage: any
 }
 

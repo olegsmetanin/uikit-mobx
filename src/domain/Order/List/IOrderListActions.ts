@@ -1,5 +1,5 @@
 export interface IOrderListActions {
 
-  list: (filter: any, page: number, add: boolean) => void
+  list: (filter: any, page?: number, add?: boolean) => void
 
 }
