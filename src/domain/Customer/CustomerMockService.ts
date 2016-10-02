@@ -15,7 +15,7 @@ let testCustomerList: ICustomer[] = [
 
 let testCustomerLookupList = testCustomerList
 
-export class CustomerService implements ICustomerService {
+export class CustomerMockService implements ICustomerService {
 
   path: string
 

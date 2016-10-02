@@ -1,7 +1,7 @@
 import {IOrderService} from './IOrderService'
 import {delay} from 'generic/utils/delay'
 import {IOrder} from './View/IOrder'
-import {IOrderCreateRequest} from './Create/IOrderCreateRequest'
+import {IOrderCreate} from './Create/IOrderCreate'
 import * as _ from 'lodash'
 
 let testOrderList: IOrder[] = [
@@ -21,7 +21,7 @@ let testOrderList: IOrder[] = [
     }
   ]
 
-export class OrderService implements IOrderService {
+export class OrderMockService implements IOrderService {
 
   path: string
 
@@ -29,7 +29,13 @@ export class OrderService implements IOrderService {
     this.path = path
   }
 
-  create = async (createRequest: IOrderCreateRequest) => {
+  prefill = async () => {
+    let predata = _.omit(testOrderList[0], ['id'])
+    console.log('predata', predata)
+    return await delay(predata, 1000)
+  }
+
+  create = async (createRequest: IOrderCreate) => {
     let newValue: IOrder = _.assign(
       createRequest,
       {id: testOrderList.length}

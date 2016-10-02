@@ -4,12 +4,12 @@ import {observer, observable} from 'lib/Reactive'
 
 import * as _ from 'lodash'
 import {I18n} from 'generic'
-import {IOrderCreateRequest} from './IOrderCreateRequest';
+import {IOrderCreate} from './IOrderCreate';
 
 export interface IOrderCreateProps {
-  value: IOrderCreateRequest
+  value: IOrderCreate
   onDirtyChange?: (isDirty: boolean) => void
-  onCreate: (value: IOrderCreateRequest) => void
+  onCreate: (value: IOrderCreate) => void
   onCancel: () => void
   i18n: I18n
   CustomerLookup: any
@@ -19,17 +19,11 @@ export interface IOrderCreateProps {
 export class OrderCreate extends React.Component<IOrderCreateProps, void> {
 
   @observable
-  order: IOrderCreateRequest
+  order: IOrderCreate
 
   constructor(props, context) {
     super(props, context)
     this.order = _.cloneDeep(props.value)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('OrderCreate componentWillReceiveProps', nextProps)
-    this.order = _.cloneDeep(nextProps.value)
-    this.setDirty(false)
   }
 
   setDirty(isDirty) {

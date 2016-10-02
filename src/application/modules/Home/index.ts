@@ -11,9 +11,9 @@ import {HomeActions} from './HomeAL/HomeActions'
 
 import HomePage from './pages/HomePage'
 import {withRouter} from 'lib/Router'
-import {OrderViewPage} from '../../../domain/Order/View/OrderViewPage'
-import {OrderService} from '../../../domain/Order/OrderService'
-import {CustomerService} from '../../../domain/Customer/CustomerService'
+import {OrderViewPage} from 'domain/Order/View/OrderViewPage'
+import {OrderMockService} from 'domain/Order/OrderMockService'
+import {CustomerMockService} from 'domain/Customer/CustomerMockService'
 
 import {ConfirmDialog} from 'application/сomponents'
 import {OrderListViewPage} from 'domain/Order/List/OrderListViewPage';
@@ -62,8 +62,8 @@ const register = async ({
     statesAndActions
   ))(observer(HomePage))
 
-  const orderService = new OrderService('/')
-  const customerService = new CustomerService('/')
+  const orderService = new OrderMockService('/')
+  const customerService = new CustomerMockService('/')
 
   const ConnectedOrderViewListPage = inject((allStores, nextProps) => (
     // bug https://github.com/mobxjs/mobx-react/issues/110

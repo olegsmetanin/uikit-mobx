@@ -20,17 +20,12 @@ export class Lookup extends React.Component<ILookupProps, ILookupState> {
 
   constructor(props, context) {
     super(props, context)
-    console.log('Autocomplete create')
     this.state = {
       text: '',
       searchOpened: false,
       page: 0
     }
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('Autocomplete componentWillReceiveProps', nextProps)
-  // }
 
   toggleSearch = () => {
     let searchOpened = !this.state.searchOpened
@@ -56,7 +51,6 @@ export class Lookup extends React.Component<ILookupProps, ILookupState> {
   }
 
   render() {
-    console.log('Autocompplete render this.props', this.props)
     let data = this.props.data
     return (
       <div>

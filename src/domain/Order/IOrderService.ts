@@ -1,10 +1,12 @@
 import {IOrder} from './View/IOrder'
 import {IOrderLookup} from './Lookup/IOrderLookup'
-import {IOrderCreateRequest} from './Create/IOrderCreateRequest';
+import {IOrderCreate} from './Create/IOrderCreate';
 
 export interface IOrderService {
 
-  create: (createRequest: IOrderCreateRequest) => Promise<IOrder>
+  prefill: () => Promise<IOrderCreate>
+
+  create: (value: IOrderCreate) => Promise<IOrder>
 
   get: (id: string) => Promise<IOrder>
 

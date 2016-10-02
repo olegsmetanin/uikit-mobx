@@ -1,17 +1,17 @@
 import * as React from 'react'
 
-import {observer, observable} from 'lib/Reactive'
-import {IOrderViewState} from './IOrderViewState'
+import {observer, observable, transaction} from 'lib/Reactive'
+import {IOrderState} from './IOrderState'
 import {IOrderViewActions} from './IOrderViewActions'
 import {OrderViewActions} from './OrderViewActions'
 import {IOrderService} from '../IOrderService'
 import {IOrder} from './IOrder'
-import {OrderEdit} from './OrderEdit'
 import {createCustomerLookup} from 'domain/Customer/Lookup/createCustomerLookup'
 import {ICustomerService} from '../../Customer/ICustomerService'
 import {OrderView} from './OrderView'
 import {ISystemActions} from 'application/AppAL/System/ISystemActions'
-import {IOrderCreateRequest} from '../Create/IOrderCreateRequest';
+import {IOrderCreate} from '../Create/IOrderCreate';
+import {createOrderEdit} from '../Edit/createOrderEdit';
 
 export interface IOrderViewPageProps {
   params: {id: string}
@@ -36,13 +36,13 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
   actions: IOrderViewActions
 
   @observable
-  orderState: IOrderViewState
+  orderState: IOrderState
 
   @observable
   mode: mode = mode.View
 
   @observable
-  orderCreateRequest: IOrderCreateRequest
+  orderCreateRequest: IOrderCreate
 
   CustomerLookup: any
   OrderEdit: any
@@ -58,6 +58,7 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
       isSaving: false,
       isDeleting: false,
       isDirty: false,
+      isUpdating: false
     }
 
     this.actions = new OrderViewActions(this.orderState, this.props.orderService)
@@ -67,7 +68,7 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
     )
 
     this.OrderEdit = observer(
-      this.props.OrderEdit || OrderEdit
+      this.props.OrderEdit || createOrderEdit(this.props.orderService)
     )
 
   }
@@ -80,8 +81,14 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
     this.actions.get(nextProps.params.id)
   }
 
-  onOrderSave = (value: IOrder) => {
-    this.orderState.value = value
+  onOrderChange = (value: IOrder) => {
+    transaction(() => {
+      this.orderState.value = value
+      this.mode = mode.View
+    })
+  }
+
+  onCancelEdit = () => {
     this.mode = mode.View
   }
 
@@ -112,7 +119,11 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
 
 
   render() {
-    console.log('OrderViewPage this.orderState.value', this.orderState.value)
+
+    const OrderEdit = this.OrderEdit
+
+//    console.log('OrderViewPage OrderEdit ', OrderEdit)
+
     return (
       <div>
         {this.orderState.value && this.mode === mode.View &&
@@ -131,7 +142,8 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
             <OrderEdit
               value={this.orderState.value}
               CustomerLookup={this.CustomerLookup}
-              onSave={this.onOrderSave}
+              onChange={this.onOrderChange}
+              onCancel={this.onCancelEdit}
               onDirtyChange={this.onDirtyChange}
             />
           )

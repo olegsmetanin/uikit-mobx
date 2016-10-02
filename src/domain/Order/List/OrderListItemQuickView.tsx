@@ -3,6 +3,7 @@ import {IOrder} from '../View/IOrder'
 
 export interface IOrderListItemQuickViewProps {
   value: IOrder
+  // OrderListView: any
 }
 
 export class OrderListItemQuickView extends React.Component<IOrderListItemQuickViewProps, void> {

@@ -1,6 +1,6 @@
 import {ICustomerLookup} from '../../Customer/Lookup/ICustomerLookup'
 
-export interface IOrderCreateRequest {
+export interface IOrderCreate {
   customer: ICustomerLookup
   customer1: ICustomerLookup
   name: string

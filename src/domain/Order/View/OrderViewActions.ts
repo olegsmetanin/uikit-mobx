@@ -1,14 +1,14 @@
 import {IOrderViewActions} from './IOrderViewActions'
 import {IOrderService} from '../IOrderService'
-import {IOrderViewState} from './IOrderViewState'
+import {IOrderState} from './IOrderState'
 import {IOrder} from './IOrder';
 
 export class OrderViewActions implements IOrderViewActions {
 
-  state: IOrderViewState
+  state: IOrderState
   service: IOrderService
 
-  constructor(state: IOrderViewState, service: IOrderService) {
+  constructor(state: IOrderState, service: IOrderService) {
     this.state = state
     this.service = service
   }
