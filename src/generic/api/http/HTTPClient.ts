@@ -4,7 +4,7 @@ import {HTTPError, AuthenticationRequiredError, ConnectionBrokenError} from './E
 require('whatwg-fetch')
 const fetch = window['fetch']
 
-class HTTPClient implements IHTTPClient {
+export class HTTPClient implements IHTTPClient {
 
   send(request: IHTTPRequest): Promise<any> {
     return new Promise((resolve, reject) => {

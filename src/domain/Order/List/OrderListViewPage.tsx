@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import {observer, observable} from 'lib/Reactive'
 import {IOrderService} from '../IOrderService'
-import {createCustomerLookup} from 'domain/Customer/Lookup/createCustomerLookup'
 import {ICustomerService} from '../../Customer/ICustomerService'
 import {ISystemActions} from 'application/AppAL/System/ISystemActions'
 import {IOrderListState} from './IOrderListState';
@@ -48,10 +47,6 @@ export class OrderListViewPage extends React.Component<IOrderViewPageProps, void
 
     this.actions = new OrderListActions(this.orderListState, this.props.orderService)
 
-    this.CustomerLookup = observer(
-      this.props.CustomerLookup || createCustomerLookup(this.props.customerService)
-    )
-
     this.OrderCreate = observer(
       this.props.OrderCreate || createOrderCreate(this.props.orderService)
     )
@@ -72,6 +67,7 @@ export class OrderListViewPage extends React.Component<IOrderViewPageProps, void
 
   render() {
     console.log('OrderListViewPage this.orderListState.value', this.orderListState.value)
+    const {CustomerLookup} = this.props
     return (
       <div>
         {this.orderListState.isLoading && (
@@ -85,7 +81,7 @@ export class OrderListViewPage extends React.Component<IOrderViewPageProps, void
               value={this.orderListState.value}
               OrderCreate={this.OrderCreate}
               onDirtyChange={this.onDirtyChange}
-              CustomerLookup={this.CustomerLookup}
+              CustomerLookup={CustomerLookup}
               onReload={this.onReload}
             />
           )

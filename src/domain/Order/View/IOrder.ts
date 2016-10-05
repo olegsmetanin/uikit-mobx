@@ -1,9 +1,9 @@
-import {ICustomerLookup} from '../../Customer/Lookup/ICustomerLookup'
+import {ILookup} from 'generic';
 
 export interface IOrder {
   id: string
-  customer: ICustomerLookup
-  customer1: ICustomerLookup
+  customer: ILookup
+  customer1: ILookup
   name: string
   price: number
 }

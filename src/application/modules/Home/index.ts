@@ -17,6 +17,9 @@ import {CustomerMockService} from 'domain/Customer/CustomerMockService'
 
 import {ConfirmDialog} from 'application/сomponents'
 import {OrderListViewPage} from 'domain/Order/List/OrderListViewPage';
+import {withProps} from 'generic/utils/withProps';
+import {CustomerLookup} from 'domain/Customer/Lookup/CustomerLookup';
+import {IEventBus} from 'generic';
 
 // singleton )
 let module: IHomeModule = null
@@ -25,11 +28,13 @@ const register = async ({
     appState,
     userActions,
     systemActions,
+    eventBus
     // httpClient
   }: {
     appState: IAppState,
     userActions: IUserActions,
     systemActions: ISystemActions,
+    eventBus: IEventBus
     // httpClient: IHTTPClient
   }) => {
 
@@ -65,18 +70,38 @@ const register = async ({
   const orderService = new OrderMockService('/')
   const customerService = new CustomerMockService('/')
 
+  const ConnectedCustomerLookup = withProps(() => ({
+    i18n: appState.i18n,
+    service: customerService,
+    eventBus: eventBus
+  }))(CustomerLookup)
+
   const ConnectedOrderViewListPage = inject((allStores, nextProps) => (
     // bug https://github.com/mobxjs/mobx-react/issues/110
     // return ({orderService, customerService, ConfirmDialog})
-    Object.assign({}, statesAndActions, {orderService, customerService, ConfirmDialog}, nextProps)
+    Object.assign({}, statesAndActions, {
+      orderService,
+      customerService,
+      ConfirmDialog,
+      CustomerLookup: ConnectedCustomerLookup
+    }, nextProps)
   ))(withRouter(observer(OrderListViewPage)))
 
 
-  const ConnectedOrderViewPage = inject((allStores, nextProps) => (
-    // bug https://github.com/mobxjs/mobx-react/issues/110
-    // return ({orderService, customerService, ConfirmDialog})
-    Object.assign({}, statesAndActions, {orderService, customerService, ConfirmDialog}, nextProps)
-  ))(withRouter(observer(OrderViewPage)))
+
+
+  const ConnectedOrderViewPage = withRouter(
+      withProps(() => ({
+        i18n: appState.i18n,
+        appState,
+        systemActions,
+        userActions,
+        orderService,
+        customerService,
+        ConfirmDialog,
+        CustomerLookup: ConnectedCustomerLookup
+      }))(OrderViewPage)
+  )
 
   module = {
     HomePage: ConnectedHomePage,

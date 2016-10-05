@@ -1,6 +1,6 @@
 import {IOrder} from './View/IOrder'
-import {IOrderLookup} from './Lookup/IOrderLookup'
 import {IOrderCreate} from './Create/IOrderCreate';
+import {ILookup} from 'generic';
 
 export interface IOrderService {
 
@@ -16,6 +16,6 @@ export interface IOrderService {
 
   list: (filter: any, page?: number) => Promise<{value: IOrder[], count: number, page: number}>
 
-  lookup: (filter: any, page?: number) => Promise<{value: IOrderLookup[], count: number, page: number}>
+  lookup: (filter: any, page?: number) => Promise<{value: ILookup[], count: number, page: number}>
 
 }

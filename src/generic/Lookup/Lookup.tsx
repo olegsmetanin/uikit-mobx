@@ -1,12 +1,13 @@
 import * as React from 'react'
+import {ILookup} from './ILookup';
 
 export interface ILookupProps {
-  value: {id: string, name: string}
-  onChange: (value: {id: string, name: string}) => void
+  value: ILookup
+  onChange: (value: ILookup) => void
 
   isLoading: boolean
   count: number
-  data: {id: string, name: string}[]
+  data: ILookup[]
   onSearch: (filter: any, page?: number) => void
 }
 
@@ -45,12 +46,12 @@ export class Lookup extends React.Component<ILookupProps, ILookupState> {
 //    this.props.onSearch({filter: {text: this.text}, page: this.page + 1, add: true})
   }
 
-  onChange = (value: {id: string, name: string}) => {
-    this.props.onChange({id: value.id, name: value.name})
+  onChange = (value: ILookup) => {
+    this.props.onChange(value)
     this.setState({searchOpened: false} as ILookupState)
   }
 
-  render() {
+  render () {
     let data = this.props.data
     return (
       <div>

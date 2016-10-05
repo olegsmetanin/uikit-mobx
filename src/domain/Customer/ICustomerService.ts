@@ -1,5 +1,5 @@
 import {ICustomer} from './View/ICustomer'
-import {ICustomerLookup} from './Lookup/ICustomerLookup'
+import {ILookup} from 'generic';
 
 export interface ICustomerService {
 
@@ -7,6 +7,6 @@ export interface ICustomerService {
 
   list: (filter: any, page?: number) => Promise<{value: ICustomer[], count: number, page: number}>
 
-  lookup: (filter: any, page?: number) => Promise<{value: ICustomerLookup[], count: number, page: number}>
+  lookup: (filter: any, page?: number) => Promise<{value: ILookup[], count: number, page: number}>
 
 }

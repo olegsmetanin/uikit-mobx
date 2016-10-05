@@ -7,15 +7,15 @@ import * as _ from 'lodash'
 let testOrderList: IOrder[] = [
     {
       id: '0',
-      customer: {id: '1', name: 'Customer1'},
-      customer1: {id: '1', name: 'Customer1'},
+      customer: {id: '1', name: 'Customer1', desc: 'Customer1'},
+      customer1: {id: '1', name: 'Customer1', desc: 'Customer1'},
       name: 'SomeOrder',
       price: 1
     },
     {
       id: '1',
-      customer: {id: '2', name: 'Customer2'},
-      customer1: {id: '2', name: 'Customer2'},
+      customer: {id: '2', name: 'Customer2', desc: 'Customer2'},
+      customer1: {id: '2', name: 'Customer2', desc: 'Customer2'},
       name: 'SomeOrder2',
       price: 2
     }
@@ -38,7 +38,7 @@ export class OrderMockService implements IOrderService {
   create = async (createRequest: IOrderCreate) => {
     let newValue: IOrder = _.assign(
       createRequest,
-      {id: testOrderList.length}
+      {id: testOrderList.length + ''}
     ) as IOrder
     testOrderList.push(newValue)
     return await delay(newValue, 1000)
@@ -67,7 +67,7 @@ export class OrderMockService implements IOrderService {
 
   lookup = async (text: string, page = 0) => {
     let filtred = _.filter(testOrderList, {name: text})
-      .map((item, i) => ({id: item.id, name: item.name}))
+      .map((item, i) => ({id: item.id, name: item.name, desc: item.name}))
 
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }

@@ -1,8 +1,8 @@
 
-import {ICustomerLookup} from './ICustomerLookup'
+import {ILookup} from 'generic';
 
 export interface ICustomerLookupState {
-  value: ICustomerLookup[]
+  value: ILookup[]
   count: number
   page: number
   isLoading: boolean

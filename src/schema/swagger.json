@@ -1,0 +1,312 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Open API services for basic NorthWind repository",
+        "description": "Open API services for basic NorthWind repository\n\n## Entity Data Model\n![ER Diagram](http://yuml.me/diagram/class/[Order],[OrderDetail],[Product],[Order]-0..1>[OrderDetail],[OrderDetail]-0..1>[Order], [OrderDetail]-0..1>[Product],[Product]-0..1>[OrderDetail])\n\n## References\n- [NorthWind](http://petstore.swagger.io/?url=https://raw.githubusercontent.com/ralfhandl/odata/master/People.openapi.json)",
+        "version": "0.0.1"
+    },
+    "host": "api.example.com",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v1",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/order/list": {
+            "post": {
+                "summary": "Get Order List",
+                "description": "Get Order List",
+                "tags": [
+                    "Order"
+                ],
+                "parameters": [{
+                    "name": "data",
+                    "in": "body",
+                    "required": true,
+                    "description": "data",
+                    "schema": {
+                        "$ref": "#/definitions/OrderListRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Order List data",
+                        "schema": {
+                            "$ref": "#/definitions/OrderListResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/get": {
+            "post": {
+                "summary": "Get Order by id",
+                "description": "Get Order by id",
+                "tags": [
+                    "Order"
+                ],
+                "parameters": [{
+                    "name": "data",
+                    "in": "body",
+                    "required": true,
+                    "description": "data",
+                    "schema": {
+                        "$ref": "#/definitions/RequestByID"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Order data",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/lookup": {
+            "post": {
+                "summary": "Customer Lookup",
+                "description": "Customer Lookup",
+                "tags": [
+                    "Customer"
+                ],
+                "parameters": [{
+                    "name": "data",
+                    "in": "body",
+                    "required": true,
+                    "description": "data",
+                    "schema": {
+                        "$ref": "#/definitions/LookupRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Order List data",
+                        "schema": {
+                            "$ref": "#/definitions/LookupResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/lookup": {
+            "post": {
+                "summary": "Product Lookup",
+                "description": "Product Lookup",
+                "tags": [
+                    "Product"
+                ],
+                "parameters": [{
+                    "name": "data",
+                    "in": "body",
+                    "required": true,
+                    "description": "data",
+                    "schema": {
+                        "$ref": "#/definitions/LookupRequest"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Product Lookup data",
+                        "schema": {
+                            "$ref": "#/definitions/LookupResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "OrderListRequest": {
+            "type": "object",
+            "properties": {
+                "filter": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "sort": {
+                    "type": "string"
+                },
+                "offset": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Position in pagination"
+                },
+                "limit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of items to retrieve (100 max)"
+                }
+            }
+        },
+        "OrderListResponse": {
+            "type": "object",
+            "properties": {
+                "offset": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Position in pagination"
+                },
+                "limit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of items to retrieve (100 max)"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total number of items available"
+                },
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Order"
+                    }
+                }
+            }
+        },
+        "Order": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Order id."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Order name"
+                },
+                "details": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderDetails"
+                    }
+                }
+            }
+        },
+        "OrderDetails": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Order details id."
+                },
+                "product": {
+                    "$ref": "#/definitions/Lookup"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "RequestByID": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+
+
+        "LookupRequest": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                },
+                "offset": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Position in pagination"
+                },
+                "limit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of items to retrieve (50 max)"
+                }
+            }
+        },
+        "LookupResponse": {
+            "type": "object",
+            "properties": {
+                "offset": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Position in pagination"
+                },
+                "limit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Number of items to retrieve (50 max)"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Total number of items available"
+                },
+                "value": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Lookup"
+                    }
+                }
+            }
+        },
+        "Lookup": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "id"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "name"
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

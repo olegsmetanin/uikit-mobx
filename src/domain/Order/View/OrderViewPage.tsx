@@ -6,7 +6,6 @@ import {IOrderViewActions} from './IOrderViewActions'
 import {OrderViewActions} from './OrderViewActions'
 import {IOrderService} from '../IOrderService'
 import {IOrder} from './IOrder'
-import {createCustomerLookup} from 'domain/Customer/Lookup/createCustomerLookup'
 import {ICustomerService} from '../../Customer/ICustomerService'
 import {OrderView} from './OrderView'
 import {ISystemActions} from 'application/AppAL/System/ISystemActions'
@@ -31,6 +30,7 @@ export enum mode {
   Sign
 }
 
+@observer
 export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
 
   actions: IOrderViewActions
@@ -62,10 +62,6 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
     }
 
     this.actions = new OrderViewActions(this.orderState, this.props.orderService)
-
-    this.CustomerLookup = observer(
-      this.props.CustomerLookup || createCustomerLookup(this.props.customerService)
-    )
 
     this.OrderEdit = observer(
       this.props.OrderEdit || createOrderEdit(this.props.orderService)
@@ -122,6 +118,7 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
 
     const OrderEdit = this.OrderEdit
 
+    const {CustomerLookup} = this.props
 //    console.log('OrderViewPage OrderEdit ', OrderEdit)
 
     return (
@@ -141,7 +138,7 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
           (
             <OrderEdit
               value={this.orderState.value}
-              CustomerLookup={this.CustomerLookup}
+              CustomerLookup={CustomerLookup}
               onChange={this.onOrderChange}
               onCancel={this.onCancelEdit}
               onDirtyChange={this.onDirtyChange}

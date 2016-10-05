@@ -8,14 +8,9 @@ import {render} from 'react-dom'
 import {reaction} from 'lib/Reactive'
 
 import Application from './Application'
-import {hashHistory} from 'lib/Router'
-import HTTPClient from '../generic/api/http/HTTPClient'
-import {AppState} from './AppAL/AppState'
-import {UserService} from './AppAL/User/UserService'
-import {UserActions} from './AppAL/User/UserActions'
-import {SystemService} from './AppAL/System/SystemService'
-import {SystemActions} from './AppAL/System/SystemActions'
+
 import {Dialog} from './сomponents'
+import {initAppContext} from './initAppContext';
 
 require('./styles/docs.scss')
 
@@ -23,13 +18,9 @@ window['docs'] = (options: any) => {
 
   const {el, initState} = options
 
-  const history = hashHistory
+  const appContext = initAppContext(initState)
 
-  const httpClient = new HTTPClient()
-
-  const appState = new AppState(initState)
-  const userActions = new UserActions(appState, new UserService(httpClient))
-  const systemActions = new SystemActions(appState, new SystemService(httpClient), history)
+  let {appState, systemActions, history} = appContext
 
   history.listenBefore((location, callback) => {
     if (appState.isDirty) {
@@ -70,15 +61,7 @@ window['docs'] = (options: any) => {
 
   reaction(() => appState.system && appState.system.lang, lang => systemActions.loadLang(lang))
 
-  const appStatesAndActions = {
-    appState,
-    userActions,
-    systemActions,
-    history,
-    httpClient
-  }
-
-  render(<Application {...appStatesAndActions}/>, el)
+  render(<Application {...appContext}/>, el)
 
 }
 

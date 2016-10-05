@@ -5,6 +5,7 @@ import {observer, observable} from 'lib/Reactive'
 import * as _ from 'lodash'
 import {I18n} from 'generic'
 import {IOrderCreate} from './IOrderCreate';
+import {ILookup} from 'generic';
 
 export interface IOrderCreateProps {
   value: IOrderCreate
@@ -43,19 +44,19 @@ export class OrderCreate extends React.Component<IOrderCreateProps, void> {
     this.setDirty(true)
   }
 
-  onChangeCustomer = (customer: {id: string, name: string}) => {
+  onChangeCustomer = (customer: ILookup) => {
     this.order.customer = customer
     this.setDirty(true)
   }
 
-  onChangeCustomer1 = (customer: {id: string, name: string}) => {
+  onChangeCustomer1 = (customer: ILookup) => {
     this.order.customer1 = customer
     this.setDirty(true)
   }
 
   render() {
     let order = this.order
-    const CustomerLookup = this.props.CustomerLookup
+    const {CustomerLookup} = this.props
     return (
       <div>
         <input type="text" value={order.name} onChange={this.onChangeName}/>

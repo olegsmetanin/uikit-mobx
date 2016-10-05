@@ -6,6 +6,7 @@ import * as _ from 'lodash'
 import {IOrder} from '../View/IOrder'
 import {I18n} from 'generic'
 import {observer} from 'lib/Reactive';
+import {ILookup} from 'generic';
 
 export interface IOrderEditProps {
   value: IOrder
@@ -41,12 +42,12 @@ export class OrderEdit extends React.Component<IOrderEditProps, void> {
     this.setDirty(true)
   }
 
-  onChangeCustomer = (customer: {id: string, name: string}) => {
+  onChangeCustomer = (customer: ILookup) => {
     this.value.customer = customer
     this.setDirty(true)
   }
 
-  onChangeCustomer1 = (customer: {id: string, name: string}) => {
+  onChangeCustomer1 = (customer: ILookup) => {
     this.value.customer1 = customer
     this.setDirty(true)
   }
