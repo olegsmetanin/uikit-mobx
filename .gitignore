@@ -4,6 +4,7 @@ npm-debug.log
 typings/
 /build/*
 .idea
+.publish
 *.iml
 **/*.orig
 /tmp/*
