@@ -1,4 +1,4 @@
-import {IOrderService} from '../IOrderService'
+import {IOrderCollection} from '../IOrderCollection'
 import {IOrderListState} from './IOrderListState'
 import {IOrderListActions} from './IOrderListActions'
 import {transaction} from 'lib/Reactive'
@@ -6,11 +6,11 @@ import {transaction} from 'lib/Reactive'
 export class OrderListActions implements IOrderListActions {
 
   state: IOrderListState
-  service: IOrderService
+  collection: IOrderCollection
 
-  constructor(state: IOrderListState, service: IOrderService) {
+  constructor(state: IOrderListState, collection: IOrderCollection) {
     this.state = state
-    this.service = service
+    this.collection = collection
   }
 
 
@@ -18,7 +18,7 @@ export class OrderListActions implements IOrderListActions {
     let state = this.state
     state.isLoading = true
     console.log('OrderListActions is loading true')
-    let res = await this.service.list(filter, page)
+    let res = await this.collection.list(filter, page)
     let {value, count} = res
     let _page = res.page
 

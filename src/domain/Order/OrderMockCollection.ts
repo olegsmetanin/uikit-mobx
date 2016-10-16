@@ -1,6 +1,6 @@
-import {IOrderService} from './IOrderCollection'
+import {IOrderCollection} from './IOrderCollection'
 import {delay} from 'generic/utils/delay'
-import {IOrder} from './View/IOrder'
+import {IOrder} from './IOrder'
 import {IOrderCreate} from './Create/IOrderCreate'
 import * as _ from 'lodash'
 
@@ -21,7 +21,7 @@ let testOrderList: IOrder[] = [
     }
   ]
 
-export class OrderMockService implements IOrderService {
+export class OrderMockCollection implements IOrderCollection {
 
   path: string
 
@@ -45,8 +45,13 @@ export class OrderMockService implements IOrderService {
   }
 
   get = async (id: string) => {
-    let value = _.find(testOrderList, {id});
+    let value = _.find(testOrderList, {id})
     return await delay(value, 1000)
+  }
+
+  getSync = (id: string) => {
+    let value = _.find(testOrderList, {id})
+    return value
   }
 
   update = async (value: IOrder) => {
@@ -56,13 +61,18 @@ export class OrderMockService implements IOrderService {
   }
 
   delete = async (id: string) => {
-    _.remove(testOrderList, {id: id});
+    _.remove(testOrderList, {id: id})
     return await delay(null, 1000)
   }
 
   list = async (filter: any, page = 0) => {
     let filtred = _.filter(testOrderList, filter)
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
+  }
+
+  listSync = (filter: any, page = 0) => {
+    let filtred = _.filter(testOrderList, filter)
+    return {value: filtred, count: filtred.length, page: page}
   }
 
   lookup = async (text: string, page = 0) => {

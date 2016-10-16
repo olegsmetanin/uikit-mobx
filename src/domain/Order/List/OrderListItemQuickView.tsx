@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {IOrder} from '../View/IOrder'
+import {IOrder} from '../IOrder'
 
 export interface IOrderListItemQuickViewProps {
   value: IOrder

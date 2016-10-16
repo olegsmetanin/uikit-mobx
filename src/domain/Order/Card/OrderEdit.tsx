@@ -1,12 +1,11 @@
 
 import * as React from 'react'
-import {observable} from 'lib/Reactive'
+import {observer, observable} from 'lib/Reactive'
 
 import * as _ from 'lodash'
 import {IOrder} from '../IOrder'
 import {I18n} from 'generic'
-import {observer} from 'lib/Reactive';
-import {ILookup} from 'generic';
+import {ILookup} from 'generic'
 
 export interface IOrderEditProps {
   value: IOrder
@@ -16,6 +15,8 @@ export interface IOrderEditProps {
   i18n: I18n
   CustomerLookup: any
   isUpdating: boolean
+  isSaving: boolean
+
 }
 
 @observer
@@ -24,44 +25,52 @@ export class OrderEdit extends React.Component<IOrderEditProps, void> {
   @observable
   value: IOrder
 
+
+
   constructor(props, context) {
     super(props, context)
     this.value = _.cloneDeep(props.value)
   }
 
-  setDirty(isDirty) {
-    this.props.onDirtyChange && this.props.onDirtyChange(isDirty)
+  setDirty = () => {
+    this.props.onDirtyChange && this.props.onDirtyChange(true)
   }
 
   onSave = () => {
     this.props.onSave(_.cloneDeep(this.value))
   }
 
+  onCancel = () => {
+    this.props.onCancel()
+  }
+
   onChangeName = (e) => {
     this.value.name = e.target.value
-    this.setDirty(true)
+    this.setDirty()
   }
 
   onChangeCustomer = (customer: ILookup) => {
     this.value.customer = customer
-    this.setDirty(true)
+    this.setDirty()
   }
 
   onChangeCustomer1 = (customer: ILookup) => {
     this.value.customer1 = customer
-    this.setDirty(true)
+    this.setDirty()
   }
 
   render() {
-    let value = this.value
     const CustomerLookup = this.props.CustomerLookup
     return (
       <div>
-        <input type="text" value={value.name} onChange={this.onChangeName}/>
-        <CustomerLookup value={value.customer} onChange={this.onChangeCustomer}/>
-        <CustomerLookup value={value.customer1} onChange={this.onChangeCustomer1}/>
+        <input type="text" value={this.value.name} onChange={this.onChangeName}/>
+        <CustomerLookup value={this.value.customer} onChange={this.onChangeCustomer}/>
+        <CustomerLookup value={this.value.customer1} onChange={this.onChangeCustomer1}/>
         <button onClick={this.onSave}>
-          {this.props.isUpdating && '!'}Save
+          {this.props.isSaving
+            ? 'Saving...'
+            : 'Save'
+          }
         </button>
         <button onClick={this.props.onCancel}>Cancel</button>
       </div>

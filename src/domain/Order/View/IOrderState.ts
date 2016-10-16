@@ -1,4 +1,4 @@
-import {IOrder} from './IOrder'
+import {IOrder} from '../IOrder'
 
 export interface IOrderState {
   value: IOrder

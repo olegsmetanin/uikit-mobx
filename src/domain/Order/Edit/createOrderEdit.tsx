@@ -2,10 +2,10 @@
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
 import {observable} from 'lib/Reactive'
-import {IOrderService} from '../IOrderService';
+import {IOrderCollection} from '../IOrderCollection';
 import {OrderEdit} from './OrderEdit';
 import {IOrderState} from '../View/IOrderState';
-import {IOrder} from '../View/IOrder';
+import {IOrder} from '../IOrder';
 
 /*
 *
@@ -24,7 +24,7 @@ import {IOrder} from '../View/IOrder';
 *
 */
 
-export const createOrderEdit = (service: IOrderService) => {
+export const createOrderEdit = (collection: IOrderCollection) => {
 
   return class extends React.Component<any, any> {
 
@@ -45,7 +45,7 @@ export const createOrderEdit = (service: IOrderService) => {
     update = async (value: IOrder) => {
       let state = this.theState
       state.isUpdating = true
-      let newValue = await service.update(value)
+      let newValue = await collection.update(value)
       console.log('createOrderEdit update newValue', newValue)
       state.value = newValue
       state.isUpdating = false

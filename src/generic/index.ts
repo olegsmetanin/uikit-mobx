@@ -17,3 +17,5 @@ export * from './api/eventBus/eventBus'
 
 export * from './utils/withProps'
 export * from './utils/delay'
+export * from './utils/guid'
+

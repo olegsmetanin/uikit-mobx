@@ -4,8 +4,8 @@ import {observer, observable, transaction} from 'lib/Reactive'
 import {IOrderState} from './IOrderState'
 import {IOrderViewActions} from './IOrderViewActions'
 import {OrderViewActions} from './OrderViewActions'
-import {IOrderService} from '../IOrderService'
-import {IOrder} from './IOrder'
+import {IOrderCollection} from '../IOrderCollection'
+import {IOrder} from '../IOrder'
 import {ICustomerService} from '../../Customer/ICustomerService'
 import {OrderView} from './OrderView'
 import {ISystemActions} from 'application/AppAL/System/ISystemActions'
@@ -16,7 +16,7 @@ export interface IOrderViewPageProps {
   params: {id: string}
   router: any
   route: any
-  orderService: IOrderService
+  orderCollection: IOrderCollection
   customerService: ICustomerService
   systemActions: ISystemActions
   CustomerLookup: any
@@ -61,10 +61,10 @@ export class OrderViewPage extends React.Component<IOrderViewPageProps, void> {
       isUpdating: false
     }
 
-    this.actions = new OrderViewActions(this.orderState, this.props.orderService)
+    this.actions = new OrderViewActions(this.orderState, this.props.orderCollection)
 
     this.OrderEdit = observer(
-      this.props.OrderEdit || createOrderEdit(this.props.orderService)
+      this.props.OrderEdit || createOrderEdit(this.props.orderCollection)
     )
 
   }

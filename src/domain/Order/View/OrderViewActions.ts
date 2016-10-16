@@ -1,36 +1,36 @@
 import {IOrderViewActions} from './IOrderViewActions'
-import {IOrderService} from '../IOrderService'
+import {IOrderCollection} from '../IOrderCollection'
 import {IOrderState} from './IOrderState'
-import {IOrder} from './IOrder';
+import {IOrder} from '../IOrder';
 
 export class OrderViewActions implements IOrderViewActions {
 
   state: IOrderState
-  service: IOrderService
+  collection: IOrderCollection
 
-  constructor(state: IOrderState, service: IOrderService) {
+  constructor(state: IOrderState, collection: IOrderCollection) {
     this.state = state
-    this.service = service
+    this.collection = collection
   }
 
   get = async (id: string) => {
     let state = this.state
     state.isLoading = true
-    let newValue = await this.service.get(id)
+    let newValue = await this.collection.get(id)
     state.value = newValue
     state.isLoading = false
   }
 
   update = async (value: IOrder) => {
     this.state.isSaving = true
-    const newValue = await this.service.update(value)
+    const newValue = await this.collection.update(value)
     this.state.value = newValue
     this.state.isSaving = false
   }
 
   delete = async (id: string) => {
     this.state.isDeleting = true
-    await this.service.delete(id)
+    await this.collection.delete(id)
     this.state.isDeleting = false
   }
 

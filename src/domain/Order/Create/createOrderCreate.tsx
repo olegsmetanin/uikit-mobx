@@ -2,13 +2,13 @@
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
 import {observable} from 'lib/Reactive'
-import {IOrderService} from '../IOrderService';
+import {IOrderCollection} from '../IOrderCollection';
 import {IOrderCreateState} from './IOrderCreateState';
 import {IOrderCreate} from './IOrderCreate';
 import {OrderCreate} from './OrderCreate';
 
 
-export const createOrderCreate = (service: IOrderService) => {
+export const createOrderCreate = (collection: IOrderCollection) => {
 
   return class extends React.Component<any, any> {
 
@@ -27,7 +27,7 @@ export const createOrderCreate = (service: IOrderService) => {
     prefill = async () => {
       let state = this.theState
       state.isLoading = true
-      let newValue = await service.prefill()
+      let newValue = await collection.prefill()
       state.value = newValue
       state.isLoading = false
     }
@@ -35,7 +35,7 @@ export const createOrderCreate = (service: IOrderService) => {
     create = async (value: IOrderCreate) => {
       let state = this.theState
       state.isLoading = true
-      let newValue = await service.create(value)
+      let newValue = await collection.create(value)
       state.value = newValue
       state.isLoading = false
     }

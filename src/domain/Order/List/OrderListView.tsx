@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
-import {IOrder} from '../View/IOrder'
+import {IOrder} from '../IOrder'
 import {observable, observer} from 'lib/Reactive';
 import {OrderListItemView} from './OrderListItemView'
 import {OrderListItemQuickView} from './OrderListItemQuickView'

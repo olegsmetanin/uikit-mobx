@@ -1,16 +1,23 @@
 {
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "module": "commonjs",
-    "jsx": "react",
-    "target": "es6"
-  },
-  "exclude": [
-    "node_modules",
-    "build",
-    "typings",
-    "fixtypings"
-  ],
-  "compileOnSave": false,
-  "buildOnSave": false
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "jsx": "react",
+        "target": "es6",
+        "baseUrl": "./src",
+        "paths": {
+            "*": [
+                "*"
+            ]
+        },
+        "sourceMap": true
+    },
+    "exclude": [
+        "node_modules",
+        "build",
+        "typings",
+        "fixtypings"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false
 }

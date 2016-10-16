@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import {observer, observable} from 'lib/Reactive'
-import {IOrderService} from '../IOrderService'
+import {IOrderCollection} from '../IOrderCollection'
 import {ICustomerService} from '../../Customer/ICustomerService'
 import {ISystemActions} from 'application/AppAL/System/ISystemActions'
 import {IOrderListState} from './IOrderListState';
@@ -11,7 +11,7 @@ import {OrderListView} from './OrderListView';
 import {createOrderCreate} from '../Create/createOrderCreate';
 
 export interface IOrderViewPageProps {
-  orderService: IOrderService
+  orderCollection: IOrderCollection
   systemActions: ISystemActions
   customerService: ICustomerService
   CustomerLookup: any
@@ -45,10 +45,10 @@ export class OrderListViewPage extends React.Component<IOrderViewPageProps, void
       isLoading: false
     }
 
-    this.actions = new OrderListActions(this.orderListState, this.props.orderService)
+    this.actions = new OrderListActions(this.orderListState, this.props.orderCollection)
 
     this.OrderCreate = observer(
-      this.props.OrderCreate || createOrderCreate(this.props.orderService)
+      this.props.OrderCreate || createOrderCreate(this.props.orderCollection)
     )
 
   }

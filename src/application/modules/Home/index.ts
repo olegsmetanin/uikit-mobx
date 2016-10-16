@@ -11,15 +11,20 @@ import {HomeActions} from './HomeAL/HomeActions'
 
 import HomePage from './pages/HomePage'
 import {withRouter} from 'lib/Router'
-import {OrderViewPage} from 'domain/Order/View/OrderViewPage'
-import {OrderMockService} from 'domain/Order/OrderMockService'
+// import {OrderViewPage} from 'domain/Order/View/OrderViewPage'
+import {OrderMockCollection} from 'domain/Order/OrderMockCollection'
 import {CustomerMockService} from 'domain/Customer/CustomerMockService'
 
 import {ConfirmDialog} from 'application/сomponents'
+import {Dialog} from 'application/сomponents'
 import {OrderListViewPage} from 'domain/Order/List/OrderListViewPage';
 import {withProps} from 'generic/utils/withProps';
 import {CustomerLookup} from 'domain/Customer/Lookup/CustomerLookup';
 import {IEventBus} from 'generic';
+import {OrderCard} from 'domain/Order/Card/OrderCard';
+import {OrderCardPage} from 'domain/Order/Card/OrderCardPage';
+import {OrderView} from 'domain/Order/Card/OrderView';
+import {OrderEdit} from 'domain/Order/Card/OrderEdit';
 
 // singleton )
 let module: IHomeModule = null
@@ -67,7 +72,7 @@ const register = async ({
     statesAndActions
   ))(observer(HomePage))
 
-  const orderService = new OrderMockService('/')
+  const orderCollection = new OrderMockCollection('/')
   const customerService = new CustomerMockService('/')
 
   const ConnectedCustomerLookup = withProps(() => ({
@@ -80,7 +85,7 @@ const register = async ({
     // bug https://github.com/mobxjs/mobx-react/issues/110
     // return ({orderService, customerService, ConfirmDialog})
     Object.assign({}, statesAndActions, {
-      orderService,
+      orderCollection,
       customerService,
       ConfirmDialog,
       CustomerLookup: ConnectedCustomerLookup
@@ -90,23 +95,45 @@ const register = async ({
 
 
 
-  const ConnectedOrderViewPage = withRouter(
+  const ConnectedOrderEdit = withProps(() => ({
+    CustomerLookup: ConnectedCustomerLookup
+  }))(OrderEdit)
+
+const onDirtyChange = (memId: string, isDirty: boolean) => {
+  console.log('onDirtyChange memId, isDirty', memId, isDirty)
+}
+
+const onDelete = () => {
+  console.log('onDelete')
+  // move to list page
+}
+
+const onGotoList = () => {
+  // navigate go list page
+}
+
+  const ConnectedOrderCard = withProps(() => ({
+    orderCollection,
+    OrderView: OrderView,
+    OrderEdit: ConnectedOrderEdit,
+    onDirtyChange,
+    onDelete,
+    Dialog,
+    onGotoList
+  }))(OrderCard)
+
+
+  const ConnectedOrderCardPage = withRouter(
       withProps(() => ({
         i18n: appState.i18n,
-        appState,
-        systemActions,
-        userActions,
-        orderService,
-        customerService,
-        ConfirmDialog,
-        CustomerLookup: ConnectedCustomerLookup
-      }))(OrderViewPage)
+        OrderCard: ConnectedOrderCard
+      }))(OrderCardPage)
   )
 
   module = {
     HomePage: ConnectedHomePage,
     OrderListViewPage: ConnectedOrderViewListPage,
-    OrderViewPage: ConnectedOrderViewPage
+    OrderViewPage: ConnectedOrderCardPage
 
   }
 
