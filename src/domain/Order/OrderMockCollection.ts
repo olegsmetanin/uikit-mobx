@@ -1,4 +1,4 @@
-import {IOrderService} from './IOrderService'
+import {IOrderService} from './IOrderCollection'
 import {delay} from 'generic/utils/delay'
 import {IOrder} from './View/IOrder'
 import {IOrderCreate} from './Create/IOrderCreate'
