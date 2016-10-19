@@ -4,6 +4,7 @@ import {observer, observable} from 'lib/Reactive'
 import {IOrder} from '../IOrder'
 import {IOrderCollection} from '../IOrderCollection'
 import {guid} from 'generic'
+import {IOrderUIState} from './IOrderUIState'
 
 export interface IOrderCardProps {
   orderCollection: IOrderCollection
@@ -20,12 +21,6 @@ export enum mode {
   View = 1,
   Edit,
   Sign
-}
-
-export interface IOrderUIState {
-  isLoading: boolean
-  isSaving: boolean
-  isDeleting: boolean
 }
 
 @observer
@@ -79,11 +74,12 @@ export class OrderCard extends React.Component<IOrderCardProps, void> {
     this.showDeleteDialog = true
   }
 
-  onEditSave = async (value: IOrder) => {
+  editOnSave = async (value: IOrder) => {
       try {
         this.uiState.isSaving = true
         this.value = await this.props.orderCollection.update(value)
-        this.onEditDirtyChange(false)
+        this.editOnDirtyChange(false)
+        this.editErrors = null
         this.mode = mode.View
       } catch (err) {
         this.editErrors = err
@@ -92,19 +88,19 @@ export class OrderCard extends React.Component<IOrderCardProps, void> {
       }
   }
 
-  onEditCancel = () => {
-    this.onEditDirtyChange(false)
+  editOnCancel = () => {
+    this.editOnDirtyChange(false)
     this.mode = mode.View
   }
 
-  onEditDirtyChange = this.props.onDirtyChange.bind(this, this.dirtyEditId)
+  editOnDirtyChange = this.props.onDirtyChange.bind(this, this.dirtyEditId)
 
-  onOkDelete = () => {
+  deleteOnOk = () => {
     this.showDeleteDialog = false
     this.props.onDelete()
   }
 
-  onCancelDelete = () => {
+  deleteOnCancel = () => {
     this.showDeleteDialog = false
   }
   render() {
@@ -124,17 +120,17 @@ export class OrderCard extends React.Component<IOrderCardProps, void> {
           <OrderEdit
             value={this.value}
             errors={this.editErrors}
-            onSave={this.onEditSave}
-            onCancel={this.onEditCancel}
-            onDirtyChange={this.onEditDirtyChange}
+            onSave={this.editOnSave}
+            onCancel={this.editOnCancel}
+            onDirtyChange={this.editOnDirtyChange}
             isSaving={this.uiState.isSaving}
           />
         )}
         {this.showDeleteDialog && (
           <Dialog>
             Are you sure to delete record?
-            <button onClick={this.onOkDelete}>Ok</button>
-            <button onClick={this.onCancelDelete}>Cancel</button>
+            <button onClick={this.deleteOnOk}>Ok</button>
+            <button onClick={this.deleteOnCancel}>Cancel</button>
           </Dialog>
         )}
         {this.uiState.isLoading && (

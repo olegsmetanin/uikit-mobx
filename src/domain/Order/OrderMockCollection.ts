@@ -3,6 +3,8 @@ import {delay} from 'generic/utils/delay'
 import {IOrder} from './IOrder'
 import {IOrderCreate} from './Create/IOrderCreate'
 import * as _ from 'lodash'
+import {HTTPError} from 'generic'
+import {IEventBus} from 'generic'
 
 let testOrderList: IOrder[] = [
     {
@@ -25,8 +27,11 @@ export class OrderMockCollection implements IOrderCollection {
 
   path: string
 
-  constructor(path: string) {
+  eventBus: IEventBus
+
+  constructor(path: string, eventBus: IEventBus) {
     this.path = path
+    this.eventBus = eventBus
   }
 
   prefill = async () => {
@@ -57,7 +62,13 @@ export class OrderMockCollection implements IOrderCollection {
   update = async (value: IOrder) => {
     const i = _.findIndex(testOrderList, {id: value.id})
     testOrderList[i] = value
-    return await delay(value, 1000)
+    if (Math.random() > 0.5) {
+      let res = await delay(value, 1000)
+      this.eventBus.emit('ORDER_ITEM_CHANGE', {id: value.id})
+      return res
+    } else {
+      throw new HTTPError(400, 'some errors')
+    }
   }
 
   delete = async (id: string) => {
@@ -66,7 +77,7 @@ export class OrderMockCollection implements IOrderCollection {
   }
 
   list = async (filter: any, page = 0) => {
-    let filtred = _.filter(testOrderList, filter)
+    let filtred = _.filter(testOrderList, filter ? filter : () => true)
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }
 

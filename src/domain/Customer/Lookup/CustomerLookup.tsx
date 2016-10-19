@@ -7,7 +7,7 @@ import {ICustomerService} from '../ICustomerService'
 import {Lookup} from 'generic'
 import {ILookup} from 'generic';
 import {IEventBus} from 'generic';
-import {IItemChanged} from '../../../generic/api/eventBus/eventBus';
+import {IItemChangedEvent} from 'generic';
 
 export interface ICustomerLookupProps {
   service: ICustomerService
@@ -33,11 +33,11 @@ export class CustomerLookup extends React.Component<ICustomerLookupProps, any> {
     }
 
     componentDidMount() {
-      this.props.eventBus.on<IItemChanged>('CUSTOMER_ITEM_CHANGE', this.onItemChanged)
+      this.props.eventBus.on<IItemChangedEvent>('CUSTOMER_ITEM_CHANGE', this.onItemChanged)
     }
 
     componentWillUnmount() {
-      this.props.eventBus.off<IItemChanged>('CUSTOMER_ITEM_CHANGE', this.onItemChanged)
+      this.props.eventBus.off<IItemChangedEvent>('CUSTOMER_ITEM_CHANGE', this.onItemChanged)
     }
 
     onItemChanged = ({id}: {id: number}) => {

@@ -13,9 +13,11 @@ export * from './api/http/Errors'
 export * from './api/http/IHTTPClient'
 export * from './api/http/HTTPClient'
 
-export * from './api/eventBus/eventBus'
+export * from './api/Event/IEvent'
+export * from './api/Event/IEventBus'
 
 export * from './utils/withProps'
 export * from './utils/delay'
 export * from './utils/guid'
+// export * from './utils/Pure'
 

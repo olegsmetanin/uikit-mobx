@@ -16,6 +16,7 @@ export interface IOrderEditProps {
   CustomerLookup: any
   isUpdating: boolean
   isSaving: boolean
+  errors: any
 
 }
 
@@ -24,8 +25,6 @@ export class OrderEdit extends React.Component<IOrderEditProps, void> {
 
   @observable
   value: IOrder
-
-
 
   constructor(props, context) {
     super(props, context)
@@ -66,6 +65,9 @@ export class OrderEdit extends React.Component<IOrderEditProps, void> {
         <input type="text" value={this.value.name} onChange={this.onChangeName}/>
         <CustomerLookup value={this.value.customer} onChange={this.onChangeCustomer}/>
         <CustomerLookup value={this.value.customer1} onChange={this.onChangeCustomer1}/>
+        {this.props.errors && (
+          'Errors!: ' + JSON.stringify(this.props.errors)
+        )}
         <button onClick={this.onSave}>
           {this.props.isSaving
             ? 'Saving...'

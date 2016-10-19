@@ -15,9 +15,9 @@ import {withRouter} from 'lib/Router'
 import {OrderMockCollection} from 'domain/Order/OrderMockCollection'
 import {CustomerMockService} from 'domain/Customer/CustomerMockService'
 
-import {ConfirmDialog} from 'application/сomponents'
+// import {ConfirmDialog} from 'application/сomponents'
 import {Dialog} from 'application/сomponents'
-import {OrderListViewPage} from 'domain/Order/List/OrderListViewPage';
+import {OrderListPage} from 'domain/Order/List/OrderListPage';
 import {withProps} from 'generic/utils/withProps';
 import {CustomerLookup} from 'domain/Customer/Lookup/CustomerLookup';
 import {IEventBus} from 'generic';
@@ -25,6 +25,8 @@ import {OrderCard} from 'domain/Order/Card/OrderCard';
 import {OrderCardPage} from 'domain/Order/Card/OrderCardPage';
 import {OrderView} from 'domain/Order/Card/OrderView';
 import {OrderEdit} from 'domain/Order/Card/OrderEdit';
+import {OrderList} from 'domain/Order/List/OrderList'
+import {OrderListView} from 'domain/Order/List/OrderListView'
 
 // singleton )
 let module: IHomeModule = null
@@ -72,7 +74,7 @@ const register = async ({
     statesAndActions
   ))(observer(HomePage))
 
-  const orderCollection = new OrderMockCollection('/')
+  const orderCollection = new OrderMockCollection('/', eventBus)
   const customerService = new CustomerMockService('/')
 
   const ConnectedCustomerLookup = withProps(() => ({
@@ -81,19 +83,9 @@ const register = async ({
     eventBus: eventBus
   }))(CustomerLookup)
 
-  const ConnectedOrderViewListPage = inject((allStores, nextProps) => (
-    // bug https://github.com/mobxjs/mobx-react/issues/110
-    // return ({orderService, customerService, ConfirmDialog})
-    Object.assign({}, statesAndActions, {
-      orderCollection,
-      customerService,
-      ConfirmDialog,
-      CustomerLookup: ConnectedCustomerLookup
-    }, nextProps)
-  ))(withRouter(observer(OrderListViewPage)))
 
 
-
+// Item
 
   const ConnectedOrderEdit = withProps(() => ({
     CustomerLookup: ConnectedCustomerLookup
@@ -130,9 +122,25 @@ const onGotoList = () => {
       }))(OrderCardPage)
   )
 
+// List
+  const ConnectedOrderList = withProps(() => ({
+    orderCollection,
+    OrderListView,
+    OrderCard: ConnectedOrderCard,
+    eventBus: eventBus
+  }))(OrderList)
+
+  const ConnectedOrderListPage = withRouter(
+      withProps(() => ({
+        // i18n: appState.i18n,
+        OrderList: ConnectedOrderList
+      }))(OrderListPage)
+  )
+
+
   module = {
     HomePage: ConnectedHomePage,
-    OrderListViewPage: ConnectedOrderViewListPage,
+    OrderListViewPage: ConnectedOrderListPage,
     OrderViewPage: ConnectedOrderCardPage
 
   }

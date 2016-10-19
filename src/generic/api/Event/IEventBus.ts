@@ -1,12 +1,4 @@
-export interface IEvent {
-}
-
-export interface IItemChanged extends IEvent {
-  id: string
-}
-
-export interface IListChanged extends IEvent {
-}
+import {IEvent} from './IEvent'
 
 export interface IEventBus {
   on: <T extends IEvent>(type: string, fn: (T) => void) => this

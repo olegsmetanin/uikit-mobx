@@ -5,6 +5,7 @@ import {IOrder} from '../IOrder'
 import {observable, observer} from 'lib/Reactive';
 import {OrderListItemView} from './OrderListItemView'
 import {OrderListItemQuickView} from './OrderListItemQuickView'
+// import * as Pure from 'generic'
 
 export enum mode {
   List = 1,
@@ -13,10 +14,11 @@ export enum mode {
 
 export interface IOrderListViewProps {
   value: IOrder[]
-  OrderCreate: any,
-  CustomerLookup: any
-  onDirtyChange: (isDirty) => void
-  onReload: () => void
+  count: number
+  page: number
+  onCreate: () => void
+
+  OrderCard: any
 }
 
 @observer
@@ -25,73 +27,52 @@ export class OrderListView extends React.Component<IOrderListViewProps, void> {
   @observable
   index: number = null
 
-  @observable
-  mode: mode = mode.List
-
   constructor(props, context) {
     super(props, context)
   }
 
-  onCreated = () => {
-    this.mode = mode.List
-    this.props.onReload()
-  }
-
-  onCancel = () => {
-    this.mode = mode.List
-  }
-
   onCreate = () => {
-    this.mode = mode.Create
+    this.props.onCreate()
   }
 
   onShowDetails = (i) => {
+    console.log('onShowDetails i', i)
     this.index = this.index === i ? null : i
   }
 
+
   render() {
-    let {value, OrderCreate} = this.props
+    console.log('OrderListView render props', this.props)
+
+    let {value, page, count, OrderCard} = this.props
+    // let OrderCard = /*Pure*/(OrderCard)
     return (
       <div>
-        {this.mode === mode.List && (
-          <div>
-            <div>
-              <button onClick={this.onCreate}>Add</button>
-            </div>
-            <div>
-              <table>
-                <tbody>
-                {value.map((val, i) => ([
-                  <tr key={i + '_0'}>
-                    <OrderListItemView
-                      value={val}
-                      onShowDetails={this.onShowDetails.bind(this, i)}
-                    />
-                  </tr>,
-                  this.index === i
-                    ? (
-                    <tr key={i + '_1'}>
-                      <td>
-                        <OrderListItemQuickView value={val}/>
-                    </td>
-                    </tr>
-                  )
-                    : null
-                ]))}
-                </tbody>
-              </table>
-
-            </div>
-          </div>
-        )}
-        {this.mode === mode.Create && (
-          <OrderCreate
-            onCreated={this.onCreated}
-            onCancel={this.onCancel}
-            CustomerLookup={this.props.CustomerLookup}
-            onDirtyChange={this.props.onDirtyChange}
-          />
-        )}
+        <button onClick={this.onCreate}>New</button>
+        <table>
+          <tbody>
+          {value.map((val, i) => ([
+            <tr key={i + '_0'}>
+              <OrderListItemView
+                index={i}
+                value={val}
+                onShowDetails={this.onShowDetails}
+              />
+            </tr>,
+            this.index === i
+              ? (
+              <tr key={i + '_1'}>
+                <td>
+                  <OrderCard
+                    oid={val.id}
+                  />
+                </td>
+              </tr>
+            )
+              : null
+          ]))}
+          </tbody>
+        </table>
       </div>
     )
   }
