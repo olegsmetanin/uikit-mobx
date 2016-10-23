@@ -1,30 +1,28 @@
-import {delay} from 'generic/utils/delay'
-import {IOrder} from './IOrder'
+import {IEntityCollection} from '../api/IEntityCollection'
+import {delay} from 'generic'
+import {IOrderDetail} from './IOrderDetail'
 import * as _ from 'lodash'
 import {HTTPError} from 'generic'
 import {IEventBus} from 'generic'
-import {IEntityCollection} from '../api/IEntityCollection'
 
-let source: IOrder[] = [
+let source: IOrderDetail[] = [
     {
       id: '0',
-      customer: {id: '1', name: 'Customer1', desc: 'Customer1'},
-      customer1: {id: '1', name: 'Customer1', desc: 'Customer1'},
-      name: 'SomeOrder',
+      product: {id: '0', name: 'Product0', desc: 'Product0'},
+      quantity: 1,
       price: 1
     },
     {
       id: '1',
-      customer: {id: '2', name: 'Customer2', desc: 'Customer2'},
-      customer1: {id: '2', name: 'Customer2', desc: 'Customer2'},
-      name: 'SomeOrder2',
+      product: {id: '1', name: 'Product1', desc: 'Product1'},
+      quantity: 1,
       price: 2
     }
   ]
 
-let cache: IOrder[] = []
+let cache: IOrderDetail[] = []
 
-export class OrderMockCollection implements IEntityCollection<IOrder> {
+export class OrderDetailMockCollection implements IEntityCollection<IOrderDetail> {
 
   path: string
 
@@ -41,11 +39,11 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
     return await delay(predata, 1000)
   }
 
-  create = async (createRequest: IOrder) => {
-    let newValue: IOrder = _.assign(
+  create = async (createRequest: IOrderDetail) => {
+    let newValue: IOrderDetail = _.assign(
       createRequest,
       {id: source.length + ''}
-    ) as IOrder
+    ) as IOrderDetail
     source.push(newValue)
     return await delay(newValue, 1000)
   }
@@ -66,7 +64,7 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
     return value
   }
 
-  update = async (value: IOrder) => {
+  update = async (value: IOrderDetail) => {
     if (Math.random() > 0.5) {
       let res = await delay(value, 1000)
       const src_index = _.findIndex(source, {id: value.id})
@@ -86,7 +84,8 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
   }
 
   list = async (filter: any, page = 0) => {
-    let filtred = _.filter(source, filter ? filter : () => true)
+    let filtred = _.filter(source, /*filter ? filter :*/ () => true)
+    console.log('OrderMockCollection filtred', filtred)
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }
 
@@ -96,8 +95,8 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
   }
 
   lookup = async (text: string, page = 0) => {
-    let filtred = _.filter(source, {name: text})
-      .map((item, i) => ({id: item.id, name: item.name, desc: item.name}))
+    let filtred = _.filter(source, (item: IOrderDetail) => {return item.product.name.indexOf(text) !== -1})
+      .map((item, i) => ({id: item.id, name: item.product.name, desc: item.product.name}))
 
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }

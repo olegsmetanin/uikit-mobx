@@ -45,6 +45,7 @@
         "moment": "2.11.2",
         "postcss-loader": "0.8.1",
         "react": "15.3.2",
+        "react-addons-pure-render-mixin": "15.3.2",
         "react-dom": "15.3.2",
         "react-mixin": "3.0.3",
         "react-router": "2.6.1",

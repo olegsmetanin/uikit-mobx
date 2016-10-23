@@ -1,30 +1,24 @@
-import {delay} from 'generic/utils/delay'
-import {IOrder} from './IOrder'
-import * as _ from 'lodash'
-import {HTTPError} from 'generic'
-import {IEventBus} from 'generic'
 import {IEntityCollection} from '../api/IEntityCollection'
+import {delay} from 'generic'
+import {ICustomer} from './ICustomer'
+import * as _ from 'lodash'
+import {IEventBus} from 'generic'
+import {HTTPError} from 'generic'
 
-let source: IOrder[] = [
-    {
-      id: '0',
-      customer: {id: '1', name: 'Customer1', desc: 'Customer1'},
-      customer1: {id: '1', name: 'Customer1', desc: 'Customer1'},
-      name: 'SomeOrder',
-      price: 1
-    },
-    {
-      id: '1',
-      customer: {id: '2', name: 'Customer2', desc: 'Customer2'},
-      customer1: {id: '2', name: 'Customer2', desc: 'Customer2'},
-      name: 'SomeOrder2',
-      price: 2
-    }
-  ]
+let source: ICustomer[] = [
+  {
+    id: '1',
+    name: 'Customer1'
+  },
+  {
+    id: '2',
+    name: 'Customer2'
+  }
+]
 
-let cache: IOrder[] = []
+let cache: ICustomer[] = []
 
-export class OrderMockCollection implements IEntityCollection<IOrder> {
+export class CustomerMockCollection implements IEntityCollection<ICustomer> {
 
   path: string
 
@@ -41,11 +35,11 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
     return await delay(predata, 1000)
   }
 
-  create = async (createRequest: IOrder) => {
-    let newValue: IOrder = _.assign(
+  create = async (createRequest: ICustomer) => {
+    let newValue: ICustomer = _.assign(
       createRequest,
       {id: source.length + ''}
-    ) as IOrder
+    ) as ICustomer
     source.push(newValue)
     return await delay(newValue, 1000)
   }
@@ -66,14 +60,14 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
     return value
   }
 
-  update = async (value: IOrder) => {
+  update = async (value: ICustomer) => {
     if (Math.random() > 0.5) {
       let res = await delay(value, 1000)
       const src_index = _.findIndex(source, {id: value.id})
       source[src_index] = value
       const cache_index = _.findIndex(cache, {id: value.id})
       cache[cache_index] = value
-      this.eventBus.emit('ORDER_ITEM_CHANGE', {id: value.id})
+      // this.eventBus.emit('ORDER_ITEM_CHANGE', {id: value.id})
       return res
     } else {
       throw new HTTPError(400, 'some errors')
@@ -96,11 +90,12 @@ export class OrderMockCollection implements IEntityCollection<IOrder> {
   }
 
   lookup = async (text: string, page = 0) => {
-    let filtred = _.filter(source, {name: text})
+    let filtred = _.filter(source, () => true /*{name: text}*/)
       .map((item, i) => ({id: item.id, name: item.name, desc: item.name}))
 
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }
+
 
 
 }

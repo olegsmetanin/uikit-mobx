@@ -13,20 +13,31 @@ import HomePage from './pages/HomePage'
 import {withRouter} from 'lib/Router'
 // import {OrderViewPage} from 'domain/Order/View/OrderViewPage'
 import {OrderMockCollection} from 'domain/Order/OrderMockCollection'
-import {CustomerMockService} from 'domain/Customer/CustomerMockService'
+import {CustomerMockCollection} from 'domain/Customer/CustomerMockCollection'
+import {OrderDetailMockCollection} from 'domain/OrderDetail/OrderDetailMockCollection'
 
 // import {ConfirmDialog} from 'application/сomponents'
 import {Dialog} from 'application/сomponents'
-import {OrderListPage} from 'domain/Order/List/OrderListPage';
+import {OrderListPage} from 'domain/Order/OrderListPage';
 import {withProps} from 'generic/utils/withProps';
-import {CustomerLookup} from 'domain/Customer/Lookup/CustomerLookup';
+import {CustomerLookup} from 'domain/Customer/CustomerLookup';
 import {IEventBus} from 'generic';
-import {OrderCard} from 'domain/Order/Card/OrderCard';
-import {OrderCardPage} from 'domain/Order/Card/OrderCardPage';
-import {OrderView} from 'domain/Order/Card/OrderView';
-import {OrderEdit} from 'domain/Order/Card/OrderEdit';
-import {OrderList} from 'domain/Order/List/OrderList'
-import {OrderListView} from 'domain/Order/List/OrderListView'
+import {OrderCard} from 'domain/Order/OrderCard';
+import {OrderCardPage} from 'domain/Order/OrderCardPage';
+import {OrderView} from 'domain/Order/OrderView';
+import {OrderEdit} from 'domain/Order/OrderEdit';
+import {OrderList} from 'domain/Order/OrderList'
+import {OrderListView} from 'domain/Order/OrderListView'
+
+import {OrderDetailList} from 'domain/OrderDetail/OrderDetailList'
+import {OrderDetailCard} from 'domain/OrderDetail/OrderDetailCard'
+import {OrderDetailListView} from 'domain/OrderDetail/OrderDetailListView'
+import {OrderDetailListItemView} from 'domain/OrderDetail/OrderDetailListItemView'
+import {OrderDetailView} from 'domain/OrderDetail/OrderDetailView'
+import {OrderDetailEdit} from 'domain/OrderDetail/OrderDetailEdit'
+
+import {OrderListItemView} from 'domain/Order/OrderListItemView'
+
 
 // singleton )
 let module: IHomeModule = null
@@ -75,39 +86,72 @@ const register = async ({
   ))(observer(HomePage))
 
   const orderCollection = new OrderMockCollection('/', eventBus)
-  const customerService = new CustomerMockService('/')
+  const customerCollection = new CustomerMockCollection('/', eventBus)
 
   const ConnectedCustomerLookup = withProps(() => ({
     i18n: appState.i18n,
-    service: customerService,
+    collection: customerCollection,
     eventBus: eventBus
   }))(CustomerLookup)
 
+  const onDirtyChange = (memId: string, isDirty: boolean) => {
+    console.log('onDirtyChange memId, isDirty', memId, isDirty)
+  }
+
+  const onDelete = () => {
+    console.log('onDelete')
+    // move to list page
+  }
+
+  const onGotoList = () => {
+    // navigate go list page
+  }
 
 
-// Item
+
+  // OrderDetail
+  const orderDetailCollection = new OrderDetailMockCollection('/', eventBus)
+
+  const ConnectedOrderDetailEdit = withProps(() => ({
+  }))(OrderDetailEdit)
+
+
+  const ConnectedOrderDetailListView = withProps(() => ({
+    ListItemView: OrderDetailListItemView,
+  }))(OrderDetailListView)
+
+  const ConnectedOrderDetailCard = withProps(() => ({
+    collection: orderDetailCollection,
+    View: OrderDetailView,
+    Edit: ConnectedOrderDetailEdit,
+    onDirtyChange,
+    onDelete,
+    Dialog,
+    onGotoList
+  }))(OrderDetailCard)
+
+  const ConnectedOrderDetailList = withProps(() => ({
+      collection: orderDetailCollection,
+      ListView: ConnectedOrderDetailListView,
+      Card: ConnectedOrderDetailCard,
+      eventBus: eventBus
+  }))(OrderDetailList)
+
+
+  // Order
 
   const ConnectedOrderEdit = withProps(() => ({
     CustomerLookup: ConnectedCustomerLookup
   }))(OrderEdit)
 
-const onDirtyChange = (memId: string, isDirty: boolean) => {
-  console.log('onDirtyChange memId, isDirty', memId, isDirty)
-}
-
-const onDelete = () => {
-  console.log('onDelete')
-  // move to list page
-}
-
-const onGotoList = () => {
-  // navigate go list page
-}
+  const ConnectedOrderView = withProps(() => ({
+    OrderDetailList: ConnectedOrderDetailList
+  }))(OrderView)
 
   const ConnectedOrderCard = withProps(() => ({
-    orderCollection,
-    OrderView: OrderView,
-    OrderEdit: ConnectedOrderEdit,
+    collection: orderCollection,
+    View: ConnectedOrderView,
+    Edit: ConnectedOrderEdit,
     onDirtyChange,
     onDelete,
     Dialog,
@@ -116,25 +160,31 @@ const onGotoList = () => {
 
 
   const ConnectedOrderCardPage = withRouter(
-      withProps(() => ({
-        i18n: appState.i18n,
-        OrderCard: ConnectedOrderCard
-      }))(OrderCardPage)
+    withProps(() => ({
+      i18n: appState.i18n,
+      OrderCard: ConnectedOrderCard
+    }))(OrderCardPage)
   )
 
-// List
+  // List
+
+  const ConnectedOrderListView = withProps(() => ({
+    ListItemView: OrderListItemView,
+  }))(OrderListView)
+
   const ConnectedOrderList = withProps(() => ({
-    orderCollection,
-    OrderListView,
-    OrderCard: ConnectedOrderCard,
-    eventBus: eventBus
+    collection: orderCollection,
+    ListView: ConnectedOrderListView,
+    Card: ConnectedOrderCard,
+    eventBus: eventBus,
+    EVENTID: 'ORDER_ITEM_CHANGE'
   }))(OrderList)
 
   const ConnectedOrderListPage = withRouter(
-      withProps(() => ({
-        // i18n: appState.i18n,
-        OrderList: ConnectedOrderList
-      }))(OrderListPage)
+    withProps(() => ({
+      // i18n: appState.i18n,
+      List: ConnectedOrderList
+    }))(OrderListPage)
   )
 
 
@@ -142,7 +192,6 @@ const onGotoList = () => {
     HomePage: ConnectedHomePage,
     OrderListViewPage: ConnectedOrderListPage,
     OrderViewPage: ConnectedOrderCardPage
-
   }
 
   return module
