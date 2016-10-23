@@ -26,7 +26,7 @@ export abstract class EntityListView<T extends IEntity> extends React.Component<
   }
 
   onShowDetails = (i) => {
-    console.log('onShowDetails i', i)
+    // console.log('onShowDetails i', i)
     this.index = this.index === i ? null : i
   }
 
@@ -45,6 +45,7 @@ export abstract class EntityListView<T extends IEntity> extends React.Component<
               <ListItemView
                 index={i}
                 value={val}
+                isOpen={this.index === i}
                 onShowDetails={this.onShowDetails}
               />
             </tr>,

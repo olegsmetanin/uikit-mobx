@@ -38,6 +38,7 @@ import {OrderDetailEdit} from 'domain/OrderDetail/OrderDetailEdit'
 
 import {OrderListItemView} from 'domain/Order/OrderListItemView'
 
+// import {ProductMockCollection} from 'domain/Product/ProductMockCollection'
 
 // singleton )
 let module: IHomeModule = null
@@ -85,8 +86,8 @@ const register = async ({
     statesAndActions
   ))(observer(HomePage))
 
-  const orderCollection = new OrderMockCollection('/', eventBus)
-  const customerCollection = new CustomerMockCollection('/', eventBus)
+  const orderCollection = new OrderMockCollection({path: '/', eventBus})
+  const customerCollection = new CustomerMockCollection({path: '/', eventBus})
 
   const ConnectedCustomerLookup = withProps(() => ({
     i18n: appState.i18n,
@@ -107,10 +108,18 @@ const register = async ({
     // navigate go list page
   }
 
+  // Product
+  // const productCollection = new ProductMockCollection('/', eventBus)
+
+  // const ConnectedProductLookup = withProps(() => ({
+  //   i18n: appState.i18n,
+  //   collection: productCollection,
+  //   eventBus: eventBus
+  // }))(CustomerLookup)
 
 
   // OrderDetail
-  const orderDetailCollection = new OrderDetailMockCollection('/', eventBus)
+  const orderDetailCollection = new OrderDetailMockCollection({path: '/', eventBus})
 
   const ConnectedOrderDetailEdit = withProps(() => ({
   }))(OrderDetailEdit)

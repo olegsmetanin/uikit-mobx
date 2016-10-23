@@ -1,20 +1,21 @@
 import {IEventBus} from 'generic'
+
+import {IProduct} from './IProduct'
 import {EntityMockCollection} from '../api/EntityMockCollection'
 
-import {ICustomer} from './ICustomer'
+let source: IProduct[] = [
+    {
+      id: '0',
+      name: 'SomeProduct0'
+    },
+    {
+      id: '1',
+      name: 'SomeProduct1'
+    }
+  ]
 
-let source: ICustomer[] = [
-  {
-    id: '1',
-    name: 'Customer1'
-  },
-  {
-    id: '2',
-    name: 'Customer2'
-  }
-]
 
-export class CustomerMockCollection extends EntityMockCollection<ICustomer> {
+export class ProductMockCollection extends EntityMockCollection<IProduct> {
   constructor({path, eventBus}: {path: string, eventBus: IEventBus}) {
     super({
       path,
@@ -23,4 +24,5 @@ export class CustomerMockCollection extends EntityMockCollection<ICustomer> {
       mapEntityToLookup: (value) => ({id: value.id, name: value.name, desc: value.name})
     })
   }
+
 }

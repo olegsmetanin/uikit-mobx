@@ -21,7 +21,7 @@ export const OrderView = ({
       <div>value: {JSON.stringify(value)}</div>
       {value && (
         <OrderDetailList
-          filter={{order: value.id}}
+          filter={{order: {id: value.id}}}
         />
       )}
       <button onClick={onEdit}>Edit</button>

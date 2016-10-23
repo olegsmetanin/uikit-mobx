@@ -5,6 +5,7 @@ export interface IOrderDetailListItemViewProps {
   index: any
   value: IOrderDetail
   onShowDetails: (index) => void
+  isOpen: boolean
 }
 
 export class OrderDetailListItemView extends React.Component<IOrderDetailListItemViewProps, void> {
@@ -14,11 +15,11 @@ export class OrderDetailListItemView extends React.Component<IOrderDetailListIte
   }
 
   render() {
-    let value = this.props.value
+    let {value, isOpen} = this.props
     return (
       <td>
         {JSON.stringify(value)}
-        <button onClick={this.onShowDetails}>Show</button>
+        <button onClick={this.onShowDetails}>{isOpen ? 'Hide' : 'Show'}</button>
       </td>
     )
   }
