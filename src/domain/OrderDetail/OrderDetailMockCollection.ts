@@ -4,6 +4,7 @@ import {IEventBus} from 'generic'
 import {EntityMockCollection} from '../api/EntityMockCollection'
 
 import {IOrderDetail} from './IOrderDetail'
+import {ORDERDETAIL_ITEM_CHANGE} from './OrderDetailCollectionEvents'
 
 let source: IOrderDetail[] = [
     {
@@ -36,14 +37,17 @@ export class OrderDetailMockCollection extends EntityMockCollection<IOrderDetail
       path,
       eventBus,
       source,
-      mapEntityToLookup: (value) => ({id: value.id, name: value.product.name, desc: value.product.name})
-    })
+      mapEntityToLookup: (value) => ({
+        id: value.id,
+        name: value.product.name,
+        desc: value.product.name
+      }),
+      EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE
+  })
   }
 
   list = async (filter: any, page = 0) => {
-    console.log('OrderDetailMockCollection filter', filter)
     let filtred = _.filter(this.source, filter ? filter : () => true)
-    console.log('OrderDetailMockCollection filtred', filtred)
     return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }
 

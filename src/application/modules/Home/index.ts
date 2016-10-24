@@ -38,7 +38,13 @@ import {OrderDetailEdit} from 'domain/OrderDetail/OrderDetailEdit'
 
 import {OrderListItemView} from 'domain/Order/OrderListItemView'
 
+import {OrderListTableHeader} from 'domain/Order/OrderListTableHeader'
+
+import {OrderDetailListTableHeader} from 'domain/OrderDetail/OrderDetailListTableHeader'
 // import {ProductMockCollection} from 'domain/Product/ProductMockCollection'
+
+import {ORDER_ITEM_CHANGE} from 'domain/Order/OrderCollectionEvents'
+import {ORDERDETAIL_ITEM_CHANGE} from 'domain/OrderDetail/OrderDetailCollectionEvents'
 
 // singleton )
 let module: IHomeModule = null
@@ -124,9 +130,9 @@ const register = async ({
   const ConnectedOrderDetailEdit = withProps(() => ({
   }))(OrderDetailEdit)
 
-
   const ConnectedOrderDetailListView = withProps(() => ({
     ListItemView: OrderDetailListItemView,
+    ListTableHeader: OrderDetailListTableHeader
   }))(OrderDetailListView)
 
   const ConnectedOrderDetailCard = withProps(() => ({
@@ -140,15 +146,15 @@ const register = async ({
   }))(OrderDetailCard)
 
   const ConnectedOrderDetailList = withProps(() => ({
-      collection: orderDetailCollection,
-      ListView: ConnectedOrderDetailListView,
-      Card: ConnectedOrderDetailCard,
-      eventBus: eventBus
+    collection: orderDetailCollection,
+    ListView: ConnectedOrderDetailListView,
+    Card: ConnectedOrderDetailCard,
+    eventBus: eventBus,
+    EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE
   }))(OrderDetailList)
 
 
   // Order
-
   const ConnectedOrderEdit = withProps(() => ({
     CustomerLookup: ConnectedCustomerLookup
   }))(OrderEdit)
@@ -167,18 +173,17 @@ const register = async ({
     onGotoList
   }))(OrderCard)
 
-
   const ConnectedOrderCardPage = withRouter(
     withProps(() => ({
       i18n: appState.i18n,
-      OrderCard: ConnectedOrderCard
+      Card: ConnectedOrderCard
     }))(OrderCardPage)
   )
 
   // List
-
   const ConnectedOrderListView = withProps(() => ({
     ListItemView: OrderListItemView,
+    ListTableHeader: OrderListTableHeader
   }))(OrderListView)
 
   const ConnectedOrderList = withProps(() => ({
@@ -186,7 +191,7 @@ const register = async ({
     ListView: ConnectedOrderListView,
     Card: ConnectedOrderCard,
     eventBus: eventBus,
-    EVENTID: 'ORDER_ITEM_CHANGE'
+    EVENT_ITEM_CHANGE: ORDER_ITEM_CHANGE
   }))(OrderList)
 
   const ConnectedOrderListPage = withRouter(

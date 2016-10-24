@@ -111,14 +111,14 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
 
     return (
       <div>
-        {!this.uiState.isLoading && this.mode === mode.View && (
+        {!this.uiState.isLoading && this.value && this.mode === mode.View && (
           <View
             value={this.value}
             onEdit={this.onEdit}
             onDelete={this.onDelete}
           />
         )}
-        {!this.uiState.isLoading && this.mode === mode.Edit && (
+        {!this.uiState.isLoading && this.value && this.mode === mode.Edit && (
           <Edit
             value={this.value}
             errors={this.editErrors}

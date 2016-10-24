@@ -18,21 +18,26 @@ export abstract class EntityMockCollection<T extends IEntity> implements IEntity
 
   mapEntityToLookup: ((value: T) => ILookup)
 
+  EVENT_ITEM_CHANGE: string
+
   constructor({
     path,
     eventBus,
     source,
-    mapEntityToLookup
+    mapEntityToLookup,
+    EVENT_ITEM_CHANGE
   }: {
     path: string,
     eventBus: IEventBus,
     source: T[],
-    mapEntityToLookup: ((value: T) => ILookup)
+    mapEntityToLookup: ((value: T) => ILookup),
+    EVENT_ITEM_CHANGE
   }) {
     this.path = path
     this.eventBus = eventBus
     this.source = source
     this.mapEntityToLookup = mapEntityToLookup
+    this.EVENT_ITEM_CHANGE = EVENT_ITEM_CHANGE
   }
 
   prefill = async () => {
@@ -73,7 +78,7 @@ export abstract class EntityMockCollection<T extends IEntity> implements IEntity
       this.source[src_index] = value
       const cache_index = _.findIndex(this.cache, {id: value.id})
       this.cache[cache_index] = value
-      this.eventBus.emit('ORDER_ITEM_CHANGE', {id: value.id})
+      this.eventBus.emit(this.EVENT_ITEM_CHANGE, {id: value.id})
       return res
     } else {
       throw new HTTPError(400, 'some errors')

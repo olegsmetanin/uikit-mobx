@@ -48,11 +48,6 @@ export class OrderCreate extends React.Component<IOrderCreateProps, void> {
     this.setDirty(true)
   }
 
-  onChangeCustomer1 = (customer: ILookup) => {
-    this.order.customer1 = customer
-    this.setDirty(true)
-  }
-
   render() {
     let order = this.order
     const {CustomerLookup} = this.props
@@ -60,7 +55,6 @@ export class OrderCreate extends React.Component<IOrderCreateProps, void> {
       <div>
         <input type="text" value={order.name} onChange={this.onChangeName}/>
         <CustomerLookup value={order.customer} onChange={this.onChangeCustomer}/>
-        <CustomerLookup value={order.customer1} onChange={this.onChangeCustomer1}/>
         <button onClick={this.onCreate}>Create</button>
         <button onClick={this.onCancel}>Cancel</button>
       </div>

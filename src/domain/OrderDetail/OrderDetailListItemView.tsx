@@ -17,10 +17,23 @@ export class OrderDetailListItemView extends React.Component<IOrderDetailListIte
   render() {
     let {value, isOpen} = this.props
     return (
-      <td>
-        {JSON.stringify(value)}
-        <button onClick={this.onShowDetails}>{isOpen ? 'Hide' : 'Show'}</button>
-      </td>
+      <tr>
+        <td>
+          {value.id}
+        </td>
+        <td>
+          {value.product.name}
+        </td>
+        <td>
+          {value.quantity}
+        </td>
+        <td>
+          {value.price}
+        </td>
+        <td>
+          <button onClick={this.onShowDetails}>{isOpen ? 'Hide' : 'Show'}</button>
+        </td>
+      </tr>
     )
   }
 }

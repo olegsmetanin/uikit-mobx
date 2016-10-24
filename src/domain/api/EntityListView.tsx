@@ -9,6 +9,8 @@ export interface IEntityListViewProps<T> {
   page: number
   onCreate: () => void
   ListItemView: any
+
+  ListTableHeader: any
   Card: any
 }
 
@@ -33,33 +35,37 @@ export abstract class EntityListView<T extends IEntity> extends React.Component<
 
   render() {
 
-    let {value, /*page, count,*/ Card, ListItemView} = this.props
+    let {value, /*page, count,*/ Card, ListItemView, ListTableHeader} = this.props
     let PureCard = Pure(Card)
     return (
       <div>
         <button onClick={this.onCreate}>New</button>
-        <table>
+        <table className="table">
+          <thead>
+            {ListTableHeader && (
+              <ListTableHeader/>
+            )}
+          </thead>
           <tbody>
           {value.map((val, i) => ([
-            <tr key={i + '_0'}>
-              <ListItemView
-                index={i}
-                value={val}
-                isOpen={this.index === i}
-                onShowDetails={this.onShowDetails}
-              />
-            </tr>,
-            this.index === i
-              ? (
-              <tr key={i + '_1'}>
-                <td>
+            <ListItemView
+              key={i + '_0'}
+              index={i}
+              value={val}
+              isOpen={this.index === i}
+              onShowDetails={this.onShowDetails}
+            />
+            ,
+            this.index === i && (
+              <tr>
+                <td colSpan="42">
                   <PureCard
+                    key={i + '_1'}
                     oid={val.id}
                   />
                 </td>
               </tr>
             )
-              : null
           ]))}
           </tbody>
         </table>

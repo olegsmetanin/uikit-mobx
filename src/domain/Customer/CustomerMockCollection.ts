@@ -1,16 +1,17 @@
 import {IEventBus} from 'generic'
 import {EntityMockCollection} from '../api/EntityMockCollection'
+import {CUSTOMER_ITEM_CHANGE} from './CustomerCollectionEvents'
 
 import {ICustomer} from './ICustomer'
 
 let source: ICustomer[] = [
   {
-    id: '1',
-    name: 'Customer1'
+    id: '0',
+    name: 'Customer0'
   },
   {
-    id: '2',
-    name: 'Customer2'
+    id: '1',
+    name: 'Customer1'
   }
 ]
 
@@ -20,7 +21,12 @@ export class CustomerMockCollection extends EntityMockCollection<ICustomer> {
       path,
       eventBus,
       source,
-      mapEntityToLookup: (value) => ({id: value.id, name: value.name, desc: value.name})
+      mapEntityToLookup: (value) => ({
+        id: value.id,
+        name: value.name,
+        desc: value.name
+      }),
+      EVENT_ITEM_CHANGE: CUSTOMER_ITEM_CHANGE
     })
   }
 }

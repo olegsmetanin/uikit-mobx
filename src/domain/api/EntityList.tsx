@@ -16,7 +16,7 @@ export interface IEntityListProps<T> {
 
   eventBus: IEventBus
 
-  EVENTID: string
+  EVENT_ITEM_CHANGE: string
 }
 
 export enum mode {
@@ -59,11 +59,13 @@ export abstract class EntityList<T> extends React.Component<IEntityListProps<T>,
     //   isSaving: false,
     //   isDeleting: false
     // }
+
+    // this.listValue = this.props.collection.listSync()
   }
 
   componentDidMount() {
     this.loadList(this.props.filter)
-    this.props.eventBus.on<IItemChangedEvent>(this.props.EVENTID, this.onItemChanged)
+    this.props.eventBus.on<IItemChangedEvent>(this.props.EVENT_ITEM_CHANGE, this.onItemChanged)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,7 +73,7 @@ export abstract class EntityList<T> extends React.Component<IEntityListProps<T>,
   }
 
   componentWillUnmount() {
-    this.props.eventBus.off<IItemChangedEvent>(this.props.EVENTID, this.onItemChanged)
+    this.props.eventBus.off<IItemChangedEvent>(this.props.EVENT_ITEM_CHANGE, this.onItemChanged)
   }
 
   onItemChanged = async ({id}: {id: string}) => {
@@ -80,7 +82,7 @@ export abstract class EntityList<T> extends React.Component<IEntityListProps<T>,
     let itemValue = await this.props.collection.list({id})
     const index = _.findIndex(this.listValue.value, {id})
     if (index !== -1) {
-      this.listValue.value[index] = itemValue.value[0]
+      Object.assign(this.listValue.value[index], itemValue.value[0])
     }
     // this.listUIState.isLoading = false
   }

@@ -51,18 +51,12 @@ export class OrderEdit extends React.Component<IOrderEditProps, void> {
     this.setDirty()
   }
 
-  onChangeCustomer1 = (customer: ILookup) => {
-    this.value.customer1 = customer
-    this.setDirty()
-  }
-
   render() {
     const CustomerLookup = this.props.CustomerLookup
     return (
       <div>
         <input type="text" value={this.value.name} onChange={this.onChangeName}/>
         <CustomerLookup value={this.value.customer} onChange={this.onChangeCustomer}/>
-        <CustomerLookup value={this.value.customer1} onChange={this.onChangeCustomer1}/>
         {this.props.errors && (
           'Errors!: ' + JSON.stringify(this.props.errors)
         )}

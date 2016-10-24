@@ -13,14 +13,14 @@ export * from './api/http/Errors'
 export * from './api/http/IHTTPClient'
 export * from './api/http/HTTPClient'
 
-export * from './api/Event/IEvent'
-export * from './api/Event/IEventBus'
+export * from './api/event/IEvent'
+export * from './api/event/IEventBus'
 
 export * from './utils/withProps'
 export * from './utils/delay'
 export * from './utils/guid'
 export * from './utils/Pure'
 
-export * from './api/UIState/IItemUIState'
-export * from './api/UIState/IListUIState'
+export * from './api/uistate/IItemUIState'
+export * from './api/uistate/IListUIState'
 

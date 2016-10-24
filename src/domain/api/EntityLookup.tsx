@@ -46,7 +46,7 @@ export abstract class EntityLookup<T extends IEntity> extends React.Component<IE
     }
 
     onItemChanged = ({id}: {id: number}) => {
-      console.log('EntityLookup onItemChanged ', id)
+      // console.log('EntityLookup onItemChanged ', id)
     }
 
     lookup = async (filter: any, page = 0, add = false) => {
