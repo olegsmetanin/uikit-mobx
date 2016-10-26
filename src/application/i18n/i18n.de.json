@@ -1,6 +1,6 @@
 {
-  "app:title": "app de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}",
-  "app:leaveConfirmDialog": "DE: You have unsaved information, are you sure you want to leave this page?",
-  "System:ConfirmDialog:Ok": "OK (DE)",
-  "System:ConfirmDialog:Cancel": "Cancel (DE)"
+    "app:title": "app de ${title} ${ count === 1  ? 'one' : count === 2 ? 'two' : 'many'}",
+    "app:leaveConfirmDialog": "DE: You have unsaved information, are you sure you want to leave this page?",
+    "system:ConfirmDialog:Ok": "OK (DE)",
+    "system:ConfirmDialog:Cancel": "Cancel (DE)"
 }

@@ -4,7 +4,8 @@ import {template} from 'lodash'
 export function loadI18n(bundleLoader): Promise<I18n> {
 
   return new Promise((resolve, reject) => {
-    bundleLoader(dict => {
+    bundleLoader(module_i18n => {
+      const dict = module_i18n.default
 
       let cache = Object.keys(dict).reduce((accu, key) => {
         let val = dict[key]

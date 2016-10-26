@@ -26,7 +26,7 @@ export class SystemActions implements ISystemActions {
 
   loadLang = async (_lang: string) => {
     const lang = ['en', 'de'].indexOf(_lang) !== -1 ? _lang : 'en'
-    this.state.i18n = await loadI18n(require(`bundle?lazy!./../../i18n/i18n.${lang}.json`))
+    this.state.i18n = await loadI18n(require(`bundle?lazy!./../../i18n/i18n.all.${lang}.ts`))
   }
 
   setLang = async (lang: string) => {

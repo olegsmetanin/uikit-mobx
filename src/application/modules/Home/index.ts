@@ -1,4 +1,4 @@
-import {reaction, observer, inject} from 'lib/Reactive'
+import {observer, inject} from 'lib/Reactive'
 
 import {IAppState} from '../../AppAL/IAppState'
 import {IUserActions} from '../../AppAL/User/IUserActions'
@@ -71,15 +71,15 @@ const register = async ({
   const homeState = new HomeState()
   const homeActions = new HomeActions({state: homeState, service: homeService})
 
-  await homeActions.loadLang(
-    appState.system.lang,
-    () => appState.i18n
-  )
+  // await homeActions.loadLang(
+  //   appState.system.lang,
+  //   () => appState.i18n
+  // )
 
-  reaction(
-    () => appState.system && appState.system.lang,
-    lang => homeActions.loadLang(lang, () => appState.i18n)
-  )
+  // reaction(
+  //   () => appState.system && appState.system.lang,
+  //   lang => homeActions.loadLang(lang, () => appState.i18n)
+  // )
 
   let statesAndActions = {
     appState,
@@ -142,7 +142,8 @@ const register = async ({
     onDirtyChange,
     onDelete,
     Dialog,
-    onGotoList
+    onGotoList,
+    cid: 'orderdetailcard'
   }))(OrderDetailCard)
 
   const ConnectedOrderDetailList = withProps(() => ({
@@ -150,7 +151,8 @@ const register = async ({
     ListView: ConnectedOrderDetailListView,
     Card: ConnectedOrderDetailCard,
     eventBus: eventBus,
-    EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE
+    EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE,
+    cid: 'orderdetaillist'
   }))(OrderDetailList)
 
 
@@ -170,13 +172,16 @@ const register = async ({
     onDirtyChange,
     onDelete,
     Dialog,
-    onGotoList
+    onGotoList,
+    cid: 'ordercard'
   }))(OrderCard)
 
   const ConnectedOrderCardPage = withRouter(
     withProps(() => ({
       i18n: appState.i18n,
-      Card: ConnectedOrderCard
+      Card: ConnectedOrderCard,
+      pid: '',
+      cid: 'ordercardpage'
     }))(OrderCardPage)
   )
 
@@ -191,13 +196,16 @@ const register = async ({
     ListView: ConnectedOrderListView,
     Card: ConnectedOrderCard,
     eventBus: eventBus,
-    EVENT_ITEM_CHANGE: ORDER_ITEM_CHANGE
+    EVENT_ITEM_CHANGE: ORDER_ITEM_CHANGE,
+    cid: 'orderlist'
   }))(OrderList)
 
   const ConnectedOrderListPage = withRouter(
     withProps(() => ({
       // i18n: appState.i18n,
-      List: ConnectedOrderList
+      List: ConnectedOrderList,
+      cid: 'orderlistpage',
+      pid: ''
     }))(OrderListPage)
   )
 
