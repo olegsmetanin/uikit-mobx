@@ -15,6 +15,9 @@ export interface IEntityCardProps<T> {
   onDirtyChange: (memId: string, isDirty: boolean) => void
 
   onDelete: () => void
+
+  pid: string
+  cid: string
 }
 
 export enum mode {
@@ -108,11 +111,13 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
   }
   render() {
     const {View, Edit, Dialog} = this.props
-
+    const pid = `${this.props.pid}.${this.props.cid}[${this.props.oid}]`
+    console.log('Card pid:', pid)
     return (
       <div>
         {!this.uiState.isLoading && this.value && this.mode === mode.View && (
           <View
+            pid={pid}
             value={this.value}
             onEdit={this.onEdit}
             onDelete={this.onDelete}
@@ -120,6 +125,7 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
         )}
         {!this.uiState.isLoading && this.value && this.mode === mode.Edit && (
           <Edit
+            pid={pid}
             value={this.value}
             errors={this.editErrors}
             onSave={this.editOnSave}

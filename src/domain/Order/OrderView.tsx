@@ -8,13 +8,15 @@ export const OrderView = ({
   onEdit,
   onDelete,
   isDeleting,
-  OrderDetailList
+  OrderDetailList,
+  pid
 }: {
   value: IOrder,
   onEdit: () => void,
   onDelete: () => void,
   isDeleting: boolean,
-  OrderDetailList: any
+  OrderDetailList: any,
+  pid: string
 }) => {
   return (
     <div>
@@ -29,6 +31,7 @@ export const OrderView = ({
           Detail:
         </div>
         <OrderDetailList
+          pid={pid}
           filter={{order: {id: value.id}}}
         />
       </div>

@@ -17,6 +17,10 @@ export interface IEntityListProps<T> {
   eventBus: IEventBus
 
   EVENT_ITEM_CHANGE: string
+
+  pid: string
+
+  cid: string
 }
 
 export enum mode {
@@ -45,6 +49,8 @@ export abstract class EntityList<T> extends React.Component<IEntityListProps<T>,
   createUIState: IItemUIState
 
   dirtyId: string = guid()
+
+  Card: any
 
   constructor(props, context) {
     super(props, context)
@@ -126,13 +132,14 @@ export abstract class EntityList<T> extends React.Component<IEntityListProps<T>,
 
   render() {
     const {ListView, Card} = this.props
-
+    const pid = `${this.props.pid}.${this.props.cid}`
     return (
       <div>
         {!this.listUIState.isLoading &&
           this.listValue &&
           this.mode === mode.List && (
             <ListView
+              pid={pid}
               value={this.listValue.value}
               count={this.listValue.count}
               page={this.listValue.page}

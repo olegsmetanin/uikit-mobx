@@ -3,6 +3,8 @@ import * as React from 'react'
 export interface IEntityCardPageProps {
   params: {id: string}
   Card: any
+  cid: string
+  pid: string
 }
 
 export abstract class EntityCardPage extends React.Component<IEntityCardPageProps, void> {
@@ -14,8 +16,10 @@ export abstract class EntityCardPage extends React.Component<IEntityCardPageProp
 
   render() {
     const {Card} = this.props
+    const pid = `${this.props.pid}.${this.props.cid}`
     return (
       <Card
+        pid={pid}
         oid={this.props.params.id}
       />
     )

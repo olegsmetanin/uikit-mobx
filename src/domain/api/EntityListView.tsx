@@ -9,9 +9,9 @@ export interface IEntityListViewProps<T> {
   page: number
   onCreate: () => void
   ListItemView: any
-
   ListTableHeader: any
   Card: any
+  pid: string
 }
 
 export abstract class EntityListView<T extends IEntity> extends React.Component<IEntityListViewProps<T>, void> {
@@ -60,6 +60,7 @@ export abstract class EntityListView<T extends IEntity> extends React.Component<
               <tr>
                 <td colSpan="42">
                   <PureCard
+                    pid={this.props.pid}
                     key={i + '_1'}
                     oid={val.id}
                   />

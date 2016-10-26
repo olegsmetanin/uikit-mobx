@@ -2,6 +2,8 @@ import * as React from 'react'
 
 export interface IEntityListPageProps {
   List: any
+  cid: string
+  pid: string
 }
 
 export abstract class EntityListPage extends React.Component<IEntityListPageProps, void> {
@@ -11,9 +13,10 @@ export abstract class EntityListPage extends React.Component<IEntityListPageProp
 
   render() {
     const {List} = this.props
+    const pid = `${this.props.pid}.${this.props.cid}`
     return (
       <div>
-        <List/>
+        <List pid={pid}/>
       </div>
     )
   }
