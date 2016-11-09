@@ -9,7 +9,8 @@ import {HomeState} from './HomeAL/HomeState'
 import {HomeService} from './HomeAL/HomeService'
 import {HomeActions} from './HomeAL/HomeActions'
 
-import HomePage from './pages/HomePage'
+import {HomePage} from './pages/HomePage'
+import {SimplePage} from './pages/SimplePage'
 import {withRouter} from 'lib/Router'
 // import {OrderViewPage} from 'domain/Order/View/OrderViewPage'
 import {OrderMockCollection} from 'domain/Order/OrderMockCollection'
@@ -18,23 +19,28 @@ import {OrderDetailMockCollection} from 'domain/OrderDetail/OrderDetailMockColle
 
 // import {ConfirmDialog} from 'application/сomponents'
 import {Dialog} from 'application/сomponents'
-import {OrderListPage} from 'domain/Order/OrderListPage';
+import {OrderListPage} from 'domain/Order/OrderListPage.gen';
 import {withProps} from 'generic/utils/withProps';
-import {CustomerLookup} from 'domain/Customer/CustomerLookup';
+import {CustomerLookup} from 'domain/Customer/CustomerLookup.gen';
 import {IEventBus} from 'generic';
-import {OrderCard} from 'domain/Order/OrderCard';
-import {OrderCardPage} from 'domain/Order/OrderCardPage';
-import {OrderView} from 'domain/Order/OrderView';
-import {OrderEdit} from 'domain/Order/OrderEdit';
-import {OrderList} from 'domain/Order/OrderList'
-import {OrderListView} from 'domain/Order/OrderListView'
+import {OrderCard} from 'domain/Order/OrderCard.gen';
+import {OrderCardPage} from 'domain/Order/OrderCardPage.gen';
+import {OrderView} from 'domain/Order/OrderView.gen';
+import {OrderEdit} from 'domain/Order/OrderEdit.gen';
+import {OrderList} from 'domain/Order/OrderList.gen'
+import {OrderListView} from 'domain/Order/OrderListView.gen'
 
-import {OrderDetailList} from 'domain/OrderDetail/OrderDetailList'
-import {OrderDetailCard} from 'domain/OrderDetail/OrderDetailCard'
-import {OrderDetailListView} from 'domain/OrderDetail/OrderDetailListView'
-import {OrderDetailListItemView} from 'domain/OrderDetail/OrderDetailListItemView'
-import {OrderDetailView} from 'domain/OrderDetail/OrderDetailView'
-import {OrderDetailEdit} from 'domain/OrderDetail/OrderDetailEdit'
+import {OrderDetailList} from 'domain/OrderDetail/OrderDetailList.gen'
+import {OrderDetailCard} from 'domain/OrderDetail/OrderDetailCard.gen'
+import {OrderDetailListView} from 'domain/OrderDetail/OrderDetailListView.gen'
+import {OrderDetailListItemView} from 'domain/OrderDetail/OrderDetailListItemView.gen'
+import {OrderDetailView} from 'domain/OrderDetail/OrderDetailView.gen'
+import {OrderDetailEdit} from 'domain/OrderDetail/OrderDetailEdit.gen'
+
+import {OrderDetailListV2} from 'domain/OrderDetail/OrderDetailListV2'
+import {OrderDetailListViewV2} from 'domain/OrderDetail/OrderDetailListViewV2'
+import {OrderDetailListFilter} from 'domain/OrderDetail/OrderDetailListFilter'
+
 
 import {OrderListItemView} from 'domain/Order/OrderListItemView'
 
@@ -43,8 +49,8 @@ import {OrderListTableHeader} from 'domain/Order/OrderListTableHeader'
 import {OrderDetailListTableHeader} from 'domain/OrderDetail/OrderDetailListTableHeader'
 // import {ProductMockCollection} from 'domain/Product/ProductMockCollection'
 
-import {ORDER_ITEM_CHANGE} from 'domain/Order/OrderCollectionEvents'
-import {ORDERDETAIL_ITEM_CHANGE} from 'domain/OrderDetail/OrderDetailCollectionEvents'
+import {ORDER_ITEM_CHANGE} from 'domain/Order/OrderCollectionEvents.gen'
+import {ORDERDETAIL_ITEM_CHANGE} from 'domain/OrderDetail/OrderDetailCollectionEvents.gen'
 
 // singleton )
 let module: IHomeModule = null
@@ -88,9 +94,18 @@ const register = async ({
     homeState,
     homeActions,
   }
+
   const ConnectedHomePage = inject(() => (
     statesAndActions
   ))(observer(HomePage))
+
+  const ConnectedSimplePage = observer(withProps(() => ({
+    i18n: appState.i18n,
+    layoutWidth: appState.layoutWidth
+  }))(SimplePage))
+
+
+  const store = {}
 
   const orderCollection = new OrderMockCollection({path: '/', eventBus})
   const customerCollection = new CustomerMockCollection({path: '/', eventBus})
@@ -130,10 +145,16 @@ const register = async ({
   const ConnectedOrderDetailEdit = withProps(() => ({
   }))(OrderDetailEdit)
 
+  // const ConnectedOrderDetailListView = withProps(() => ({
+  //   ListItemView: OrderDetailListItemView,
+  //   ListTableHeader: OrderDetailListTableHeader
+  // }))(OrderDetailListView)
+
   const ConnectedOrderDetailListView = withProps(() => ({
     ListItemView: OrderDetailListItemView,
-    ListTableHeader: OrderDetailListTableHeader
-  }))(OrderDetailListView)
+    ListTableHeader: OrderDetailListTableHeader,
+    Filter: OrderDetailListFilter
+  }))(OrderDetailListViewV2)
 
   const ConnectedOrderDetailCard = withProps(() => ({
     collection: orderDetailCollection,
@@ -146,14 +167,25 @@ const register = async ({
     cid: 'orderdetailcard'
   }))(OrderDetailCard)
 
+  // const ConnectedOrderDetailList = withProps(() => ({
+  //   collection: orderDetailCollection,
+  //   ListView: ConnectedOrderDetailListView,
+  //   Card: ConnectedOrderDetailCard,
+  //   eventBus: eventBus,
+  //   EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE,
+  //   cid: 'orderdetaillist',
+  //   store
+  // }))(OrderDetailList)
+
   const ConnectedOrderDetailList = withProps(() => ({
     collection: orderDetailCollection,
     ListView: ConnectedOrderDetailListView,
     Card: ConnectedOrderDetailCard,
     eventBus: eventBus,
     EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE,
-    cid: 'orderdetaillist'
-  }))(OrderDetailList)
+    cid: 'orderdetaillist',
+    store
+  }))(OrderDetailListV2)
 
 
   // Order
@@ -212,6 +244,7 @@ const register = async ({
 
   module = {
     HomePage: ConnectedHomePage,
+    SimplePage: ConnectedSimplePage,
     OrderListViewPage: ConnectedOrderListPage,
     OrderViewPage: ConnectedOrderCardPage
   }

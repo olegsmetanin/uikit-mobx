@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {IOrder} from './IOrder'
+import {IOrder} from './IOrder.gen'
 import {observer} from 'lib/Reactive'
 
 export interface IOrderListItemViewProps {
@@ -40,4 +40,3 @@ export class OrderListItemView extends React.Component<IOrderListItemViewProps, 
   }
 }
 
-export default OrderListItemView

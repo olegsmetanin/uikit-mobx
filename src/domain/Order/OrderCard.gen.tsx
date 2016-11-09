@@ -1,5 +1,5 @@
 import {EntityCard} from '../api/EntityCard'
-import {IOrder} from './IOrder'
+import {IOrder} from './IOrder.gen'
 import {observer} from 'lib/Reactive'
 
 @observer

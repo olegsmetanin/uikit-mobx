@@ -3,7 +3,7 @@ import {observer, observable} from 'lib/Reactive'
 
 import * as _ from 'lodash'
 import {I18n} from 'generic'
-import {IOrder} from './IOrder';
+import {IOrder} from './IOrder.gen';
 import {ILookup} from 'generic';
 
 export interface IOrderCreateProps {

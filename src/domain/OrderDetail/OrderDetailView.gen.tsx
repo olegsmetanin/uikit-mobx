@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
-import {IOrderDetail} from './IOrderDetail'
+import {IOrderDetail} from './IOrderDetail.gen'
 
 export const OrderDetailView = ({
   value,

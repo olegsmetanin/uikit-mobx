@@ -11,7 +11,7 @@ import {ISystemActions} from 'application/AppAL/System/ISystemActions'
  * Home page for app
  */
 
-const HomePage = ({
+export const HomePage = ({
     appState,
     systemActions,
     homeState,
@@ -35,5 +35,3 @@ const HomePage = ({
       <button onClick={homeActions.decrementCounter}>decrement</button>
     </div>
 )
-
-export default HomePage

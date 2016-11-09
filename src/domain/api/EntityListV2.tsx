@@ -5,10 +5,11 @@ import {IEntityCollection} from './IEntityCollection'
 import {guid} from 'generic'
 import {IItemUIState, IListUIState} from 'generic'
 import {IEventBus, IItemChangedEvent} from 'generic'
-import {IListQuery} from './IListQuery'
 import {IPage} from './IPage'
+import {ISort} from './ISort'
+import {IListQuery} from './IListQuery'
 
-export interface IEntityListProps<T, F> {
+export interface IEntityListV2Props<T, F> {
   collection: IEntityCollection<T, F>
   filter?: any
   ListView: any
@@ -24,6 +25,7 @@ export interface IEntityListProps<T, F> {
 
   cid: string
 
+  store: any
 }
 
 export enum mode {
@@ -31,7 +33,11 @@ export enum mode {
   Create
 }
 
-export abstract class EntityList<T, F> extends React.Component<IEntityListProps<T, F>, void> {
+export interface IEntityListV2State<F> {
+  query: IListQuery<F>
+}
+
+export abstract class EntityListV2<T, F> extends React.Component<IEntityListV2Props<T, F>, void> {
 
   @observable
   mode: mode = mode.List
@@ -54,6 +60,7 @@ export abstract class EntityList<T, F> extends React.Component<IEntityListProps<
   dirtyId: string = guid()
 
   Card: any
+  _state: IEntityListV2State<F>
 
   constructor(props, context) {
     super(props, context)
@@ -62,6 +69,19 @@ export abstract class EntityList<T, F> extends React.Component<IEntityListProps<
       isLoading: false
     }
 
+    const pid = `${this.props.pid}.${this.props.cid}`
+    if (!this.props.store[pid]) {
+      // init state
+      const initState = Object.assign(
+        {},
+        this.getInitState(),
+        this.props.filter
+          ? { query: {filter: this.props.filter}}
+          : {}
+      )
+      this.props.store[pid] = observable(initState)
+    }
+    this._state = this.props.store[pid]
 
     // this.createUIState = {
     //   isLoading: false,
@@ -72,13 +92,15 @@ export abstract class EntityList<T, F> extends React.Component<IEntityListProps<
     // this.listValue = this.props.collection.listSync()
   }
 
+  abstract getInitState(): IEntityListV2State<F>
+
   componentDidMount() {
-    this.loadList(this.props.filter)
+    this.loadList({filter: this.props.filter})
     this.props.eventBus.on<IItemChangedEvent>(this.props.EVENT_ITEM_CHANGE, this.onItemChanged)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.loadList(nextProps.filter)
+    this.loadList({filter: nextProps.filter})
   }
 
   componentWillUnmount() {
@@ -102,7 +124,10 @@ export abstract class EntityList<T, F> extends React.Component<IEntityListProps<
 
   loadList = async (query: IListQuery<F>) => {
     this.listUIState.isLoading = true
-    this.listValue = await this.props.collection.list(query)
+    const list =  await this.props.collection.list(query)
+    this.listValue = list
+    this._state.query.page = list.page
+
     this.listUIState.isLoading = false
   }
 
@@ -138,21 +163,27 @@ export abstract class EntityList<T, F> extends React.Component<IEntityListProps<
   // createOnDirtyChange = this.props.onDirtyChange.bind(this, this.dirtyId)
 
   onQueryChange = (query: IListQuery<F>) => {
-    console.log('EntityList onQueryChange', query)
+    this.loadList(query)
   }
 
   render() {
     const {ListView, Card} = this.props
     const pid = `${this.props.pid}.${this.props.cid}`
+    console.log('Cardlist pid:', pid)
+    console.log('this._state', this._state)
     return (
       <div>
-        {!this.listUIState.isLoading &&
-          this.listValue &&
+        {this.listUIState.isLoading && (
+          <div>
+            Loading
+          </div>
+        )}
+        {this.listValue &&
           this.mode === mode.List && (
             <ListView
               pid={pid}
               value={this.listValue.value}
-              query={{filter: this.props.filter}}
+              query={this._state.query}
               onQueryChange={this.onQueryChange}
               Card={Card}
               onCreate={this.onCreate}
@@ -169,11 +200,6 @@ export abstract class EntityList<T, F> extends React.Component<IEntityListProps<
             isSaving={this.createUIState.isSaving}
           />
         )*/}
-        {this.listUIState.isLoading && (
-          <div>
-            Loading
-          </div>
-        )}
       </div>
 
     )

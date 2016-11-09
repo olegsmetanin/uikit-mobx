@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
-import {IOrder} from './IOrder'
+import {IOrder} from './IOrder.gen'
 
 export const OrderView = ({
   value,
@@ -20,6 +20,8 @@ export const OrderView = ({
 }) => {
   return (
     <div>
+      <button onClick={onEdit}>Edit</button>
+      <button onClick={onDelete}>{isDeleting && '!'}Delete</button>
       <div>
         <span>Id: </span><span>{value.id}</span>
       </div>
@@ -35,8 +37,6 @@ export const OrderView = ({
           filter={{order: {id: value.id}}}
         />
       </div>
-      <button onClick={onEdit}>Edit</button>
-      <button onClick={onDelete}>{isDeleting && '!'}Delete</button>
     </div>
   )
 }

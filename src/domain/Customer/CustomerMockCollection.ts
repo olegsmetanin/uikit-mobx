@@ -1,8 +1,10 @@
 import {IEventBus} from 'generic'
 import {EntityMockCollection} from '../api/EntityMockCollection'
-import {CUSTOMER_ITEM_CHANGE} from './CustomerCollectionEvents'
+import {CUSTOMER_ITEM_CHANGE} from './CustomerCollectionEvents.gen'
 
-import {ICustomer} from './ICustomer'
+import {ICustomer} from './ICustomer.gen'
+import {ICustomerListFilter} from './ICustomerListFilter'
+
 
 let source: ICustomer[] = [
   {
@@ -15,7 +17,7 @@ let source: ICustomer[] = [
   }
 ]
 
-export class CustomerMockCollection extends EntityMockCollection<ICustomer> {
+export class CustomerMockCollection extends EntityMockCollection<ICustomer, ICustomerListFilter> {
   constructor({path, eventBus}: {path: string, eventBus: IEventBus}) {
     super({
       path,

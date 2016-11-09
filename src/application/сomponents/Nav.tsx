@@ -59,6 +59,9 @@ export class Nav extends React.Component<INavProps, void> {
               <li className={router.isActive('/', true) ? 'active' : ''}>
                 <Link to={'/'}>Home</Link>
               </li>
+              <li className={router.isActive('/simple', true) ? 'active' : ''}>
+                <Link to={'/simple'}>Simple</Link>
+              </li>
               <li className={router.isActive('/orders', true) ? 'active' : ''}>
                 <Link to={'/orders'}>Orders</Link>
               </li>

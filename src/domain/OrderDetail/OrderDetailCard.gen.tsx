@@ -1,5 +1,5 @@
 import {observer} from 'lib/Reactive'
-import {IOrderDetail} from './IOrderDetail'
+import {IOrderDetail} from './IOrderDetail.gen'
 import {EntityCard} from '../api/EntityCard'
 
 @observer

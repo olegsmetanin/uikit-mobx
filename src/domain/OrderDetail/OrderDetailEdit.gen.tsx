@@ -3,7 +3,7 @@ import * as React from 'react'
 import {observer, observable} from 'lib/Reactive'
 
 import * as _ from 'lodash'
-import {IOrderDetail} from './IOrderDetail'
+import {IOrderDetail} from './IOrderDetail.gen'
 import {I18n} from 'generic'
 // import {ILookup} from 'generic'
 

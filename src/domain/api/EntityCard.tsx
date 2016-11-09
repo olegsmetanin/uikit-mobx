@@ -2,12 +2,12 @@ import * as React from 'react'
 
 import {observable, toJS} from 'lib/Reactive'
 import {IEntity} from './IEntity'
-import {IEntityCollection} from './IEntityCollection'
+import {IEntityBaseCollection} from './IEntityCollection'
 import {guid} from 'generic'
 import {IItemUIState} from 'generic'
 
 export interface IEntityCardProps<T> {
-  collection: IEntityCollection<T>
+  collection: IEntityBaseCollection<T>
   oid: string
   View: any
   Edit: any
@@ -53,7 +53,7 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
       isDeleting: false
     }
 
-    this.value = this.props.collection.getSync(this.props.oid)
+    //this.value = this.props.collection.getSync(this.props.oid)
   }
 
   componentDidMount() {
@@ -115,7 +115,12 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
     console.log('Card pid:', pid)
     return (
       <div>
-        {!this.uiState.isLoading && this.value && this.mode === mode.View && (
+        {this.uiState.isLoading && (
+          <div>
+            Loading
+          </div>
+        )}
+        {this.value && this.mode === mode.View && (
           <View
             pid={pid}
             value={this.value}
@@ -123,7 +128,7 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
             onDelete={this.onDelete}
           />
         )}
-        {!this.uiState.isLoading && this.value && this.mode === mode.Edit && (
+        {this.value && this.mode === mode.Edit && (
           <Edit
             pid={pid}
             value={this.value}
@@ -140,11 +145,6 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
             <button onClick={this.deleteOnOk}>Ok</button>
             <button onClick={this.deleteOnCancel}>Cancel</button>
           </Dialog>
-        )}
-        {this.uiState.isLoading && (
-          <div>
-            Loading
-          </div>
         )}
       </div>
 

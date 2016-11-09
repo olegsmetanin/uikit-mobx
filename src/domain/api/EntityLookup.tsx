@@ -6,9 +6,10 @@ import {Lookup} from 'generic'
 import {ILookup} from 'generic';
 import {IEventBus} from 'generic';
 import {IItemChangedEvent} from 'generic';
+import {IListQuery} from './IListQuery'
 
-export interface IEntityLookupProps<T> {
-  collection: IEntityCollection<T>
+export interface IEntityLookupProps<T, F> {
+  collection: IEntityCollection<T, F>
   eventBus: IEventBus
   onChange: (value: ILookup) => void
   EVENTID: string
@@ -21,7 +22,7 @@ export interface IEntityLookupState {
   isLoading: boolean
 }
 
-export abstract class EntityLookup<T extends IEntity> extends React.Component<IEntityLookupProps<T>, any> {
+export abstract class EntityLookup<T extends IEntity, F> extends React.Component<IEntityLookupProps<T, F>, any> {
 
     @observable
     _state: IEntityLookupState
@@ -49,10 +50,10 @@ export abstract class EntityLookup<T extends IEntity> extends React.Component<IE
       // console.log('EntityLookup onItemChanged ', id)
     }
 
-    lookup = async (filter: any, page = 0, add = false) => {
+    lookup = async (query: IListQuery<F>, add = false) => {
       let state = this._state
       state.isLoading = true
-      let res = await this.props.collection.lookup(filter, page)
+      let res = await this.props.collection.lookup(query)
       let {value, count} = res
       let _page = res.page
 

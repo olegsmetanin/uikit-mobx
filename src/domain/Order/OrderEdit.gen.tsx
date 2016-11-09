@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {observer, observable, toJS} from 'lib/Reactive'
 
-import {IOrder} from './IOrder'
+import {IOrder} from './IOrder.gen'
 import {I18n} from 'generic'
 import {ILookup} from 'generic'
 

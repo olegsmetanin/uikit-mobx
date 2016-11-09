@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {IOrderDetail} from './IOrderDetail'
+import {IOrderDetail} from './IOrderDetail.gen'
 
 export interface IOrderDetailListItemViewProps {
   index: any

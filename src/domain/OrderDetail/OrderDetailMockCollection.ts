@@ -3,8 +3,11 @@ import {delay} from 'generic/utils/delay'
 import {IEventBus} from 'generic'
 import {EntityMockCollection} from '../api/EntityMockCollection'
 
-import {IOrderDetail} from './IOrderDetail'
-import {ORDERDETAIL_ITEM_CHANGE} from './OrderDetailCollectionEvents'
+import {IOrderDetail} from './IOrderDetail.gen'
+import {ORDERDETAIL_ITEM_CHANGE} from './OrderDetailCollectionEvents.gen'
+import {IOrderDetailListFilter} from './IOrderDetailListFilter'
+
+
 
 let source: IOrderDetail[] = [
     {
@@ -30,7 +33,7 @@ let source: IOrderDetail[] = [
     }
   ]
 
-export class OrderDetailMockCollection extends EntityMockCollection<IOrderDetail> {
+export class OrderDetailMockCollection extends EntityMockCollection<IOrderDetail, IOrderDetailListFilter> {
 
   constructor({path, eventBus}: {path: string, eventBus: IEventBus}) {
     super({
@@ -44,11 +47,6 @@ export class OrderDetailMockCollection extends EntityMockCollection<IOrderDetail
       }),
       EVENT_ITEM_CHANGE: ORDERDETAIL_ITEM_CHANGE
   })
-  }
-
-  list = async (filter: any, page = 0) => {
-    let filtred = _.filter(this.source, filter ? filter : () => true)
-    return await delay({value: filtred, count: filtred.length, page: page}, 1000)
   }
 
 }

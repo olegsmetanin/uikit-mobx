@@ -1,6 +1,8 @@
 import {ILookup} from 'generic';
+import {IPage} from './IPage'
+import {IListQuery} from './IListQuery'
 
-export interface IEntityCollection<T> {
+export interface IEntityBaseCollection<T> {
 
   prefill: () => Promise<T>
 
@@ -14,10 +16,14 @@ export interface IEntityCollection<T> {
 
   delete: (id: string) => Promise<void>
 
-  list: (filter: any, page?: number) => Promise<{value: T[], count: number, page: number}>
+}
 
-  listSync: (filter: any, page?: number) => {value: T[], count: number, page: number}
+export interface IEntityCollection<T, F> extends IEntityBaseCollection<T> {
 
-  lookup: (filter: any, page?: number) => Promise<{value: ILookup[], count: number, page: number}>
+  list: (query: IListQuery<F>) => Promise<{value: T[], page: IPage}>
+
+  listSync: (query: IListQuery<F>) => {value: T[], page: IPage}
+
+  lookup: (query: IListQuery<F>) => Promise<{value: ILookup[], count: number, page: number}>
 
 }

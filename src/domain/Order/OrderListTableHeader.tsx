@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react'
 /* tslint:disable:no-unused-variable */
-import {IOrder} from './IOrder'
+import {IOrder} from './IOrder.gen'
 
 export const OrderListTableHeader = ({
   filter

@@ -25,6 +25,8 @@ const routes = (args: {
       <Route path="/" component={Layout}>
         <IndexRoute
           getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.HomePage)}/>
+        <Route path="simple"
+               getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.SimplePage)}/>
         <Route path="orders"
                getComponent={loadPage(require('bundle?lazy&name=home!../modules/Home/index.ts'), args, (module: IHomeModule) => module.OrderListViewPage)}/>
         {permissions.v === 1 && (

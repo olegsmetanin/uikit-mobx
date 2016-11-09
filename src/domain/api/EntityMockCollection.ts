@@ -5,8 +5,9 @@ import {HTTPError} from 'generic'
 import {IEventBus} from 'generic'
 import {IEntityCollection} from '../api/IEntityCollection'
 import {ILookup} from 'generic';
+import {IListQuery} from './IListQuery'
 
-export abstract class EntityMockCollection<T extends IEntity> implements IEntityCollection<T> {
+export abstract class EntityMockCollection<T extends IEntity, F> implements IEntityCollection<T, F> {
 
   path: string
 
@@ -90,17 +91,34 @@ export abstract class EntityMockCollection<T extends IEntity> implements IEntity
     return await delay(null, 1000)
   }
 
-  list = async (filter: any, page = 0) => {
-    let filtred = _.filter(this.source, filter ? filter : () => true)
-    return await delay({value: filtred, count: filtred.length, page: page}, 1000)
+  list = async (query: IListQuery<F>) => {
+    let filtred = _.filter(this.source, (query && query.filter) ? query.filter : () => true)
+    return await delay(
+      {
+        value: filtred,
+        page: {
+          count: filtred.length,
+          offset: (query && query.page && query.page.offset) || 0,
+          limit: (query && query.page && query.page.limit) || 0
+        }
+      }
+      , 1000
+    )
   }
 
-  listSync = (filter: any, page = 0) => {
-    let filtred = _.filter(this.source, filter)
-    return {value: filtred, count: filtred.length, page: page}
+  listSync = (query: IListQuery<F>) => {
+    let filtred = _.filter(this.source, query.filter)
+    return {
+      value: filtred,
+      page: {
+        count: filtred.length,
+        offset: query.page.offset,
+        limit: query.page.limit
+      }
+    }
   }
 
-  lookup = async (text: string, page = 0) => {
+  lookup = async (query: IListQuery<F>) => {
     let filtred = _
       .map(this.source, (item: T) => this.mapEntityToLookup(item))
       .filter(
@@ -109,7 +127,17 @@ export abstract class EntityMockCollection<T extends IEntity> implements IEntity
 
       console.log('filtred', filtred)
 
-    return await delay({value: filtred, count: filtred.length, page: page}, 1000)
+    return await delay(
+      {
+        value: filtred,
+        page: {
+          count: filtred.length,
+          offset: query.page.offset,
+          limit: query.page.limit
+        }
+      }
+      , 1000
+    )
   }
 
 

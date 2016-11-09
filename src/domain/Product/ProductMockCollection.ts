@@ -1,8 +1,9 @@
 import {IEventBus} from 'generic'
 
-import {IProduct} from './IProduct'
+import {IProduct} from './IProduct.gen'
 import {EntityMockCollection} from '../api/EntityMockCollection'
-import {PRODUCT_ITEM_CHANGE} from './ProductCollectionEvents'
+import {PRODUCT_ITEM_CHANGE} from './ProductCollectionEvents.gen'
+import {IProductListFilter} from './IProductListFilter'
 
 let source: IProduct[] = [
     {
@@ -16,7 +17,7 @@ let source: IProduct[] = [
   ]
 
 
-export class ProductMockCollection extends EntityMockCollection<IProduct> {
+export class ProductMockCollection extends EntityMockCollection<IProduct, IProductListFilter> {
   constructor({path, eventBus}: {path: string, eventBus: IEventBus}) {
     super({
       path,
