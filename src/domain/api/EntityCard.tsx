@@ -53,7 +53,7 @@ export abstract class EntityCard<T extends IEntity> extends React.Component<IEnt
       isDeleting: false
     }
 
-    //this.value = this.props.collection.getSync(this.props.oid)
+    // this.value = this.props.collection.getSync(this.props.oid)
   }
 
   componentDidMount() {

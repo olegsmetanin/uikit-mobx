@@ -6,7 +6,6 @@ import {guid} from 'generic'
 import {IItemUIState, IListUIState} from 'generic'
 import {IEventBus, IItemChangedEvent} from 'generic'
 import {IPage} from './IPage'
-import {ISort} from './ISort'
 import {IListQuery} from './IListQuery'
 
 export interface IEntityListV2Props<T, F> {

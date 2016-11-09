@@ -30,9 +30,9 @@ import {OrderEdit} from 'domain/Order/OrderEdit.gen';
 import {OrderList} from 'domain/Order/OrderList.gen'
 import {OrderListView} from 'domain/Order/OrderListView.gen'
 
-import {OrderDetailList} from 'domain/OrderDetail/OrderDetailList.gen'
+// import {OrderDetailList} from 'domain/OrderDetail/OrderDetailList.gen'
 import {OrderDetailCard} from 'domain/OrderDetail/OrderDetailCard.gen'
-import {OrderDetailListView} from 'domain/OrderDetail/OrderDetailListView.gen'
+// import {OrderDetailListView} from 'domain/OrderDetail/OrderDetailListView.gen'
 import {OrderDetailListItemView} from 'domain/OrderDetail/OrderDetailListItemView.gen'
 import {OrderDetailView} from 'domain/OrderDetail/OrderDetailView.gen'
 import {OrderDetailEdit} from 'domain/OrderDetail/OrderDetailEdit.gen'
